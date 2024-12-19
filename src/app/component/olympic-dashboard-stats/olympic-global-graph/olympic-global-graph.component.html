@@ -29,7 +29,7 @@
 
 <div class="stats-block" *ngIf="medalsCountByCountry$ | async as olympicStats; else noMedals">
   <div *ngFor="let stat of olympicStats">
-    <div class="card" (click)="goToDetailCountryStats(stat.id)">
+    <div class="card" (click)="goToDetailCountryStats(stat.id)" [ngStyle]="{ 'height.px': getCardHeight(stat.medalsCount) }">
       {{ stat.country }} : {{ stat.medalsCount }} médailles
     </div>
   </div>
