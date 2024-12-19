@@ -4,6 +4,7 @@ import {BehaviorSubject, map, Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {StatsForCountry} from "../models/stats/StatsForCountry";
+import {MedalPieData} from "../models/stats/MedalPieData";
 
 @Injectable({
   providedIn: 'root',
@@ -77,6 +78,26 @@ export class OlympicService {
   }
 
   /**
+   * Traite les données des Jeux olympiques pour créer une liste d'objets représentant
+   * la distribution des médailles par pays.
+   *
+   * @return {Observable<MedalPieData[]>} Un observable émettant un tableau d'objets MedalPieData,
+   * qui correspondent aux données requises par le composant ngx-charts-pie-chart
+   */
+  getMedalsPieData(): Observable<MedalPieData[]> {
+    return this.olympics$.pipe(
+      map((olympics: Olympic[]) =>
+        olympics.map((o: Olympic) => ({
+          name: o.country,
+          value: o.participations.reduce((accumulator, current) => accumulator + current.medalsCount, 0), // Total des médailles
+          extra: {id: o.id}
+        }))
+      )
+    );
+  }
+
+
+  /**
    * Retourne les données statistiques d'un seul pays à partir de son identifiant.
    *
    * @param id L'identifiant du pays.
@@ -110,5 +131,7 @@ export class OlympicService {
       map((olympics: Olympic[]) => olympics.find((o: Olympic) => o.id === id))
     );
   }
+
+
 
 }
