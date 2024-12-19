@@ -2,7 +2,7 @@
 
 <div *ngIf="participationStats$ | async as stats; else noStats">
   <div class="title-box">
-  <h1>Médailles par pays</h1>
+    <h1>Médailles par pays</h1>
   </div>
 
   <div class="stats-container">
@@ -27,13 +27,12 @@
   <p class="no-data-message">Données de participation indisponibles.</p>
 </ng-template>
 
-<div class="stats-block"  *ngIf="medalsCountByCountry$ | async as olympicStats; else noMedals">
-  <ul>
-    <li *ngFor="let stat of olympicStats">
-      {{ stat.country }} :
-      <strong>Médailles :</strong> {{ stat.medalsCount }},
-    </li>
-  </ul>
+<div class="stats-block" *ngIf="medalsCountByCountry$ | async as olympicStats; else noMedals">
+  <div *ngFor="let stat of olympicStats">
+    <div class="card" (click)="goToDetailCountryStats(stat.id)">
+      {{ stat.country }} : {{ stat.medalsCount }} médailles
+    </div>
+  </div>
 </div>
 
 <ng-template #noMedals>

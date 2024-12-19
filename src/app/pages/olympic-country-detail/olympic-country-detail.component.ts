@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {
   OlympicCountryGraphComponent
 } from "../../component/olympic-dashboard-stats/olympic-country-graph/olympic-country-graph.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-olympic-country-detail',
@@ -14,4 +15,10 @@ import {
 })
 export class OlympicCountryDetailComponent {
 
+  constructor(private router: Router) {
+  }
+
+  goHome(): void {
+    this.router.navigate(['/']); // Navigue vers le chemin racine
+  }
 }

@@ -1,0 +1,19 @@
+.card {
+  background-color: #ffffff; /* Fond blanc pour la carte */
+  border-radius: 10px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère pour effet de relief */
+  border: 1px solid #e0e0e0; /* Bordure subtilement grise */
+  padding: 20px; /* Espacement interne (ajustez selon vos besoins) */
+  margin: 10px; /* Marges externes entre les cartes */
+  cursor: pointer; /* Montre un curseur de clic */
+  transition: transform 0.2s, box-shadow 0.2s; /* Effet de survol fluide */
+}
+
+.card:hover {
+  transform: translateY(-5px); /* Soulève légèrement la carte au survol */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Accentue l'ombre en survol */
+}
+
+.card strong {
+  color: #007bff; /* Couleur mise en évidence pour le texte important */
+}
