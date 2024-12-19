@@ -1,0 +1,41 @@
+<p>olympic-global-graph works!</p>
+
+<div *ngIf="participationStats$ | async as stats; else noStats">
+  <div class="title-box">
+  <h1>Médailles par pays</h1>
+  </div>
+
+  <div class="stats-container">
+
+    <!-- Cadre 1 : Nombre d'années de JOs -->
+    <div class="stat-box">
+      <h2>Nombre de JOs</h2>
+      <p>{{ stats.countYearsJo }}</p>
+    </div>
+
+    <!-- Cadre 2 : Nombre de pays -->
+    <div class="stat-box">
+      <h2>Nombre de pays</h2>
+      <p>{{ stats.countCountries }}</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- en cas d'absence de participationStats$ -->
+<ng-template #noStats>
+  <p class="no-data-message">Données de participation indisponibles.</p>
+</ng-template>
+
+<div class="stats-block"  *ngIf="medalsCountByCountry$ | async as olympicStats; else noMedals">
+  <ul>
+    <li *ngFor="let stat of olympicStats">
+      {{ stat.country }} :
+      <strong>Médailles :</strong> {{ stat.medalsCount }},
+    </li>
+  </ul>
+</div>
+
+<ng-template #noMedals>
+  <p class="no-data-message">Aucune donnée de médailles disponible actuellement.</p>
+</ng-template>

@@ -1,0 +1,33 @@
+<p>olympic-country-graph works!</p>
+<div *ngIf="statsForCountry$ | async as stats; else noData">
+  <div class="title-box">
+    <h1>{{ stats.country }}</h1>
+  </div>
+
+  <div class="stats-container">
+
+    <div class="stat-box">
+      <h2>Nombre de participations</h2>
+      <p>{{ stats.participationsCount }}</p>
+    </div>
+
+    <div class="stat-box">
+      <h2>Nombre total de médailles</h2>
+      <p>{{ stats.medalsCount }}</p>
+    </div>
+
+    <div class="stat-box">
+      <h2>Nombre total d'athlètes</h2>
+      <p>{{ stats.athletes }}</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bloc alternatif si aucune donnée n'est trouvée -->
+<ng-template #noData>
+  <div class="no-data-container">
+    <h2>Aucune donnée pour ce pays</h2>
+    <p>Nous n'avons pas pu trouver de statistiques disponibles pour ce pays. Veuillez réessayer plus tard ou vérifier votre recherche.</p>
+  </div>
+</ng-template>
