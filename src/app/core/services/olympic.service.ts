@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {StatsForCountry} from "../models/stats/StatsForCountry";
 import {MedalPieData} from "../models/stats/MedalPieData";
+import {SeriesLine} from "../models/stats/SeriesLine";
 
 @Injectable({
   providedIn: 'root',
@@ -96,7 +97,6 @@ export class OlympicService {
     );
   }
 
-
   /**
    * Retourne les données statistiques d'un seul pays à partir de son identifiant.
    *
@@ -132,6 +132,26 @@ export class OlympicService {
     );
   }
 
-
+  getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[]> {
+    return this.olympics$.pipe(
+      map((data) => {
+        // Recherche de l'Olympic au param olympicId
+        const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
+        if (!olympic) {
+          throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
+        }
+        // Construction de l'objet SeriesLine
+        const seriesLine: SeriesLine = {
+          name: olympic.country,
+          series: olympic.participations.map(part => ({
+            name: `${part.year}`, // Convertir l'année en chaîne
+            value: part.medalsCount
+          }))
+        };
+        console.log(seriesLine);
+        return [seriesLine]; // Retourner un tableau contenant SeriesLine
+      })
+    );
+  }
 
 }

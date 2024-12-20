@@ -28,6 +28,24 @@
 <ng-template #noData>
   <div class="no-data-container">
     <h2>Aucune donnée pour ce pays</h2>
-    <p>Nous n'avons pas pu trouver de statistiques disponibles pour ce pays. Veuillez réessayer plus tard ou vérifier votre recherche.</p>
+    <p>Nous n'avons pas pu trouver de statistiques disponibles pour ce pays. Veuillez réessayer plus tard ou vérifier
+      votre recherche.</p>
   </div>
 </ng-template>
+
+<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 500px;">
+  <ngx-charts-line-chart
+    [view]="[700, 400]"
+    [results]="lineChartData$ | async"
+    [gradient]="false"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="'Dates'"
+    [yAxisLabel]="'Nombre médailles'"
+    [autoScale]="true"
+    class="line-chart">
+  </ngx-charts-line-chart>
+</div>
