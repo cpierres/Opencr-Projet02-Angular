@@ -19,6 +19,7 @@ export class OlympicCountryDetailComponent {
   }
 
   goHome(): void {
+    console.log('goHome');
     this.router.navigate(['/']); // Navigue vers le chemin racine
   }
 }

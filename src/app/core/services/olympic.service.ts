@@ -17,7 +17,7 @@ export class OlympicService {
   olympics$ = this.subject.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadInitialData();
+    //this.loadInitialData();
   }
 
   /**
@@ -25,9 +25,9 @@ export class OlympicService {
    * afin d'avoir une gestion d'état simple
    * @private
    */
-  private loadInitialData(): void {
+  loadInitialData() {
     console.log('appel backend');
-    this.http.get<Olympic[]>(this.olympicUrl)
+    return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
@@ -35,7 +35,7 @@ export class OlympicService {
           return throwError(err);
         }),
         tap(olympics => this.subject.next(olympics))
-      ).subscribe();
+      );
   }
 
   getOlympics() {
@@ -104,8 +104,9 @@ export class OlympicService {
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
   getOlympicStatsForCountryId(id: number): Observable<StatsForCountry | undefined> {
-    return this.olympics$.pipe(
+        return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
+        console.log('getOlympicStatsForCountryId :', olympics);
         const country = olympics.find((o: Olympic) => o.id === id);
         return country
           ? {
@@ -135,10 +136,12 @@ export class OlympicService {
   getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[]> {
     return this.olympics$.pipe(
       map((data) => {
+        console.log('getMedalsSeriesLineByOlympic : ', data);
         // Recherche de l'Olympic au param olympicId
         const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
         if (!olympic) {
           throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
+          //return []
         }
         // Construction de l'objet SeriesLine
         const seriesLine: SeriesLine = {

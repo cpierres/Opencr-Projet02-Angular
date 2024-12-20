@@ -1,4 +1,4 @@
-<p>olympic-country-graph works!</p>
+<!-- p>olympic-country-graph works!</p -->
 <div *ngIf="statsForCountry$ | async as stats; else noData">
   <div class="title-box">
     <h1>{{ stats.country }}</h1>
@@ -22,6 +22,22 @@
     </div>
 
   </div>
+
+  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 500px;">
+    <ngx-charts-line-chart
+      [results]="lineChartData$ | async"
+      [gradient]="false"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="'Dates'"
+      [yAxisLabel]="'Nombre médailles'"
+      [autoScale]="true"
+      class="line-chart">
+    </ngx-charts-line-chart>
+  </div>
 </div>
 
 <!-- Bloc alternatif si aucune donnée n'est trouvée -->
@@ -33,19 +49,4 @@
   </div>
 </ng-template>
 
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 500px;">
-  <ngx-charts-line-chart
-    [view]="[700, 400]"
-    [results]="lineChartData$ | async"
-    [gradient]="false"
-    [xAxis]="true"
-    [yAxis]="true"
-    [legend]="false"
-    [showXAxisLabel]="true"
-    [showYAxisLabel]="true"
-    [xAxisLabel]="'Dates'"
-    [yAxisLabel]="'Nombre médailles'"
-    [autoScale]="true"
-    class="line-chart">
-  </ngx-charts-line-chart>
-</div>
+
