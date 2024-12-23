@@ -16,3 +16,32 @@
   font-size: 1.2rem;
   color: #555;
 }
+
+.chart-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 50vh; /* Par défaut : 50% de la hauteur de l'écran */
+}
+
+/* Styles pour les écrans de téléphone */
+@media (max-width: 768px) {
+  .chart-container {
+    height: 25vh; /* comme les stats passent en colonne, diminuer la hauteur du graphe */
+  }
+}
+
+/* Styles pour les écrans de tablettes */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chart-container {
+    height: 60vh; /* Hauteur moyenne pour les tablettes */
+  }
+}
+
+/* Styles pour les écrans de bureau (desktop) */
+@media (min-width: 1025px) {
+  .chart-container {
+    height: 50vh; /* Diminuer un peu la hauteur pour les grands écrans */
+  }
+}

@@ -49,16 +49,15 @@
 
 .stat-box p {
   font-size: 30px; /* Taille adaptée aux valeurs */
-  color: black; /* La couleur turquoise foncé des valeurs */
+  color: black; /* La couleur turquoise foncée des valeurs */
   font-weight: bolder; /* Texte en gras pour les valeurs */
   margin: 0 0 15px; /* Augmente l'espacement en bas (margin-bottom: 15px) */
 }
 
-
-/* Réduit la taille lorsque l'écran est trop petit */
+/* Réduit la taille lorsque l'écran se réduit */
 @media (max-width: 1024px) {
   .statistics-container {
-    flex-direction: column; /* Passe les blocs en verticale */
+    flex-direction: column; /* Passe les blocs en vertical */
     gap: 20px; /* Ajoute plus d'espace entre les blocs */
   }
 }

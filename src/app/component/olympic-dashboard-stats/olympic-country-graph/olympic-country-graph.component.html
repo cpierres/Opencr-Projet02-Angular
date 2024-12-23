@@ -23,7 +23,7 @@
 
   </div>
 
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 500px;">
+  <div class="chart-container">
     <ngx-charts-line-chart
       [results]="lineChartData$ | async"
       [gradient]="false"
@@ -34,8 +34,7 @@
       [showYAxisLabel]="true"
       [xAxisLabel]="'Dates'"
       [yAxisLabel]="'Nombre médailles'"
-      [autoScale]="true"
-      class="line-chart">
+      [autoScale]="true">
     </ngx-charts-line-chart>
   </div>
 </div>
