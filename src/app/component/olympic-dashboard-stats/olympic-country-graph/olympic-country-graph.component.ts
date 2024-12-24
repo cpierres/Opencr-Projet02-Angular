@@ -29,6 +29,8 @@ export class OlympicCountryGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(
+      'OlympicCountryGraphComponent.ngOnInit');
     const countryId: string | null = this.route.snapshot.paramMap.get('id');
     if (countryId) {
       this.statsForCountry$ = this.olympicService.getOlympicStatsForCountryId(+countryId);

@@ -18,8 +18,8 @@ export class OlympicCountryDetailComponent {
   constructor(private router: Router) {
   }
 
-  goHome(): void {
-    console.log('goHome');
+  goToHome(): void {
+    console.log('***** goToHome *****');
     this.router.navigate(['/']); // Navigue vers le chemin racine
   }
 }

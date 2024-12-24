@@ -8,10 +8,10 @@ import {take} from "rxjs";
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private olympicService: OlympicService) {}
+  //constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
-    console.log('appel app.component.ts loadInitialData');
-    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+    console.log('app.component.ts ngOnInit()');
+    //this.olympicService.loadInitialData().pipe(take(1)).subscribe();
   }
 }
