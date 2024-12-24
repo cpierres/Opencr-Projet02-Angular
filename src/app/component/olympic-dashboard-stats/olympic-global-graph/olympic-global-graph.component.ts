@@ -39,7 +39,7 @@ export class OlympicGlobalGraphComponent implements OnInit {
   }
 
   goToDetailCountryStats(countryId: number): void {
-    console.log('***** goToDetailCountryStats', countryId),' *****';
+    console.log('***** goToDetailCountryStats', countryId,' *****');
     this.router.navigate([AppRoutes.OLYMPIC_STATS + '/' + countryId]);
   }
 
