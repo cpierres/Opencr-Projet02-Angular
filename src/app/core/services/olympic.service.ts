@@ -18,7 +18,6 @@ export class OlympicService {
   olympics$ = this.subject.asObservable();
 
   constructor(private http: HttpClient) {
-    console.log('OlympicService constructor (Singleton) ; appel de loadInitialData');
     /*
     Faire le subscribe dans le constructor permet de renseigner effectivement le cache, rendant les données
     accessibles à tout moment via l'observable olympics$, sans besoin de refaire une requête HTTP.
@@ -30,10 +29,10 @@ export class OlympicService {
     Attention dans ce dernier cas, les développeurs ne devront pas oublier de faire le take(1) afin de
     limiter la souscription à un seul événement pour empêcher des écoutes inutiles ou récurrentes,
     et terminer la souscription proprement (en évitant ainsi des fuites mémoires).
-    Pour prévenir de cette mauvaise utilisation potentielle, j'ai refactorisé  vers une méthode
+    Pour prévenir de cette mauvaise utilisation potentielle, j'ai refactorisé vers une méthode
     refreshDataCache() public qui s'occupe de la gestion du BehaviorObject.
      */
-    console.log('OlympicService constructor (Singleton) ; appel de refreshDataCache() => backend');
+    console.log('OlympicService constructor (Singleton) ; appel de refreshDataCache() => loadInitialData');
     this.refreshDataCache();
   }
 
@@ -47,8 +46,8 @@ export class OlympicService {
       //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
       //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
       take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
-             // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
-    ).subscribe(data => console.log('refreshDataCache ; subscribe : ', data));
+      // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
+    ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
   }
 
   /**
@@ -77,7 +76,7 @@ export class OlympicService {
           this.subject.next(olympics)//dès lors qu'on inscrit le flux Observable de http.get vers le cache
                                      //BehaviorSubject, l'observable olympics$ en variable membre est associé à ce sujet
                                      //en tant que simple Observable (sans possibilité de le modifier)
-                                    //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
+          //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
         })
       );
   }
@@ -95,7 +94,7 @@ export class OlympicService {
    *          le nombre d'années uniques de participations.
    */
   getParticipationStats(): Observable<{ countYearsJo: number, countCountries: number }> {
-    console.log('appel olympic.getParticipationStats()');
+    console.log('appel OlympicService.getParticipationStats()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const totalCountries = olympics.length; // Chaque entrée correspond à un pays
@@ -109,7 +108,7 @@ export class OlympicService {
         const totalYears = yearSet.size; // Nombre d'années uniques
         return {countYearsJo: totalYears, countCountries: totalCountries};
       }),
-      tap(stats => console.log('getParticipationStats data', stats))
+      tap(stats => console.log('OlympicService.getParticipationStats data', stats))
     );
   }
 
@@ -133,7 +132,7 @@ export class OlympicService {
    * qui correspondent aux données requises par le composant ngx-charts-pie-chart
    */
   getMedalsPieData(): Observable<MedalPieData[]> {
-    console.log('appel olympic.getMedalsPieData()');
+    console.log('appel OlympicService.getMedalsPieData()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) =>
         olympics.map((o: Olympic) => ({
@@ -142,7 +141,9 @@ export class OlympicService {
           extra: {id: o.id}
         }))
       ),
-      tap(data => console.log('getMedalsPieData tap data', data))
+      tap(data => {
+        console.log('OlympicService.getMedalsPieData tap data', data)
+      })
     );
   }
 
@@ -153,10 +154,9 @@ export class OlympicService {
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
   getOlympicStatsForCountryId(id: number): Observable<StatsForCountry | undefined> {
-    console.log('appel olympic.getOlympicStatsForCountryId(' + id + ')');
+    console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
-        console.log('getOlympicStatsForCountryId :', olympics);
         const country = olympics.find((o: Olympic) => o.id === id);
         return country
           ? {
@@ -168,7 +168,7 @@ export class OlympicService {
           }
           : undefined;
       }),
-      tap(data => console.log('getOlympicStatsForCountryId data', data))
+      tap(data => console.log('OlympicService.getOlympicStatsForCountryId => StatsForCountry: ', data))
     );
   }
 
@@ -192,10 +192,9 @@ export class OlympicService {
    * contenant les informations de médaille pour le country/olympic
    */
   getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[]> {
-    console.log('appel olympic.getMedalsSeriesLineByOlympic('+olympicId+')');
+    console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
-        console.log('getMedalsSeriesLineByOlympic : ', data);
         // Recherche de l'Olympic au param olympicId
         const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
         if (!olympic) {
@@ -210,7 +209,7 @@ export class OlympicService {
             value: part.medalsCount
           }))
         };
-        console.log(seriesLine);
+        console.log('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
         return [seriesLine]; // Retourner un tableau contenant SeriesLine
       })
     );
