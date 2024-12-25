@@ -27,11 +27,12 @@ L'application des Jeux Olympiques est conçue pour :
 
 ## Composants Réutilisables
 
-Voici les principaux composants réutilisables utilisés dans le projet Angular :
-- **AppComponent** : Composant racine du projet, servant comme point d'entrée principal.
+Voici les principaux composants réutilisables utilisés dans le projet Angular :
+- **AppComponent** : Composant racine du projet, servant comme point d'entrée principal.
 - **HomeComponent** : Page d'entrée du tableau de bord olympique, servant de point de départ pour explorer les fonctionnalités.
-- **OlympicGlobalGraphComponent** : Permet de visualiser des graphiques globaux concernant les statistiques des Jeux Olympiques.
-- **OlympicCountryDetailComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
+- **OlympicGlobalGraphComponent** : Permet de visualiser des graphiques globaux concernant les statistiques des Jeux Olympiques.
+- **OlympicCountryDetail** : Page de détail des statistiques par pays, pour gérer la navigation et inclure le composant ci-dessous. 
+- **OlympicCountryDetailComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
 
 
 ## Démo
@@ -42,7 +43,7 @@ Voici les principaux composants réutilisables utilisés dans le projet Angular�
 
 ### Homepage Dashboard
 ![Homepage Dashboard](src/assets/screenshots/homepage-dashboard.jpg)
-Page d'accueil avec possibilité de drill-down sur un pays pour accéder à l'écran détail.
+Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
 ### Detail Country
 ![Detail Country](src/assets/screenshots/detail-country.jpg)
 Page détaillant les performances d'un pays spécifique.
@@ -108,7 +109,7 @@ Nous déconseillons d'installer Angular CLI de manière globale pour éviter les
 
 L'architecture de ce projet est conçue pour faciliter la lisibilité et l'évolutivité du code.
 
-### Structure recommandée
+### Structure
 
 - **`components/`** : Contient tous les composants réutilisables.
 - **`pages/`** : Composants spécifiques aux pages (liées aux routes définies).
@@ -116,6 +117,7 @@ L'architecture de ce projet est conçue pour faciliter la lisibilité et l'évol
   - **`services/`** : Services Angular gérant la logique métier (inclut `olympic.service.ts`).
   - **`models/`** : Définitions des interfaces Typescript pour la gestion des données (exemple : données issues de `olympic.json`).
     - **`stats/`** : Structures utilitaires pour les affichages statistiques et graphiques.
+
 ### Points d'entrée importants
 
 - **Fichier de routage** : `app-routing.module.ts`

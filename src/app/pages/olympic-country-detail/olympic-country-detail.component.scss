@@ -1,20 +1,20 @@
 .centered-button {
   display: flex; /* Permet de centrer avec flexbox */
   justify-content: center; /* Centre horizontalement l'élément */
-  margin-top: 20px; /* Espace supérieur (ajustable selon vos besoins) */
+  margin-top: 20px;
 }
 
 .rounded-button {
   padding: 10px 20px; /* Dimensions internes du bouton */
   border-radius: 15px; /* Arrondit les bords (ajustez selon vos besoins) */
   border: none; /* Désactive la bordure par défaut */
-  background-color: #008b8b; /* Turquoise plus foncé */
+  background-color: #008b8b; /* Turquoise foncé */
   color: #ffffff; /* Couleur du texte (blanche) */
-  font-size: 16px; /* Taille du texte */
+  font-size: 16px;
   cursor: pointer; /* Montre un curseur de clic */
   transition: background-color 0.3s ease; /* Transition douce pour les interactions */
 }
 
 .rounded-button:hover {
-  background-color: #0056b3; /* Couleur de fond légèrement différente au survol */
+  background-color: #6abdb6; /* Couleur de fond au survol */
 }
