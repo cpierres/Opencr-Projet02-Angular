@@ -58,8 +58,7 @@ export class OlympicService {
    * évitant d'enregistrer trop d'éléments (inutiles) dans le cache et en fermant .
    * QUESTION : j'hésite à mettre cette méthode de service en public car elle est susceptible d'une mauvaise
    * utilisation si le développeur oublie de faire un take(1). De plus, si elle est appelée intempestivement
-   * plusieurs fois sans le take(1), elle peut inscrire
-   *
+   * plusieurs fois sans le take(1), elle peut déclencher des écoutes multiples non souhaitées.
    */
   loadInitialData(): Observable<Olympic[]> {
     console.log('OlympicService.loadInitialData() : appel backend');
