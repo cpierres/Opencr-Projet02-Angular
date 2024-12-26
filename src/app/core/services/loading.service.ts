@@ -25,6 +25,7 @@ export class LoadingService {
   loading$ = this.loadingSubject.asObservable();
 
   constructor() {
+    debugger;
     console.log("LoadingService created ...");
   }
 

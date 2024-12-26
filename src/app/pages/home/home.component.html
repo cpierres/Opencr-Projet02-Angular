@@ -1,2 +1,2 @@
 <!-- h2>Olympic games dashboard (page Home)</h2 -->
-<app-olympic-global-graph></app-olympic-global-graph>
+<app-olympic-global-graph [titre]="titre" [participationStats]="participationStats$ | async" [medalPieData]="medalPieData$ | async" ></app-olympic-global-graph>

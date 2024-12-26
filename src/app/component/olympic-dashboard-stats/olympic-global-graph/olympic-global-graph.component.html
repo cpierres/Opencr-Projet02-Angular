@@ -1,8 +1,8 @@
 <!-- p>olympic-global-graph works!</p -->
-<div *ngIf="participationStats$ | async as stats; else noStats">
+<div *ngIf="participationStats as stats; else noStats">
 
   <div class="title-box">
-    <h1>Médailles par pays</h1>
+    <h1>{{ titre }}</h1>
   </div>
 
   <div class="stats-container">
@@ -29,7 +29,7 @@
 
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 500px;">
   <ngx-charts-pie-chart
-    [results]="medalPieData$ | async"
+    [results]="medalPieData"
     [legend]="false"
     [explodeSlices]="false"
     [labels]="true"

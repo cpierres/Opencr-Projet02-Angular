@@ -12,7 +12,7 @@ import {LoadingService} from "./core/services/loading.service";
 export class AppComponent {
   //constructor(private olympicService: OlympicService) {}
 
-  constructor(private loadingService: LoadingService) {
+  constructor() {
   }
 
   ngOnInit(): void {

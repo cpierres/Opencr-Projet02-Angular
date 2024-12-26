@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LoadingService} from "../../core/services/loading.service";
-// import {Observable, of} from 'rxjs';
-// import { OlympicService } from 'src/app/core/services/olympic.service';
-// import {Olympic} from "../../core/models/Olympic";
+import {Observable} from "rxjs";
+import {MedalPieData} from "../../core/models/stats/MedalPieData";
+import {OlympicService} from "../../core/services/olympic.service";
 
 @Component({
   selector: 'app-home',
@@ -21,18 +21,24 @@ export class HomeComponent implements OnInit {
   //Ce sont mes services qui se basent sur cet observable olympics$
 
   //olympics$: Observable<Olympic[]> = of([]) ;
+  titre: string = 'Médailles par pays';
+  participationStats$: Observable<{ countYearsJo: number; countCountries: number; }> | undefined;
+  medalPieData$: Observable<MedalPieData[]> | undefined;
 
   //constructor(private olympicService: OlympicService) {}
-  constructor(private loadingService: LoadingService) {
+  constructor(private olympicService: OlympicService, private loadingService: LoadingService) {
     console.log('home.component.ts constructor()');
     console.log('LoadingService instance (from home.component) :', this.loadingService);
+    this.loadingService.loadingOn();
   }
 
   ngOnInit(): void {
     console.log('home.component.ts ngOnInit()');
     //this.olympics$ = this.olympicService.getOlympics();
-    //this.loadingService.loadingOn();
-    //this.loadingService.loadingOff();
+
+    this.participationStats$ = this.olympicService.getParticipationStats();
+    this.medalPieData$ = this.olympicService.getMedalsPieData();
+    this.loadingService.loadingOff();
   }
 
 }

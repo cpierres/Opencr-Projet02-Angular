@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OlympicService} from "../../../core/services/olympic.service";
 import {Observable} from "rxjs";
 import {AsyncPipe, NgIf} from "@angular/common";
@@ -10,12 +10,12 @@ import {MedalPieData} from "../../../core/models/stats/MedalPieData";
 import {LoadingService} from "../../../core/services/loading.service";
 import {AppModule} from "../../../app.module";
 import {LoadingComponent} from "../../fwk/loading/loading.component";
+import {Olympic} from "../../../core/models/Olympic";
 
 @Component({
   selector: 'app-olympic-global-graph',
   standalone: true,
   imports: [
-    AsyncPipe,
     NgIf,
     //NgForOf,
     //NgStyle,
@@ -29,9 +29,20 @@ import {LoadingComponent} from "../../fwk/loading/loading.component";
   ]
 })
 export class OlympicGlobalGraphComponent implements OnInit {
-  participationStats$: Observable<{ countYearsJo: number; countCountries: number; }> | undefined;
-  //medalsCountByCountry$: Observable<{ id: number, country: string, medalsCount: number }[]> | undefined;
-  medalPieData$: Observable<MedalPieData[]> | undefined;
+  //@Input() data: Olympic[] = [];
+  @Input()
+  titre: string = 'titre';
+
+  @Input()
+  participationStats: { countYearsJo: number; countCountries: number; } | null | undefined;
+  @Input()
+  medalPieData: MedalPieData[]  | null | undefined;
+
+  @Output() pieChartClickEmitter = new EventEmitter<string>();
+
+  onGraphClick(event: string): void {
+    this.pieChartClickEmitter.emit(event);
+  }
 
   constructor(private olympicService: OlympicService, private router: Router, private loadingService: LoadingService) {
   }
@@ -39,9 +50,6 @@ export class OlympicGlobalGraphComponent implements OnInit {
   ngOnInit(): void {
     console.log(
       'OlympicGlobalGraphComponent.ngOnInit');
-    this.participationStats$ = this.olympicService.getParticipationStats();
-    //this.medalsCountByCountry$ = this.olympicService.getMedalsCountByCountry();
-    this.medalPieData$ = this.olympicService.getMedalsPieData();
     console.log('LoadingService instance (from global graph) :', this.loadingService);
     //this.loadingService.loadingOn();//test KO alors que depuis Home OK
   }
