@@ -7,16 +7,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {MedalPieData} from "../../../core/models/stats/MedalPieData";
 import {LoadingService} from "../../../core/services/loading.service";
-import {Stats} from "../../../core/models/stats/Stats";
-import {BoxStatsComponent} from "../box-stats/box-stats.component";
 
 @Component({
   selector: 'app-olympic-global-graph',
   standalone: true,
   imports: [
-    NgIf,
-    //NgForOf,
-    //NgStyle,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule,
   ],
