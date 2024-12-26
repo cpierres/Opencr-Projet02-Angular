@@ -1,0 +1,17 @@
+<div *ngIf="boxStats as stats; else noStats">
+
+  <div class="title-box">
+    <h1>{{ stats.name }}</h1>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-box" *ngFor="let stat of stats.stats">
+      <h2>{{ stat.label }}</h2>
+      <p>{{ stat.value }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noStats>
+  <p class="no-data-message">Données indisponibles. Veuillez ré-essayer plus tard</p>
+</ng-template>

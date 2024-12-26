@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-//import {OlympicService} from "./core/services/olympic.service";
-//import {take} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -8,10 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  //constructor(private olympicService: OlympicService) {}
+
+  constructor() {
+  }
 
   ngOnInit(): void {
     console.log('app.component.ts ngOnInit()');
-    //this.olympicService.loadInitialData().pipe(take(1)).subscribe();
   }
 }

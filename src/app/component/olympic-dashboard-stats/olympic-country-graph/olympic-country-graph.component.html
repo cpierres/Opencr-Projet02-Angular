@@ -1,5 +1,5 @@
 <!-- p>olympic-country-graph works!</p -->
-<div *ngIf="statsForCountry$ | async as stats; else noData">
+<!-- div *ngIf="statsForCountry$ | async as stats; else noData">
   <div class="title-box">
     <h1>{{ stats.country }}</h1>
   </div>
@@ -21,11 +21,11 @@
       <p>{{ stats.athletes }}</p>
     </div>
 
-  </div>
-
+  </div -->
+<div *ngIf="lineChartData as stats; else noData">
   <div class="chart-container">
     <ngx-charts-line-chart
-      [results]="lineChartData$ | async"
+      [results]="lineChartData"
       [gradient]="false"
       [xAxis]="true"
       [yAxis]="true"
@@ -43,8 +43,8 @@
 <ng-template #noData>
   <div class="no-data-container">
     <h2>Aucune donnée pour ce pays</h2>
-    <p>Nous n'avons pas pu trouver de statistiques disponibles pour ce pays. Veuillez réessayer plus tard ou vérifier
-      votre recherche.</p>
+    <p>Nous n'avons pas pu trouver de statistiques disponibles.
+      Veuillez réessayer plus tard ou vérifier votre recherche.</p>
   </div>
 </ng-template>
 
