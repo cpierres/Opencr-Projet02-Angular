@@ -3,7 +3,6 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, delay, filter, finalize, map, Observable, switchMap, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
-import {StatsForCountry} from "../models/stats/StatsForCountry";
 import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
