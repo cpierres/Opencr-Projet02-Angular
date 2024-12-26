@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {OlympicService} from "../../../core/services/olympic.service";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 import {StatsForCountry} from "../../../core/models/stats/StatsForCountry";
 import {ActivatedRoute} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {LineChartModule} from "@swimlane/ngx-charts";
 import {SeriesLine} from "../../../core/models/stats/SeriesLine";
 import {LoadingService} from "../../../core/services/loading.service";
+import {Stat} from "../../../core/models/stats/Stat";
 
 @Component({
   selector: 'app-olympic-country-graph',
@@ -24,23 +25,14 @@ import {LoadingService} from "../../../core/services/loading.service";
 })
 
 export class OlympicCountryGraphComponent implements OnInit {
-  statsForCountry$: Observable<StatsForCountry | undefined> | undefined;
-  lineChartData$!: Observable<SeriesLine[]>;
+  @Input()
+  lineChartData: SeriesLine[] | undefined | null = [];
 
-  constructor(
-    private olympicService: OlympicService,
-    private route: ActivatedRoute,
-    private loadingService: LoadingService) {
+  constructor() {
   }
 
   ngOnInit(): void {
     console.log(
       'OlympicCountryGraphComponent.ngOnInit');
-    const countryId: string | null = this.route.snapshot.paramMap.get('id');
-    if (countryId) {
-      this.statsForCountry$ = this.olympicService.getOlympicStatsForCountryId(+countryId);
-      this.lineChartData$ = this.olympicService.getMedalsSeriesLineByOlympic(+countryId);
-    }
   }
-
 }

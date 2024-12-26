@@ -186,53 +186,29 @@ export class OlympicService {
 
   /**
    * Données statistiques d'un seul pays à partir de son identifiant.
-   * @deprecated utiliser
+   *
    * @param id L'identifiant du pays.
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
-  getOlympicStatsForCountryId(id: number): Observable<StatsForCountry | undefined> {
+  getOlympicStatsOfCountryId(id: number): Observable<Stats | undefined> {
     console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
         return country
           ? {
-            id: country.id,
-            country: country.country,
-            participationsCount: country.participations.length,
-            medalsCount: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0),
-            athletes: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
+            //id: country.id,
+            name: country.country,stats:[
+              {label:'Nombre de participations',value:country.participations.length},
+              {label:'Nombre total de médailles',value:country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)},
+              {label:'Nombre total d\'athlètes',value:country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)}
+            ]
           }
           : undefined;
       }),
-      tap(data => console.log('OlympicService.getOlympicStatsForCountryId => StatsForCountry: ', data))
+      tap(data => console.log('OlympicService.getOlympicStatsOfCountryId => data : ', data))
     );
   }
-
-  /**
-   * Données statistiques d'un seul pays à partir de son identifiant.
-   *
-   * @param id L'identifiant du pays.
-   * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
-   */
-  // getOlympicStatsForCountryId(id: number): Observable<Stat[] | undefined> {
-  //   console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
-  //   return this.olympics$.pipe(
-  //     map((olympics: Olympic[]) => {
-  //       const country = olympics.find((o: Olympic) => o.id === id);
-  //       return country
-  //         ? {
-  //           //id: country.id,
-  //           country: country.country,
-  //           participationsCount: country.participations.length,
-  //           medalsCount: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0),
-  //           athletes: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
-  //         }
-  //         : undefined;
-  //     }),
-  //     tap(data => console.log('OlympicService.getOlympicStatsForCountryId => StatsForCountry: ', data))
-  //   );
-  // }
 
   /**
    * Données d'un seul pays à partir de son identifiant.

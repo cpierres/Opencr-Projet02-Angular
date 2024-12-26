@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {OlympicService} from "../../../core/services/olympic.service";
-import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../../app.routes";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -32,13 +30,12 @@ export class OlympicGlobalGraphComponent implements OnInit {
     this.pieChartClickEmitter.emit(event);
   }
 
-  constructor(private olympicService: OlympicService, private router: Router, private loadingService: LoadingService) {
+  constructor(private router: Router) {
   }
 
   ngOnInit(): void {
     console.log(
       'OlympicGlobalGraphComponent.ngOnInit');
-    console.log('LoadingService instance (from global graph) :', this.loadingService);
   }
 
   goToDetailCountryStats(countryId: number): void {
