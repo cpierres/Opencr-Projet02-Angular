@@ -1,69 +1,20 @@
-<!-- p>olympic-global-graph works!</p -->
-<!-- div *ngIf="participationStats as stats; else noStats">
-
-  <div class="title-box">
-    <h1>{{ titre }}</h1>
-  </div>
-
-  <div class="stats-container">
-
-    <div class="stat-box">
-      <h2>Nombre de JOs</h2>
-      <p>{{ stats.countYearsJo }}</p>
-    </div>
-
-    <div class="stat-box">
-      <h2>Nombre de pays</h2>
-      <p>{{ stats.countCountries }}</p>
-    </div>
-
-  </div>
-</div -->
-<!-- app-box-stats [boxStats]="boxStats" ></app-box-stats>
-<div *ngIf="boxStats as stats; else noStats">
-  <div class="title-box">
-    <h1>{{ stats.name }}</h1>
-  </div>
-
-  <div class="stats-container">
-    <div class="stat-box" *ngFor="let stat of stats.stats">
-      <h2>{{ stat.label }}</h2>
-      <p>{{ stat.value }}</p>
-    </div>
+<div *ngIf="medalPieData">
+  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;">
+    <ngx-charts-pie-chart
+      [results]="medalPieData"
+      [legend]="false"
+      [explodeSlices]="false"
+      [labels]="true"
+      [doughnut]="false"
+      [gradient]="false"
+      [legendTitle]="'Pays'"
+      (select)="onSelectSlicePie($event)">
+      <ng-template #tooltipTemplate let-model="model">
+        <div ngx-tooltip>
+          <p>{{ model.name }}</p>
+          <p>🏅 {{ model.value }}</p>
+        </div>
+      </ng-template>
+    </ngx-charts-pie-chart>
   </div>
 </div>
-
-<ng-template #noStats>
-  <p class="no-data-message">Données indisponibles.</p>
-</ng-template  -->
-
-<div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;">
-  <ngx-charts-pie-chart
-    [results]="medalPieData"
-    [legend]="false"
-    [explodeSlices]="false"
-    [labels]="true"
-    [doughnut]="false"
-    [gradient]="false"
-    [legendTitle]="'Pays'"
-    (select)="onSelectSlicePie($event)">
-    <ng-template #tooltipTemplate let-model="model">
-      <div ngx-tooltip>
-        <p>{{ model.name }}</p>
-        <p>🏅 {{ model.value }}</p>
-      </div>
-    </ng-template>
-  </ngx-charts-pie-chart>
-</div>
-
-<!-- div class="stats-block" *ngIf="medalsCountByCountry$ | async as olympicStats; else noMedals">
-  <div *ngFor="let stat of olympicStats">
-    <div class="card" (click)="goToDetailCountryStats(stat.id)" [ngStyle]="{ 'height.px': getCardHeight(stat.medalsCount) }">
-      {{ stat.country }} : {{ stat.medalsCount }} médailles
-    </div>
-  </div>
-</div>
-
-<ng-template #noMedals>
-  <p class="no-data-message">Aucune donnée de médailles disponible actuellement.</p>
-</ng-template -->

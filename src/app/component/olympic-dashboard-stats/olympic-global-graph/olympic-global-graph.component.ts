@@ -24,39 +24,21 @@ export class OlympicGlobalGraphComponent implements OnInit {
   @Input()
   medalPieData: MedalPieData[]  | null | undefined;
 
-  @Output() pieChartClickEmitter = new EventEmitter<string>();
-
-  onGraphClick(event: string): void {
-    this.pieChartClickEmitter.emit(event);
-  }
+  // Événement de sortie : pour transmettre l'élément sélectionné
+  @Output() sliceSelected = new EventEmitter<MedalPieData>();
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    console.log(
-      'OlympicGlobalGraphComponent.ngOnInit');
+    console.log('OlympicGlobalGraphComponent.ngOnInit');
   }
 
-  goToDetailCountryStats(countryId: number): void {
-    console.log('***** goToDetailCountryStats', countryId,' *****');
-    this.router.navigate([AppRoutes.OLYMPIC_STATS + '/' + countryId]);
-  }
-
-  /**
-   * Handles the selection of a slice from the pie chart. This method logs the selected item,
-   * retrieves the corresponding country ID from the event, and navigates to the detail page
-   * for the selected country's statistics.
-   *
-   * @param {any} event - The event object triggered when a slice of the pie chart is selected.
-   *                       It contains details about the selected slice, including extra data like the country ID.
-   * @return {void} This method does not return any value.
-   */
+   // Gestionnaire local de l'événement "select"
   onSelectSlicePie(event: MedalPieData): void {
-    console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
-    const selectedCountryId: number = event.extra.id;
-    console.log('OlympicGlobalGraphComponent.onSelectSlicePie:', selectedCountryId);
-    // Navigue vers l'écran olympic-country-detail avec l'ID du pays
-    this.goToDetailCountryStats(selectedCountryId);
+    // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
+    console.log('Slice sélectionné :', event);
+    // Émettre l'événement au composant parent
+    this.sliceSelected.emit(event);
   }
 }
