@@ -7,6 +7,8 @@ import {StatsForCountry} from "../models/stats/StatsForCountry";
 import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
+import {Stat} from "../models/stats/Stat";
+import {Stats} from "../models/stats/Stats";
 
 @Injectable({
   providedIn: 'root',
@@ -95,8 +97,9 @@ export class OlympicService {
    * et le nombre d'années différentes de participations (=nb de JOs)
    * Ici je n'ai pas défini d'interface pour la structure du retour
    * car c'est simple.
-   * @returns Un Observable contenant le nombre de pays participants et
-   *          le nombre d'années uniques de participations.
+   * @deprecated utiliser à la place {@link getHomeStats()} qui est plus évolutive
+   * @returns Un Observable incluant countYearsJo (le nombre de pays participants) et
+   *          countCountries (nombre d'années uniques de participations).
    */
   getParticipationStats(): Observable<{ countYearsJo: number, countCountries: number }> {
     console.log('appel OlympicService.getParticipationStats()');
@@ -114,6 +117,36 @@ export class OlympicService {
         return {countYearsJo: totalYears, countCountries: totalCountries};
       }),
       tap(stats => console.log('OlympicService.getParticipationStats data', stats))
+    );
+  }
+
+  /**
+   * Statistiques à présenter sur le dashboard principal (Home)
+   * Pour l'instant, il y a deux statistiques :
+   * - Nombre de JOs
+   * - Nombre de pays
+   * La structure est évolutive. Il suffit d'ajouter une statistique dans le tableau retourné
+   * et elles seront dynamiquement affichées dans le composant d'affichage réutilisable.
+   * @returns Un Observable incluant un tableau de Stat avec le nombre de pays participants et
+   *          le nombre d'années uniques de participations.
+   */
+  getHomeStats(): Observable<Stats> {
+    console.log('appel OlympicService.getHomeStats()');
+    return this.olympics$.pipe(
+      map((olympics: Olympic[]) => {
+        const totalCountries = olympics.length; // Chaque entrée correspond à un pays
+        const yearSet = new Set<number>(); // Utilisation d'un Set pour conserver les années uniques
+
+        // Remplir le Set avec les différentes années de participation
+        olympics.forEach((o: Olympic) => {
+          o.participations.forEach(p => yearSet.add(p.year));
+        });
+
+        const totalYears = yearSet.size; // Nombre d'années uniques
+        return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]};
+        //return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries},{label: 'stat3', value: 123}]};
+      }),
+      tap(stats => console.log('OlympicService.getHomeStats data', stats))
     );
   }
 
@@ -154,7 +187,7 @@ export class OlympicService {
 
   /**
    * Données statistiques d'un seul pays à partir de son identifiant.
-   *
+   * @deprecated utiliser
    * @param id L'identifiant du pays.
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
@@ -176,6 +209,31 @@ export class OlympicService {
       tap(data => console.log('OlympicService.getOlympicStatsForCountryId => StatsForCountry: ', data))
     );
   }
+
+  /**
+   * Données statistiques d'un seul pays à partir de son identifiant.
+   *
+   * @param id L'identifiant du pays.
+   * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
+   */
+  // getOlympicStatsForCountryId(id: number): Observable<Stat[] | undefined> {
+  //   console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
+  //   return this.olympics$.pipe(
+  //     map((olympics: Olympic[]) => {
+  //       const country = olympics.find((o: Olympic) => o.id === id);
+  //       return country
+  //         ? {
+  //           //id: country.id,
+  //           country: country.country,
+  //           participationsCount: country.participations.length,
+  //           medalsCount: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0),
+  //           athletes: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
+  //         }
+  //         : undefined;
+  //     }),
+  //     tap(data => console.log('OlympicService.getOlympicStatsForCountryId => StatsForCountry: ', data))
+  //   );
+  // }
 
   /**
    * Données d'un seul pays à partir de son identifiant.

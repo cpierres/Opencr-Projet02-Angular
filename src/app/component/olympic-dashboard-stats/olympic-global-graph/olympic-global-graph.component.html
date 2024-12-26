@@ -1,5 +1,5 @@
 <!-- p>olympic-global-graph works!</p -->
-<div *ngIf="participationStats as stats; else noStats">
+<!-- div *ngIf="participationStats as stats; else noStats">
 
   <div class="title-box">
     <h1>{{ titre }}</h1>
@@ -7,25 +7,35 @@
 
   <div class="stats-container">
 
-    <!-- Cadre 1 : Nombre d'années de JOs -->
     <div class="stat-box">
       <h2>Nombre de JOs</h2>
       <p>{{ stats.countYearsJo }}</p>
     </div>
 
-    <!-- Cadre 2 : Nombre de pays -->
     <div class="stat-box">
       <h2>Nombre de pays</h2>
       <p>{{ stats.countCountries }}</p>
     </div>
 
   </div>
+</div -->
+<!-- app-box-stats [boxStats]="boxStats" ></app-box-stats>
+<div *ngIf="boxStats as stats; else noStats">
+  <div class="title-box">
+    <h1>{{ stats.name }}</h1>
+  </div>
+
+  <div class="stats-container">
+    <div class="stat-box" *ngFor="let stat of stats.stats">
+      <h2>{{ stat.label }}</h2>
+      <p>{{ stat.value }}</p>
+    </div>
+  </div>
 </div>
 
-<!-- en cas d'absence de participationStats$ -->
 <ng-template #noStats>
-  <p class="no-data-message">Données de participation indisponibles.</p>
-</ng-template>
+  <p class="no-data-message">Données indisponibles.</p>
+</ng-template  -->
 
 <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;">
   <ngx-charts-pie-chart

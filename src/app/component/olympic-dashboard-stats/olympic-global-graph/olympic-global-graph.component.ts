@@ -11,6 +11,9 @@ import {LoadingService} from "../../../core/services/loading.service";
 import {AppModule} from "../../../app.module";
 import {LoadingComponent} from "../../fwk/loading/loading.component";
 import {Olympic} from "../../../core/models/Olympic";
+import {Stat} from "../../../core/models/stats/Stat";
+import {Stats} from "../../../core/models/stats/Stats";
+import {BoxStatsComponent} from "../box-stats/box-stats.component";
 
 @Component({
   selector: 'app-olympic-global-graph',
@@ -21,6 +24,7 @@ import {Olympic} from "../../../core/models/Olympic";
     //NgStyle,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule,
+    BoxStatsComponent
   ],
   templateUrl: './olympic-global-graph.component.html',
   styleUrls: ['./olympic-global-graph.component.scss', '../olympic-shared-graph.component.scss'],
@@ -29,12 +33,16 @@ import {Olympic} from "../../../core/models/Olympic";
   ]
 })
 export class OlympicGlobalGraphComponent implements OnInit {
-  //@Input() data: Olympic[] = [];
-  @Input()
-  titre: string = 'titre';
 
   @Input()
-  participationStats: { countYearsJo: number; countCountries: number; } | null | undefined;
+  boxStats: Stats | null | undefined = {
+    name: 'Titre stats',
+    stats: [
+      { label: 'stat1', value: 10 },
+      { label: 'stat2', value: 20 }
+    ]
+  };
+
   @Input()
   medalPieData: MedalPieData[]  | null | undefined;
 
@@ -51,21 +59,12 @@ export class OlympicGlobalGraphComponent implements OnInit {
     console.log(
       'OlympicGlobalGraphComponent.ngOnInit');
     console.log('LoadingService instance (from global graph) :', this.loadingService);
-    //this.loadingService.loadingOn();//test KO alors que depuis Home OK
   }
 
   goToDetailCountryStats(countryId: number): void {
     console.log('***** goToDetailCountryStats', countryId,' *****');
     this.router.navigate([AppRoutes.OLYMPIC_STATS + '/' + countryId]);
   }
-
-  // getCardHeight(medalsCount: number): number {
-  //   const baseHeight = 10;
-  //   const scaleFactor = 1;
-  //   const maxHeight = 400; // Limite supérieure
-  //   const minHeight = 10; // Limite inférieure
-  //   return Math.max(minHeight, Math.min(baseHeight + (medalsCount * scaleFactor), maxHeight));
-  // }
 
   /**
    * Handles the selection of a slice from the pie chart. This method logs the selected item,

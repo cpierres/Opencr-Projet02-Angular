@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {LoadingComponent} from "./component/fwk/loading/loading.component";
 import {LoadingService} from "./core/services/loading.service";
+import {BoxStatsComponent} from "./component/olympic-dashboard-stats/box-stats/box-stats.component";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, ],
@@ -21,7 +22,7 @@ import {LoadingService} from "./core/services/loading.service";
     OlympicGlobalGraphComponent,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule, // Module de ngx-charts pour les graphiques
-    LoadingComponent
+    LoadingComponent, BoxStatsComponent
   ],
   providers: [LoadingService],
   bootstrap: [AppComponent]
