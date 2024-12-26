@@ -25,8 +25,16 @@ export class LoadingService {
   loading$ = this.loadingSubject.asObservable();
 
   constructor() {
-    debugger;
+    //debugger;
     console.log("LoadingService created ...");
+  }
+
+  loadingOn() {
+    this.loadingSubject.next(true);
+  }
+
+  loadingOff() {
+    this.loadingSubject.next(false);
   }
 
   /**
@@ -53,13 +61,5 @@ export class LoadingService {
         //on désactive l'indicateur de loading
       );
     //l'observable retourné sera de même type que l'observable$ en entrée
-  }
-
-  loadingOn() {
-    this.loadingSubject.next(true);
-  }
-
-  loadingOff() {
-    this.loadingSubject.next(false);
   }
 }

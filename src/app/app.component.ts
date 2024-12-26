@@ -7,7 +7,7 @@ import {LoadingService} from "./core/services/loading.service";
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [LoadingService]
+  //providers: [LoadingService]
 })
 export class AppComponent {
   //constructor(private olympicService: OlympicService) {}
