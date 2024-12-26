@@ -9,6 +9,7 @@ import {Observable, of} from "rxjs";
 import {SeriesLine} from "../../core/models/stats/SeriesLine";
 import {Stats} from "../../core/models/stats/Stats";
 import {AsyncPipe} from "@angular/common";
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-olympic-country-detail',
@@ -23,12 +24,13 @@ import {AsyncPipe} from "@angular/common";
 })
 export class OlympicCountryDetailComponent implements OnInit {
   boxStats$: Observable<Stats | undefined> | undefined;
-  lineChartData$: Observable<SeriesLine[]| undefined > = of([]);
+  lineChartData$: Observable<SeriesLine[] | undefined> = of([]);
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private olympicService: OlympicService) {
+    private olympicService: OlympicService,
+    private logger: NGXLogger) {
   }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class OlympicCountryDetailComponent implements OnInit {
   }
 
   goToHome(): void {
-    console.log('***** goToHome *****');
+    this.logger.debug('***** goToHome *****');
     this.router.navigate(['/']); // Navigue vers le chemin racine
   }
 }

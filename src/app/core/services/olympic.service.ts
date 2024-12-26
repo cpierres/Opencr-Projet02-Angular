@@ -7,6 +7,7 @@ import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
 import {Stats} from "../models/stats/Stats";
+import {NGXLogger} from 'ngx-logger';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,10 @@ export class OlympicService {
   private subject = new BehaviorSubject<Olympic[]>([]);
   olympics$ = this.subject.asObservable();
 
-  constructor(private http: HttpClient, private loadingService: LoadingService) {
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService,
+    private logger: NGXLogger) {
     /*
     Faire le subscribe dans le constructor permet de renseigner effectivement le cache, rendant les données
     accessibles à tout moment via l'observable olympics$, sans besoin de refaire une requête HTTP.
@@ -33,7 +37,7 @@ export class OlympicService {
     Pour prévenir de cette mauvaise utilisation potentielle, j'ai refactorisé vers une méthode
     refreshDataCache() public qui s'occupe de la gestion du BehaviorObject.
      */
-    console.log('OlympicService constructor (Singleton) ; appel de refreshDataCache() => loadInitialData');
+    this.logger.debug('OlympicService constructor (Singleton) ; appel de refreshDataCache() => loadInitialData');
     this.refreshDataCache();
   }
 
@@ -43,12 +47,12 @@ export class OlympicService {
    * @return {void} This method does not return any value but reloads the data and logs output for debugging.
    */
   public refreshDataCache() {
-     this.loadInitialData().pipe(
+    this.loadInitialData().pipe(
       //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
       //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
       take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
       // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
-    ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
+    ).subscribe(data => this.logger.debug('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
   }
 
   /**
@@ -63,7 +67,7 @@ export class OlympicService {
    *
    */
   loadInitialData(): Observable<Olympic[]> {
-    console.log('OlympicService.loadInitialData() : appel backend')
+    this.logger.debug('OlympicService.loadInitialData() : appel backend')
     this.loadingService.loadingOn();
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
@@ -72,17 +76,17 @@ export class OlympicService {
         delay(3000), // délai de 3 secondes pour test loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
-          console.log(message, err);
+          this.logger.debug(message, err);
           return throwError(err);
         }),
         tap(olympics => {
-          console.log('OlympicService.loadInitialData() tap : data (mise en cache dans le BehaviorSubject)', olympics);
+          this.logger.debug('OlympicService.loadInitialData() tap : data (mise en cache dans le BehaviorSubject)', olympics);
           this.subject.next(olympics)//dès lors qu'on inscrit le flux Observable de http.get vers le cache
                                      //BehaviorSubject, l'observable olympics$ en variable membre est associé à ce sujet
                                      //en tant que simple Observable (sans possibilité de le modifier)
                                      //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
         }),
-        finalize(()=>this.loadingService.loadingOff())
+        finalize(() => this.loadingService.loadingOff())
       );
   }
 
@@ -100,7 +104,7 @@ export class OlympicService {
    *          countCountries (nombre d'années uniques de participations).
    */
   getParticipationStats(): Observable<{ countYearsJo: number, countCountries: number }> {
-    console.log('appel OlympicService.getParticipationStats()');
+    this.logger.debug('appel OlympicService.getParticipationStats()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const totalCountries = olympics.length; // Chaque entrée correspond à un pays
@@ -114,7 +118,7 @@ export class OlympicService {
         const totalYears = yearSet.size; // Nombre d'années uniques
         return {countYearsJo: totalYears, countCountries: totalCountries};
       }),
-      tap(stats => console.log('OlympicService.getParticipationStats data', stats))
+      tap(stats => this.logger.debug('OlympicService.getParticipationStats data', stats))
     );
   }
 
@@ -129,7 +133,7 @@ export class OlympicService {
    *          le nombre d'années uniques de participations.
    */
   getHomeStats(): Observable<Stats> {
-    console.log('appel OlympicService.getHomeStats()');
+    this.logger.debug('appel OlympicService.getHomeStats()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const totalCountries = olympics.length; // Chaque entrée correspond à un pays
@@ -141,10 +145,13 @@ export class OlympicService {
         });
 
         const totalYears = yearSet.size; // Nombre d'années uniques
-        return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]};
+        return {
+          name: 'Médailles par pays',
+          stats: [{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]
+        };
         //return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries},{label: 'stat3', value: 123}]};
       }),
-      tap(stats => console.log('OlympicService.getHomeStats data', stats))
+      tap(stats => this.logger.debug('OlympicService.getHomeStats data', stats))
     );
   }
 
@@ -168,7 +175,7 @@ export class OlympicService {
    * qui correspondent aux données requises par le composant ngx-charts-pie-chart
    */
   getMedalsPieData(): Observable<MedalPieData[]> {
-    console.log('appel OlympicService.getMedalsPieData()');
+    this.logger.debug('appel OlympicService.getMedalsPieData()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) =>
         olympics.map((o: Olympic) => ({
@@ -178,7 +185,7 @@ export class OlympicService {
         }))
       ),
       tap(data => {
-        console.log('OlympicService.getMedalsPieData tap data', data)
+        this.logger.debug('OlympicService.getMedalsPieData tap data', data)
       })
     );
   }
@@ -190,22 +197,28 @@ export class OlympicService {
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
   getOlympicStatsOfCountryId(id: number): Observable<Stats | undefined> {
-    console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
+    this.logger.debug('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
         return country
           ? {
             //id: country.id,
-            name: country.country,stats:[
-              {label:'Nombre de participations',value:country.participations.length},
-              {label:'Nombre total de médailles',value:country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)},
-              {label:'Nombre total d\'athlètes',value:country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)}
+            name: country.country, stats: [
+              {label: 'Nombre de participations', value: country.participations.length},
+              {
+                label: 'Nombre total de médailles',
+                value: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
+              },
+              {
+                label: 'Nombre total d\'athlètes',
+                value: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
+              }
             ]
           }
           : undefined;
       }),
-      tap(data => console.log('OlympicService.getOlympicStatsOfCountryId => data : ', data))
+      tap(data => this.logger.debug('OlympicService.getOlympicStatsOfCountryId => data : ', data))
     );
   }
 
@@ -229,7 +242,7 @@ export class OlympicService {
    * contenant les informations de médaille pour le country/olympic
    */
   getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[]> {
-    console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
+    this.logger.debug('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic au param olympicId
@@ -246,7 +259,7 @@ export class OlympicService {
             value: part.medalsCount
           }))
         };
-        console.log('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
+        this.logger.debug('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
         return [seriesLine]; // Retourner un tableau contenant SeriesLine
       })
     );

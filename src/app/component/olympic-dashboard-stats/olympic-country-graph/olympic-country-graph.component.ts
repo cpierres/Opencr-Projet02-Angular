@@ -3,6 +3,7 @@ import {LineChartModule} from "@swimlane/ngx-charts";
 import {SeriesLine} from "../../../core/models/stats/SeriesLine";
 import {LoadingService} from "../../../core/services/loading.service";
 import {NgIf} from "@angular/common";
+import { NGXLogger } from 'ngx-logger';
 
 @Component({
   selector: 'app-olympic-country-graph',
@@ -22,11 +23,10 @@ export class OlympicCountryGraphComponent implements OnInit {
   @Input()
   lineChartData: SeriesLine[] | undefined | null = [];
 
-  constructor() {
+  constructor(private logger:NGXLogger) {
   }
 
   ngOnInit(): void {
-    console.log(
-      'OlympicCountryGraphComponent.ngOnInit');
+    this.logger.debug('OlympicCountryGraphComponent.ngOnInit');
   }
 }

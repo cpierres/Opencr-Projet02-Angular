@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {NGXLogger} from 'ngx-logger';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private logger: NGXLogger) {
   }
 
   ngOnInit(): void {
-    console.log('app.component.ts ngOnInit()');
+    this.logger.debug('app.component.ts ngOnInit()');
   }
 }

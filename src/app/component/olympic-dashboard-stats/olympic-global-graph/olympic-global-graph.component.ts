@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {MedalPieData} from "../../../core/models/stats/MedalPieData";
 import {LoadingService} from "../../../core/services/loading.service";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'app-olympic-global-graph',
@@ -22,7 +23,7 @@ import {LoadingService} from "../../../core/services/loading.service";
 export class OlympicGlobalGraphComponent implements OnInit {
 
   @Input()
-  medalPieData: MedalPieData[]  | null | undefined;
+  medalPieData: MedalPieData[] | null | undefined;
 
   @Output() pieChartClickEmitter = new EventEmitter<string>();
 
@@ -30,16 +31,16 @@ export class OlympicGlobalGraphComponent implements OnInit {
     this.pieChartClickEmitter.emit(event);
   }
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private logger: NGXLogger) {
   }
 
   ngOnInit(): void {
-    console.log(
+    this.logger.debug(
       'OlympicGlobalGraphComponent.ngOnInit');
   }
 
   goToDetailCountryStats(countryId: number): void {
-    console.log('***** goToDetailCountryStats', countryId,' *****');
+    this.logger.debug('***** goToDetailCountryStats', countryId, ' *****');
     this.router.navigate([AppRoutes.OLYMPIC_STATS + '/' + countryId]);
   }
 
@@ -53,9 +54,9 @@ export class OlympicGlobalGraphComponent implements OnInit {
    * @return {void} This method does not return any value.
    */
   onSelectSlicePie(event: MedalPieData): void {
-    console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
+    this.logger.debug('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
     const selectedCountryId: number = event.extra.id;
-    console.log('OlympicGlobalGraphComponent.onSelectSlicePie:', selectedCountryId);
+    this.logger.debug('OlympicGlobalGraphComponent.onSelectSlicePie:', selectedCountryId);
     // Navigue vers l'écran olympic-country-detail avec l'ID du pays
     this.goToDetailCountryStats(selectedCountryId);
   }

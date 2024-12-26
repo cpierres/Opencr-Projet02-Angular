@@ -25,8 +25,6 @@ export class LoadingService {
   loading$ = this.loadingSubject.asObservable();
 
   constructor() {
-    //debugger;
-    console.log("LoadingService created ...");
   }
 
   loadingOn() {
@@ -49,7 +47,7 @@ export class LoadingService {
    * @param observable$
    */
   showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T> {
-    console.log('showLoaderUntilCompleted()');
+    //this.logger.debug('showLoaderUntilCompleted()');
     return of(null)//on crée un observable null qui se complète/termine immédiatement et on enchaine avec la suite
       .pipe(
         tap(() => this.loadingOn()),//effet secondaire : on déclenche loadingOn() qui affiche l'indicateur

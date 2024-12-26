@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {MedalPieData} from "../../core/models/stats/MedalPieData";
 import {OlympicService} from "../../core/services/olympic.service";
 import {Stats} from "../../core/models/stats/Stats";
+import {NGXLogger} from "ngx-logger";
 
 @Component({
   selector: 'app-home',
@@ -24,12 +25,12 @@ export class HomeComponent implements OnInit {
   boxStats$: Observable<Stats> | undefined;
   medalPieData$: Observable<MedalPieData[]> | undefined;
 
-  constructor(private olympicService: OlympicService) {
-    console.log('home.component.ts constructor()');
+  constructor(private olympicService: OlympicService, private logger: NGXLogger) {
+    this.logger.debug('home.component.ts constructor()');
   }
 
   ngOnInit(): void {
-    console.log('home.component.ts ngOnInit()');
+    this.logger.debug('home.component.ts ngOnInit()');
     this.boxStats$ = this.olympicService.getHomeStats();
     this.medalPieData$ = this.olympicService.getMedalsPieData();
   }
