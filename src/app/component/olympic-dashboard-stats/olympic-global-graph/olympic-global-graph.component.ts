@@ -19,7 +19,6 @@ import {BoxStatsComponent} from "../box-stats/box-stats.component";
     //NgStyle,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule,
-    BoxStatsComponent
   ],
   templateUrl: './olympic-global-graph.component.html',
   styleUrls: ['./olympic-global-graph.component.scss', '../olympic-shared-graph.component.scss'],
@@ -28,15 +27,6 @@ import {BoxStatsComponent} from "../box-stats/box-stats.component";
   ]
 })
 export class OlympicGlobalGraphComponent implements OnInit {
-
-  @Input()
-  boxStats: Stats | null | undefined = {
-    name: 'Titre stats',
-    stats: [
-      { label: 'stat1', value: 10 },
-      { label: 'stat2', value: 20 }
-    ]
-  };
 
   @Input()
   medalPieData: MedalPieData[]  | null | undefined;
