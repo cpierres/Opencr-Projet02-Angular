@@ -1,11 +1,12 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, filter, map, Observable, switchMap, take, throwError} from 'rxjs';
+import {BehaviorSubject, delay, filter, finalize, map, Observable, switchMap, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {StatsForCountry} from "../models/stats/StatsForCountry";
 import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
+import {LoadingService} from "./loading.service";
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class OlympicService {
   private subject = new BehaviorSubject<Olympic[]>([]);
   olympics$ = this.subject.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private loadingService: LoadingService) {
     /*
     Faire le subscribe dans le constructor permet de renseigner effectivement le cache, rendant les données
     accessibles à tout moment via l'observable olympics$, sans besoin de refaire une requête HTTP.
@@ -42,7 +43,7 @@ export class OlympicService {
    * @return {void} This method does not return any value but reloads the data and logs output for debugging.
    */
   public refreshDataCache() {
-    this.loadInitialData().pipe(
+     this.loadInitialData().pipe(
       //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
       //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
       take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
@@ -58,14 +59,17 @@ export class OlympicService {
    * évitant d'enregistrer trop d'éléments (inutiles) dans le cache et en fermant .
    * QUESTION : j'hésite à mettre cette méthode de service en public car elle est susceptible d'une mauvaise
    * utilisation si le développeur oublie de faire un take(1). De plus, si elle est appelée intempestivement
-   * plusieurs fois sans le take(1), elle peut inscrire
+   * plusieurs fois sans le take(1), elle peut déclencher des écoutes multiples non souhaitées.
    *
    */
   loadInitialData(): Observable<Olympic[]> {
-    console.log('OlympicService.loadInitialData() : appel backend');
+    console.log('OlympicService.loadInitialData() : appel backend')
+    this.loadingService.loadingOn();
+    //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
         //filter(data => data.length > 0),
+        delay(3000), // délai de 3 secondes pour test loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
           console.log(message, err);
@@ -76,8 +80,9 @@ export class OlympicService {
           this.subject.next(olympics)//dès lors qu'on inscrit le flux Observable de http.get vers le cache
                                      //BehaviorSubject, l'observable olympics$ en variable membre est associé à ce sujet
                                      //en tant que simple Observable (sans possibilité de le modifier)
-          //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
-        })
+                                     //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
+        }),
+        finalize(()=>this.loadingService.loadingOff())
       );
   }
 

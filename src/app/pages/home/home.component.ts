@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoadingService} from "../../core/services/loading.service";
 // import {Observable, of} from 'rxjs';
 // import { OlympicService } from 'src/app/core/services/olympic.service';
 // import {Olympic} from "../../core/models/Olympic";
@@ -22,10 +23,16 @@ export class HomeComponent implements OnInit {
   //olympics$: Observable<Olympic[]> = of([]) ;
 
   //constructor(private olympicService: OlympicService) {}
+  constructor(private loadingService: LoadingService) {
+    console.log('home.component.ts constructor()');
+    console.log('LoadingService instance (from home.component) :', this.loadingService);
+  }
 
   ngOnInit(): void {
     console.log('home.component.ts ngOnInit()');
     //this.olympics$ = this.olympicService.getOlympics();
+    //this.loadingService.loadingOn();
+    //this.loadingService.loadingOff();
   }
 
 }

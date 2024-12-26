@@ -6,6 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {LineChartModule} from "@swimlane/ngx-charts";
 import {SeriesLine} from "../../../core/models/stats/SeriesLine";
+import {LoadingService} from "../../../core/services/loading.service";
 
 @Component({
   selector: 'app-olympic-country-graph',
@@ -16,7 +17,10 @@ import {SeriesLine} from "../../../core/models/stats/SeriesLine";
     LineChartModule
   ],
   templateUrl: './olympic-country-graph.component.html',
-  styleUrls: ['./olympic-country-graph.component.scss', '../olympic-shared-graph.component.scss']
+  styleUrls: ['./olympic-country-graph.component.scss', '../olympic-shared-graph.component.scss'],
+  providers: [
+    LoadingService
+  ]
 })
 
 export class OlympicCountryGraphComponent implements OnInit {
@@ -25,7 +29,8 @@ export class OlympicCountryGraphComponent implements OnInit {
 
   constructor(
     private olympicService: OlympicService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private loadingService: LoadingService) {
   }
 
   ngOnInit(): void {

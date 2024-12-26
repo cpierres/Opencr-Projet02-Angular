@@ -7,6 +7,9 @@ import {AppRoutes} from "../../../app.routes";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {MedalPieData} from "../../../core/models/stats/MedalPieData";
+import {LoadingService} from "../../../core/services/loading.service";
+import {AppModule} from "../../../app.module";
+import {LoadingComponent} from "../../fwk/loading/loading.component";
 
 @Component({
   selector: 'app-olympic-global-graph',
@@ -17,17 +20,20 @@ import {MedalPieData} from "../../../core/models/stats/MedalPieData";
     //NgForOf,
     //NgStyle,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
-    NgxChartsModule
+    NgxChartsModule,
   ],
   templateUrl: './olympic-global-graph.component.html',
-  styleUrls: ['./olympic-global-graph.component.scss', '../olympic-shared-graph.component.scss']
+  styleUrls: ['./olympic-global-graph.component.scss', '../olympic-shared-graph.component.scss'],
+  providers: [
+    LoadingService
+  ]
 })
 export class OlympicGlobalGraphComponent implements OnInit {
   participationStats$: Observable<{ countYearsJo: number; countCountries: number; }> | undefined;
   //medalsCountByCountry$: Observable<{ id: number, country: string, medalsCount: number }[]> | undefined;
   medalPieData$: Observable<MedalPieData[]> | undefined;
 
-  constructor(private olympicService: OlympicService, private router: Router) {
+  constructor(private olympicService: OlympicService, private router: Router, private loadingService: LoadingService) {
   }
 
   ngOnInit(): void {
@@ -36,6 +42,8 @@ export class OlympicGlobalGraphComponent implements OnInit {
     this.participationStats$ = this.olympicService.getParticipationStats();
     //this.medalsCountByCountry$ = this.olympicService.getMedalsCountByCountry();
     this.medalPieData$ = this.olympicService.getMedalsPieData();
+    console.log('LoadingService instance (from global graph) :', this.loadingService);
+    //this.loadingService.loadingOn();//test KO alors que depuis Home OK
   }
 
   goToDetailCountryStats(countryId: number): void {
@@ -67,5 +75,4 @@ export class OlympicGlobalGraphComponent implements OnInit {
     // Navigue vers l'écran olympic-country-detail avec l'ID du pays
     this.goToDetailCountryStats(selectedCountryId);
   }
-
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {LoadingService} from "./core/services/loading.service";
 //import {OlympicService} from "./core/services/olympic.service";
 //import {take} from "rxjs";
 
@@ -6,9 +7,13 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  providers: [LoadingService]
 })
 export class AppComponent {
   //constructor(private olympicService: OlympicService) {}
+
+  constructor(private loadingService: LoadingService) {
+  }
 
   ngOnInit(): void {
     console.log('app.component.ts ngOnInit()');

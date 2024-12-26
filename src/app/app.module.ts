@@ -10,9 +10,11 @@ import {
 } from "./component/olympic-dashboard-stats/olympic-global-graph/olympic-global-graph.component";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
+import {LoadingComponent} from "./component/fwk/loading/loading.component";
+import {LoadingService} from "./core/services/loading.service";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, LoadingComponent],
   imports: [BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -20,8 +22,9 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule, // Module de ngx-charts pour les graphiques
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [LoadingService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
+
 }
