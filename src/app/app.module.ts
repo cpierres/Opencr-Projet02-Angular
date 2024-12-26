@@ -14,13 +14,14 @@ import {LoadingComponent} from "./component/fwk/loading/loading.component";
 import {LoadingService} from "./core/services/loading.service";
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, NotFoundComponent, LoadingComponent],
+  declarations: [AppComponent, HomeComponent, NotFoundComponent, ],
   imports: [BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     OlympicGlobalGraphComponent,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule, // Module de ngx-charts pour les graphiques
+    LoadingComponent
   ],
   providers: [LoadingService],
   bootstrap: [AppComponent]

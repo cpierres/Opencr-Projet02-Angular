@@ -77,7 +77,7 @@ export class OlympicGlobalGraphComponent implements OnInit {
    * @return {void} This method does not return any value.
    */
   onSelectSlicePie(event: MedalPieData): void {
-    // console.log('Item clicked', JSON.parse(JSON.stringify(event)));
+    console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
     const selectedCountryId: number = event.extra.id;
     console.log('OlympicGlobalGraphComponent.onSelectSlicePie:', selectedCountryId);
     // Navigue vers l'écran olympic-country-detail avec l'ID du pays
