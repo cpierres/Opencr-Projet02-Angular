@@ -1,12 +1,13 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, delay, filter, finalize, map, Observable, switchMap, take, throwError} from 'rxjs';
+import {BehaviorSubject, delay, finalize, map, Observable, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
 import {Stats} from "../models/stats/Stats";
+import {MessagesService} from "./messages.service";
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,10 @@ export class OlympicService {
   private subject = new BehaviorSubject<Olympic[]>([]);
   olympics$ = this.subject.asObservable();
 
-  constructor(private http: HttpClient, private loadingService: LoadingService) {
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService,
+    private messagesService: MessagesService) {
     /*
     Faire le subscribe dans le constructor permet de renseigner effectivement le cache, rendant les données
     accessibles à tout moment via l'observable olympics$, sans besoin de refaire une requête HTTP.
@@ -72,6 +76,7 @@ export class OlympicService {
         delay(3000), // délai de 3 secondes pour test loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
+          this.messagesService.showErrors(message);
           console.log(message, err);
           return throwError(err);
         }),

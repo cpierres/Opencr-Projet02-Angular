@@ -13,6 +13,8 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {LoadingComponent} from "./component/fwk/loading/loading.component";
 import {LoadingService} from "./core/services/loading.service";
 import {BoxStatsComponent} from "./component/olympic-dashboard-stats/box-stats/box-stats.component";
+import {MessagesService} from "./core/services/messages.service";
+import {MessagesComponent} from "./component/fwk/messages/messages.component";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, ],
@@ -22,9 +24,14 @@ import {BoxStatsComponent} from "./component/olympic-dashboard-stats/box-stats/b
     OlympicGlobalGraphComponent,
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule, // Module de ngx-charts pour les graphiques
-    LoadingComponent, BoxStatsComponent
+    LoadingComponent,
+    BoxStatsComponent,
+    MessagesComponent
   ],
-  providers: [LoadingService],
+  providers: [
+    LoadingService,
+    MessagesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
