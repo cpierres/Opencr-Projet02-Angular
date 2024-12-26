@@ -1,10 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {LoadingService} from "../../core/services/loading.service";
-import {Observable, of, take} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
 import {MedalPieData} from "../../core/models/stats/MedalPieData";
 import {OlympicService} from "../../core/services/olympic.service";
-import {Olympic} from "../../core/models/Olympic";
-import {Stat} from "../../core/models/stats/Stat";
 import {Stats} from "../../core/models/stats/Stats";
 
 @Component({
@@ -27,10 +24,8 @@ export class HomeComponent implements OnInit {
   boxStats$: Observable<Stats> | undefined;
   medalPieData$: Observable<MedalPieData[]> | undefined;
 
-  //constructor(private olympicService: OlympicService) {}
-  constructor(private olympicService: OlympicService, private loadingService: LoadingService) {
+  constructor(private olympicService: OlympicService) {
     console.log('home.component.ts constructor()');
-    //console.log('LoadingService instance (from home.component) :', this.loadingService);
   }
 
   ngOnInit(): void {

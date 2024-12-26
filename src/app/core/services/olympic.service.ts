@@ -7,7 +7,6 @@ import {StatsForCountry} from "../models/stats/StatsForCountry";
 import {MedalPieData} from "../models/stats/MedalPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
-import {Stat} from "../models/stats/Stat";
 import {Stats} from "../models/stats/Stats";
 
 @Injectable({

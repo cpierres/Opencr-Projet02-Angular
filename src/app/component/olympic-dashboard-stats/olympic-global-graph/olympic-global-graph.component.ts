@@ -1,17 +1,12 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {OlympicService} from "../../../core/services/olympic.service";
-import {Observable} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
+import {NgIf} from "@angular/common";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../../app.routes";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {MedalPieData} from "../../../core/models/stats/MedalPieData";
 import {LoadingService} from "../../../core/services/loading.service";
-import {AppModule} from "../../../app.module";
-import {LoadingComponent} from "../../fwk/loading/loading.component";
-import {Olympic} from "../../../core/models/Olympic";
-import {Stat} from "../../../core/models/stats/Stat";
 import {Stats} from "../../../core/models/stats/Stats";
 import {BoxStatsComponent} from "../box-stats/box-stats.component";
 
