@@ -14,7 +14,7 @@ import {LoadingService} from "../../../core/services/loading.service";
     NgxChartsModule,
   ],
   templateUrl: './olympic-global-graph.component.html',
-  styleUrls: ['./olympic-global-graph.component.scss', '../olympic-shared-graph.component.scss'],
+  styleUrls: ['./olympic-global-graph.component.scss'],
   providers: [
     LoadingService
   ]

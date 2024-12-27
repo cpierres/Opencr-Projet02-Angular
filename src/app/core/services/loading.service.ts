@@ -25,8 +25,7 @@ export class LoadingService {
   loading$ = this.loadingSubject.asObservable();
 
   constructor() {
-    //debugger;
-    console.log("LoadingService created ...");
+    //console.log("LoadingService created ...");
   }
 
   loadingOn() {
@@ -43,7 +42,7 @@ export class LoadingService {
    * Et nous allons renvoyer comme sortie de cette méthode, un autre observable du même type.
    * Et cet observable que nous renvoyons ici va avoir des capacités d'indicateur de chargement.
    * Ainsi, ces nouveaux observables pourront activer et désactiver l'indicateur de chargement au moment approprié.
-   * Comme ces méthodes devraient être compatibles avec les observables de tout type, nous définissons  un
+   * Comme ces méthodes devraient être compatibles avec les observables de tout type, nous définissons un
    * type générique, en ajoutant ici un argument de type générique à notre fonction.
    * Ainsi, nous pourrons avoir du code de type sécurisé avec n’importe quel type d’observable.
    * @param observable$

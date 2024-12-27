@@ -12,7 +12,7 @@ import {NgIf} from "@angular/common";
     LineChartModule
   ],
   templateUrl: './olympic-country-graph.component.html',
-  styleUrls: ['./olympic-country-graph.component.scss', '../olympic-shared-graph.component.scss'],
+  styleUrls: ['./olympic-country-graph.component.scss'],
   providers: [
     LoadingService
   ]

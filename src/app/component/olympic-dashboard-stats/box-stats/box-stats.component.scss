@@ -53,3 +53,22 @@
   font-weight: bolder; /* Texte en gras pour les valeurs */
   margin: 0 0 15px; /* Augmente l'espacement en bas (margin-bottom: 15px) */
 }
+
+.no-data-container {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.no-data-container h2 {
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.no-data-container p {
+  font-size: 1.2rem;
+  color: #555;
+}
