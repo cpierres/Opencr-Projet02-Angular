@@ -61,10 +61,9 @@ export class OlympicService {
    * Les données sont ainsi accessibles à tout moment via l'observable olympics$.
    * La méthode {@link refreshDataCache()} est plus "safe" car elle récupère le flux et limite à une lecture en
    * évitant d'enregistrer trop d'éléments (inutiles) dans le cache et en fermant .
-   * QUESTION : j'hésite à mettre cette méthode de service en public car elle est susceptible d'une mauvaise
+   * QUESTION : j'hésite à mettre cette méthode de service en private car elle est susceptible d'une mauvaise
    * utilisation si le développeur oublie de faire un take(1). De plus, si elle est appelée intempestivement
    * plusieurs fois sans le take(1), elle peut déclencher des écoutes multiples non souhaitées.
-   *
    */
   loadInitialData(): Observable<Olympic[]> {
     console.log('OlympicService.loadInitialData() : appel backend')
@@ -190,12 +189,11 @@ export class OlympicService {
 
   /**
    * Données statistiques d'un seul pays à partir de son identifiant.
-   *
    * @param id L'identifiant du pays.
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
   getOlympicStatsOfCountryId(id: number): Observable<Stats | undefined> {
-    console.log('appel OlympicService.getOlympicStatsForCountryId(' + id + ')');
+    console.log('appel OlympicService.getOlympicStatsOfCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
@@ -227,21 +225,22 @@ export class OlympicService {
   }
 
   /**
-   * Récupère les données de la série de médailles (pour le graphe Line) pour un événement olympique (country) spécifique.
+   * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
    *
    * @param {number} olympicId - ID de l'Olympic
    * @return {Observable<SeriesLine[]>} Observable émettant un array d'objets SeriesLine
    * contenant les informations de médaille pour le country/olympic
    */
-  getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[]> {
+  getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[] | undefined> {
     console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic au param olympicId
         const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
         if (!olympic) {
-          throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
-          //return []
+          //throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
+          return [];//an cas d'actualisation, le flux ne reçoit pas forcément les données de suite.
+          // Par csqt, ne pas faire de throw qui interrompt mais un return[] pour laisser au flux d'arriver
         }
         // Construction de l'objet SeriesLine
         const seriesLine: SeriesLine = {

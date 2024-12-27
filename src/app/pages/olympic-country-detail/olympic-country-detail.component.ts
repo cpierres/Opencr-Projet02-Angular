@@ -5,10 +5,10 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {BoxStatsComponent} from "../../component/olympic-dashboard-stats/box-stats/box-stats.component";
 import {OlympicService} from "../../core/services/olympic.service";
-import {Observable, of} from "rxjs";
 import {SeriesLine} from "../../core/models/stats/SeriesLine";
 import {Stats} from "../../core/models/stats/Stats";
 import {AsyncPipe} from "@angular/common";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-olympic-country-detail',
@@ -23,7 +23,7 @@ import {AsyncPipe} from "@angular/common";
 })
 export class OlympicCountryDetailComponent implements OnInit {
   boxStats$: Observable<Stats | undefined> | undefined;
-  lineChartData$: Observable<SeriesLine[]| undefined > = of([]);
+  lineChartData$: Observable<SeriesLine[] | undefined> | undefined;
 
   constructor(
     private router: Router,
