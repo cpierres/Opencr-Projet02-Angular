@@ -20,7 +20,7 @@ export class MessagesComponent implements OnInit {
   errors$: Observable<string[]> = of([]);
 
   constructor(public messagesService: MessagesService) {
-    console.log("MessagesComponent.constructor");
+    //console.log("MessagesComponent.constructor");
   }
 
   ngOnInit(): void {

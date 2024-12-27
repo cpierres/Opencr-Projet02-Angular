@@ -37,7 +37,7 @@ export class OlympicService {
     Pour prévenir de cette mauvaise utilisation potentielle, j'ai refactorisé vers une méthode
     refreshDataCache() public qui s'occupe de la gestion du BehaviorObject.
      */
-    console.log('OlympicService constructor (Singleton) ; appel de refreshDataCache() => loadInitialData');
+    //console.log('OlympicService constructor (Singleton) ; appel de refreshDataCache() => loadInitialData');
     this.refreshDataCache();
   }
 
@@ -66,7 +66,7 @@ export class OlympicService {
    * plusieurs fois sans le take(1), elle peut déclencher des écoutes multiples non souhaitées.
    */
   loadInitialData(): Observable<Olympic[]> {
-    console.log('OlympicService.loadInitialData() : appel backend')
+    //console.log('OlympicService.loadInitialData() : appel backend')
     this.loadingService.loadingOn();
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
@@ -80,7 +80,7 @@ export class OlympicService {
           return throwError(err);
         }),
         tap(olympics => {
-          console.log('OlympicService.loadInitialData() tap : data (mise en cache dans le BehaviorSubject)', olympics);
+          //console.log('OlympicService.loadInitialData() tap : data (mise en cache dans le BehaviorSubject)', olympics);
           this.subject.next(olympics)//dès lors qu'on inscrit le flux Observable de http.get vers le cache
                                      //BehaviorSubject, l'observable olympics$ en variable membre est associé à ce sujet
                                      //en tant que simple Observable (sans possibilité de le modifier)
@@ -95,34 +95,6 @@ export class OlympicService {
   }
 
   /**
-   * statistiques sur le nombre de pays ayant participé
-   * et le nombre d'années différentes de participations (=nb de JOs)
-   * Ici je n'ai pas défini d'interface pour la structure du retour
-   * car c'est simple.
-   * @deprecated utiliser à la place {@link getHomeStats()} qui est plus évolutive
-   * @returns Un Observable incluant countYearsJo (le nombre de pays participants) et
-   *          countCountries (nombre d'années uniques de participations).
-   */
-  getParticipationStats(): Observable<{ countYearsJo: number, countCountries: number }> {
-    console.log('appel OlympicService.getParticipationStats()');
-    return this.olympics$.pipe(
-      map((olympics: Olympic[]) => {
-        const totalCountries = olympics.length; // Chaque entrée correspond à un pays
-        const yearSet = new Set<number>(); // Utilisation d'un Set pour conserver les années uniques
-
-        // Remplir le Set avec les différentes années de participation
-        olympics.forEach((o: Olympic) => {
-          o.participations.forEach(p => yearSet.add(p.year));
-        });
-
-        const totalYears = yearSet.size; // Nombre d'années uniques
-        return {countYearsJo: totalYears, countCountries: totalCountries};
-      }),
-      tap(stats => console.log('OlympicService.getParticipationStats data', stats))
-    );
-  }
-
-  /**
    * Statistiques à présenter sur le dashboard principal (Home)
    * Pour l'instant, il y a deux statistiques :
    * - Nombre de JOs
@@ -133,7 +105,7 @@ export class OlympicService {
    *          le nombre d'années uniques de participations.
    */
   getHomeStats(): Observable<Stats> {
-    console.log('appel OlympicService.getHomeStats()');
+    //console.log('appel OlympicService.getHomeStats()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const totalCountries = olympics.length; // Chaque entrée correspond à un pays
@@ -152,18 +124,6 @@ export class OlympicService {
     );
   }
 
-  getMedalsCountByCountry(): Observable<{ id: number, country: string, medalsCount: number }[]> {
-    return this.olympics$.pipe(
-      map((olympics: Olympic[]) =>
-        olympics.map((o: Olympic) => ({
-          id: o.id,
-          country: o.country, // Récupère le nom du pays
-          medalsCount: o.participations.reduce((accumulator, current) => accumulator + current.medalsCount, 0), // Total des médailles
-        }))
-      )
-    );
-  }
-
   /**
    * Traite les données des Jeux olympiques pour créer une liste d'objets représentant
    * la distribution des médailles par pays.
@@ -172,7 +132,7 @@ export class OlympicService {
    * qui correspondent aux données requises par le composant ngx-charts-pie-chart
    */
   getMedalsPieData(): Observable<MedalPieData[]> {
-    console.log('appel OlympicService.getMedalsPieData()');
+    //console.log('appel OlympicService.getMedalsPieData()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) =>
         olympics.map((o: Olympic) => ({
@@ -182,7 +142,7 @@ export class OlympicService {
         }))
       ),
       tap(data => {
-        console.log('OlympicService.getMedalsPieData tap data', data)
+        //console.log('OlympicService.getMedalsPieData tap data', data)
       })
     );
   }
@@ -232,7 +192,7 @@ export class OlympicService {
    * contenant les informations de médaille pour le country/olympic
    */
   getMedalsSeriesLineByOlympic(olympicId: number): Observable<SeriesLine[] | undefined> {
-    console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
+    //console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic au param olympicId
@@ -250,7 +210,7 @@ export class OlympicService {
             value: part.medalsCount
           }))
         };
-        console.log('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
+        //console.log('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
         return [seriesLine]; // Retourner un tableau contenant SeriesLine
       })
     );

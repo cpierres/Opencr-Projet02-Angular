@@ -40,7 +40,7 @@ export class OlympicCountryDetailComponent implements OnInit {
   }
 
   goToHome(): void {
-    console.log('***** goToHome *****');
+    //console.log('***** goToHome *****');
     this.router.navigate(['/']); // Navigue vers le chemin racine
   }
 }

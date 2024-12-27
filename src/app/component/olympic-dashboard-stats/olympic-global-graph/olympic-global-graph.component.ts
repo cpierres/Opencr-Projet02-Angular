@@ -30,13 +30,13 @@ export class OlympicGlobalGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('OlympicGlobalGraphComponent.ngOnInit');
+    //console.log('OlympicGlobalGraphComponent.ngOnInit');
   }
 
    // Gestionnaire local de l'événement "select"
   onSelectSlicePie(event: MedalPieData): void {
     // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
-    console.log('Slice sélectionné :', event);
+    //console.log('Slice sélectionné :', event);
     // Émettre l'événement au composant parent
     this.sliceSelected.emit(event);
   }

@@ -26,6 +26,6 @@ export class OlympicCountryGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('OlympicCountryGraphComponent.ngOnInit');
+    //console.log('OlympicCountryGraphComponent.ngOnInit');
   }
 }

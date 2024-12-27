@@ -30,11 +30,11 @@ export class HomeComponent implements OnInit {
     private olympicService: OlympicService,
     private router: Router
     ) {
-    console.log('home.component.ts constructor()');
+    //console.log('home.component.ts constructor()');
   }
 
   ngOnInit(): void {
-    console.log('home.component.ts ngOnInit()');
+    //console.log('home.component.ts ngOnInit()');
     this.boxStats$ = this.olympicService.getHomeStats();
     this.medalPieData$ = this.olympicService.getMedalsPieData();
   }
@@ -50,15 +50,15 @@ export class HomeComponent implements OnInit {
    * supplémentaire qui est l'ID du pays.
    */
   onSelectSlicePie(event: MedalPieData): void {
-    //console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
+    // console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
     const selectedCountryId: number = event.extra.id;
-    console.log('HomeComponent.onSelectSlicePie:', selectedCountryId);
+    // console.log('HomeComponent.onSelectSlicePie:', selectedCountryId);
     // Navigue vers l'écran olympic-country-detail avec l'ID du pays
     this.goToDetailCountryStats(selectedCountryId);
   }
 
   goToDetailCountryStats(countryId: number): void {
-    console.log('***** goToDetailCountryStats', countryId,' *****');
+    // console.log('***** goToDetailCountryStats', countryId,' *****');
     this.router.navigate([AppRoutes.OLYMPIC_STATS + '/' + countryId]);
   }
 }
