@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
-import {AppRoutes} from "../../../app.routes";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {MedalPieData} from "../../../core/models/stats/MedalPieData";
