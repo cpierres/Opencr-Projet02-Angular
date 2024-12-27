@@ -77,7 +77,7 @@ export class OlympicService {
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
           this.messagesService.showErrors(message);
-          console.log(message, err);
+          console.log(message, err);//à remplacer par un log serveur (elastik stack, sentry) dans la vraie vie
           return throwError(err);
         }),
         tap(olympics => {
