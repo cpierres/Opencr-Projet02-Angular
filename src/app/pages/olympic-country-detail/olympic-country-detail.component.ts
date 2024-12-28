@@ -15,7 +15,8 @@ import {ChartLine} from "../../core/models/stats/ChartLine";
   standalone: true,
   imports: [
     DetailGraphComponent,
-    BoxStatsComponent
+    BoxStatsComponent,
+    AsyncPipe
   ],
   templateUrl: './olympic-country-detail.component.html',
   styleUrl: './olympic-country-detail.component.scss'

@@ -18,7 +18,8 @@ export class BoxStatsComponent {
     name: 'Titre stats',
     stats: [
       { label: 'stat1', value: 10 },
-      { label: 'stat2', value: 20 }
+      { label: 'stat2', value: 20 },
+      { label: 'stat3', value: 20 }
     ]
   };
 }

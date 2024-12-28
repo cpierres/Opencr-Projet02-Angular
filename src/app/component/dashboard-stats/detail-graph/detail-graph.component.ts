@@ -31,7 +31,17 @@ export class DetailGraphComponent implements OnInit {
           {name: '2021', value: 210},
           {name: '2024', value: 220}
         ]
-      }]
+      },
+      // {
+      //   name: 'Moyenne autres pays',
+      //   series: [
+      //     {name: '2012', value: 120},
+      //     {name: '2016', value: 180},
+      //     {name: '2021', value: 200},
+      //     {name: '2024', value: 190}
+      //   ]
+      // },
+    ]
   };
 
   constructor() {
