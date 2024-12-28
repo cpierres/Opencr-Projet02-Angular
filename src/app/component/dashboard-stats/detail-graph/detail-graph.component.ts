@@ -1,25 +1,24 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {LineChartModule} from "@swimlane/ngx-charts";
-import {SeriesLine} from "../../../core/models/stats/SeriesLine";
 import {LoadingService} from "../../../core/services/loading.service";
 import {NgIf} from "@angular/common";
 import {ChartLine} from "../../../core/models/stats/ChartLine";
 
 @Component({
-  selector: 'app-olympic-country-graph',
+  selector: 'app-detail-graph',
   standalone: true,
   imports: [
     NgIf,
     LineChartModule
   ],
-  templateUrl: './olympic-country-graph.component.html',
-  styleUrls: ['./olympic-country-graph.component.scss'],
+  templateUrl: './detail-graph.component.html',
+  styleUrls: ['./detail-graph.component.scss'],
   providers: [
     LoadingService
   ]
 })
 
-export class OlympicCountryGraphComponent implements OnInit {
+export class DetailGraphComponent implements OnInit {
   @Input() chartLineData: ChartLine | undefined | null = {
     xAxisLabel: 'Axe des X',
     yAxisLabel: 'Axe des Y',
@@ -39,6 +38,6 @@ export class OlympicCountryGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log('OlympicCountryGraphComponent.ngOnInit');
+    //console.log('DetailGraphComponent.ngOnInit');
   }
 }

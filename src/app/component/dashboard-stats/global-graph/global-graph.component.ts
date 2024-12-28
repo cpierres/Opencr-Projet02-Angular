@@ -5,22 +5,38 @@ import {ChartPie} from "../../../core/models/stats/ChartPie";
 import {LoadingService} from "../../../core/services/loading.service";
 
 @Component({
-  selector: 'app-olympic-global-graph',
+  selector: 'app-global-graph',
   standalone: true,
   imports: [
     BrowserAnimationsModule, // Obligatoire pour ngx-charts
     NgxChartsModule,
   ],
-  templateUrl: './olympic-global-graph.component.html',
-  styleUrls: ['./olympic-global-graph.component.scss'],
+  templateUrl: './global-graph.component.html',
+  styleUrls: ['./global-graph.component.scss'],
   providers: [
     LoadingService
   ]
 })
-export class OlympicGlobalGraphComponent implements OnInit {
+export class GlobalGraphComponent implements OnInit {
 
   @Input()
-  medalPieData: ChartPie[]  | null | undefined;
+  medalPieData: ChartPie[]  | null | undefined = [
+    {
+      "name": "Pays 1",
+      "value": 96,
+      "extra": {
+        "id": 1
+      }
+    },
+    {
+      "name": "Pays 2",
+      "value": 54,
+      "extra": {
+        "id": 2
+      }
+    }
+  ]
+
 
   // Événement de sortie : pour transmettre l'élément sélectionné
   @Output() sliceSelected = new EventEmitter<ChartPie>();
@@ -29,7 +45,7 @@ export class OlympicGlobalGraphComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log('OlympicGlobalGraphComponent.ngOnInit');
+    //console.log('GlobalGraphComponent.ngOnInit');
   }
 
   /**

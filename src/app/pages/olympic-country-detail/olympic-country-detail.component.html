@@ -1,7 +1,9 @@
 <!-- p>olympic-country-detail (page) works!</p -->
-<app-box-stats [boxStats]="boxStats$ | async" ></app-box-stats>
-<app-olympic-country-graph [chartLineData]="lineChartData$ | async" />
-<app-olympic-country-graph  />
+<app-box-stats/>
+<app-detail-graph  />
+
+<!-- app-box-stats [boxStats]="boxStats$ | async" ></app-box-stats>
+<app-detail-graph [chartLineData]="lineChartData$ | async" / -->
 
 <div class="centered-button">
   <button class="rounded-button" (click)="goToHome()">Retour</button>

@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   /**
-   * Configuration de l'événement @Output onSelectSlicePie du composant app-olympic-global-graph.
+   * Configuration de l'événement @Output onSelectSlicePie du composant app-global-graph.
    * Gère la sélection d'une tranche de PieChart. Cette méthode enregistre l'élément sélectionné,
    * récupère l'ID de pays correspondant à partir de l'événement et accède à la page de détails
    * des statistiques du pays sélectionné.

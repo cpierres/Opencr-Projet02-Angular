@@ -4,7 +4,6 @@ import {BehaviorSubject, delay, finalize, map, Observable, take, throwError} fro
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {ChartPie} from "../models/stats/ChartPie";
-import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
 import {Stats} from "../models/stats/Stats";
 import {MessagesService} from "./messages.service";
@@ -156,11 +155,11 @@ export class OlympicService {
           extra: {id: o.id}
         }))
       ),
-      //tap(
-        //data => {
-        //console.log('OlympicService.getMedalsPieData tap data', data)
-        //}
-      //)
+      tap(
+        data => {
+        console.log('OlympicService.getMedalsPieData data', data)
+        }
+      )
     );
   }
 
@@ -211,11 +210,11 @@ export class OlympicService {
    * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
    *
    * @param {number} olympicId - ID de l'Olympic
-   * @return {Observable<SeriesLine[]>} Observable émettant un array d'objets SeriesLine
+   * @return {Observable<ChartLine>} Observable émettant un ChartLine avec son array d'objets SeriesLine
    * contenant les informations de médaille pour le country/olympic
    */
-  getMedalsSeriesLineByOlympic(olympicId: number): Observable<ChartLine | undefined> {
-    //console.log('appel OlympicService.getMedalsSeriesLineByOlympic(' + olympicId + ')');
+  getMedalsChartLineByOlympic(olympicId: number): Observable<ChartLine | undefined> {
+    //console.log('appel OlympicService.getMedalsChartLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic au param olympicId
@@ -239,9 +238,9 @@ export class OlympicService {
             }
           ]
         };
-        //console.log('OlympicService.getMedalsSeriesLineByOlympic => SeriesLine[]', seriesLine);
         return chartLine; // Retourner un descriptif de chart avec les données de séries
-      })
+      }),
+      tap(data => console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data))
     );
   }
 

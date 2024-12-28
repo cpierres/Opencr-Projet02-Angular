@@ -28,13 +28,17 @@ L'application des Jeux Olympiques est conçue pour :
 ## Composants Réutilisables
 
 Voici les principaux composants réutilisables utilisés dans le projet Angular :
-- **AppComponent** : Composant racine du projet, servant comme point d'entrée principal.
+- **BoxStatsComponent** : Permet d'afficher des boites de statistiques (1 titre et n boites de stat. avec libellé et valeur) 
+- **GlobalGraphComponent** : Permet de visualiser des graphiques globaux concernant les statistiques des Jeux Olympiques.
+- **DetailGraphComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
+
+## Composants de services partagés
+
+
+## Pages
 - **HomeComponent** : Page d'entrée du tableau de bord olympique, servant de point de départ pour explorer les fonctionnalités.
-- **OlympicGlobalGraphComponent** : Permet de visualiser des graphiques globaux concernant les statistiques des Jeux Olympiques.
-- **OlympicCountryDetail** : Page de détail des statistiques par pays, pour gérer la navigation et inclure le composant ci-dessous. 
-- **OlympicCountryDetailComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
-
-
+- **OlympicCountryDetail** : Page de détail des statistiques par pays, pour gérer la navigation et inclure le composant ci-dessous.
+- 
 ## Démo
 
 - **Serveur de développement** : `http://localhost:4200/`

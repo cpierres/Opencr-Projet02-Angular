@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {
-  OlympicCountryGraphComponent
-} from "../../component/olympic-dashboard-stats/olympic-country-graph/olympic-country-graph.component";
+  DetailGraphComponent
+} from "../../component/dashboard-stats/detail-graph/detail-graph.component";
 import {ActivatedRoute, Router} from "@angular/router";
-import {BoxStatsComponent} from "../../component/olympic-dashboard-stats/box-stats/box-stats.component";
+import {BoxStatsComponent} from "../../component/dashboard-stats/box-stats/box-stats.component";
 import {OlympicService} from "../../core/services/olympic.service";
-import {SeriesLine} from "../../core/models/stats/SeriesLine";
 import {Stats} from "../../core/models/stats/Stats";
 import {AsyncPipe} from "@angular/common";
 import {Observable} from "rxjs";
@@ -15,9 +14,8 @@ import {ChartLine} from "../../core/models/stats/ChartLine";
   selector: 'app-olympic-country-detail',
   standalone: true,
   imports: [
-    OlympicCountryGraphComponent,
-    BoxStatsComponent,
-    AsyncPipe
+    DetailGraphComponent,
+    BoxStatsComponent
   ],
   templateUrl: './olympic-country-detail.component.html',
   styleUrl: './olympic-country-detail.component.scss'
@@ -36,7 +34,7 @@ export class OlympicCountryDetailComponent implements OnInit {
     const countryId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
     if (countryId) {
       this.boxStats$ = this.olympicService.getOlympicStatsOfCountryId(+countryId);
-      this.lineChartData$ = this.olympicService.getMedalsSeriesLineByOlympic(+countryId);
+      this.lineChartData$ = this.olympicService.getMedalsChartLineByOlympic(+countryId);
     }
   }
 
