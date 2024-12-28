@@ -33,7 +33,8 @@ Voici les principaux composants réutilisables utilisés dans le projet Angular 
 - **DetailGraphComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
 Ces composants peuvent être instanciés dans différents contextes.
 
-## Composants de services partagés
+## Composants de services partagés (réactifs)
+
 - **LoadingComponent** et **LoadingService** : pour faire patienter l'utilisateur lors du chargement d'un flux. La méthode `showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T>` permet de greffer le loading sur un Observable sans être intrusif. 
 - **MessagesService** : pour gérer les messages erreurs affichés à l'utilisateur.
 
