@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {MedalPieData} from "../../core/models/stats/MedalPieData";
+import {SelectPieData} from "../../core/models/stats/SelectPieData";
 import {OlympicService} from "../../core/services/olympic.service";
 import {Stats} from "../../core/models/stats/Stats";
 import {Router} from "@angular/router";
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
 
   //olympics$: Observable<Olympic[]> = of([]) ;
   boxStats$: Observable<Stats> | undefined;
-  medalPieData$: Observable<MedalPieData[]> | undefined;
+  medalPieData$: Observable<SelectPieData[]> | undefined;
 
   constructor(
     private olympicService: OlympicService,
@@ -45,11 +45,11 @@ export class HomeComponent implements OnInit {
    * récupère l'ID de pays correspondant à partir de l'événement et accède à la page de détails
    * des statistiques du pays sélectionné.
    *
-   * @param {MedalPieData} event - L'objet événement est déclenché lorsqu'une tranche du PieChart
+   * @param {SelectPieData} event - L'objet événement est déclenché lorsqu'une tranche du PieChart
    * est sélectionnée. Il contient des détails sur la tranche sélectionnée, y compris une donnée
    * supplémentaire qui est l'ID du pays.
    */
-  onSelectSlicePie(event: MedalPieData): void {
+  onSelectSlicePie(event: SelectPieData): void {
     // console.log('onSelectSlicePie', JSON.parse(JSON.stringify(event)));
     const selectedCountryId: number = event.extra.id;
     // console.log('HomeComponent.onSelectSlicePie:', selectedCountryId);

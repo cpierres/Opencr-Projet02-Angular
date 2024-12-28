@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Router} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {MedalPieData} from "../../../core/models/stats/MedalPieData";
+import {SelectPieData} from "../../../core/models/stats/SelectPieData";
 import {LoadingService} from "../../../core/services/loading.service";
 
 @Component({
@@ -21,20 +20,24 @@ import {LoadingService} from "../../../core/services/loading.service";
 export class OlympicGlobalGraphComponent implements OnInit {
 
   @Input()
-  medalPieData: MedalPieData[]  | null | undefined;
+  medalPieData: SelectPieData[]  | null | undefined;
 
   // Événement de sortie : pour transmettre l'élément sélectionné
-  @Output() sliceSelected = new EventEmitter<MedalPieData>();
+  @Output() sliceSelected = new EventEmitter<SelectPieData>();
 
-  constructor(private router: Router) {
+  constructor() {
   }
 
   ngOnInit(): void {
     //console.log('OlympicGlobalGraphComponent.ngOnInit');
   }
 
-   // Gestionnaire local de l'événement "select"
-  onSelectSlicePie(event: MedalPieData): void {
+  /**
+   *  Gestion de l'événément de sélection d'un slice de pie
+   *  à transmettre en output du composant parent
+   * @param event
+   */
+  onSelectSlicePie(event: SelectPieData): void {
     // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
     //console.log('Slice sélectionné :', event);
     // Émettre l'événement au composant parent

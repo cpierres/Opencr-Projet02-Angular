@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, delay, finalize, map, Observable, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
-import {MedalPieData} from "../models/stats/MedalPieData";
+import {SelectPieData} from "../models/stats/SelectPieData";
 import {SeriesLine} from "../models/stats/SeriesLine";
 import {LoadingService} from "./loading.service";
 import {Stats} from "../models/stats/Stats";
@@ -142,10 +142,10 @@ export class OlympicService {
    * Traite les données des Jeux olympiques pour créer une liste d'objets représentant
    * la distribution des médailles par pays.
    *
-   * @return {Observable<MedalPieData[]>} Un observable émettant un tableau d'objets MedalPieData,
+   * @return {Observable<SelectPieData[]>} Un observable émettant un tableau d'objets SelectPieData,
    * qui correspondent aux données requises par le composant ngx-charts-pie-chart
    */
-  getMedalsPieData(): Observable<MedalPieData[]> {
+  getMedalsPieData(): Observable<SelectPieData[]> {
     //console.log('appel OlympicService.getMedalsPieData()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) =>
@@ -155,9 +155,11 @@ export class OlympicService {
           extra: {id: o.id}
         }))
       ),
-      tap(data => {
+      //tap(
+        //data => {
         //console.log('OlympicService.getMedalsPieData tap data', data)
-      })
+        //}
+      //)
     );
   }
 
