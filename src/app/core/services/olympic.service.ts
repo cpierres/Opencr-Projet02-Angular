@@ -47,12 +47,23 @@ export class OlympicService {
    * @return {void} This method does not return any value but reloads the data and logs output for debugging.
    */
   public refreshDataCache() {
-     this.loadInitialData().pipe(
-      //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
-      //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
-      take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
-      // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
+    //méthode 1
+    //  this.loadInitialData().pipe(
+    //   //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
+    //   //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
+    //   take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
+    //   // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
+    // ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
+
+    this.loadingService.showLoaderUntilCompleted(//solution 2 pour loading (moins intrusive)
+      this.loadInitialData().pipe(
+        //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
+        //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
+        take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
+        // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
+      )
     ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
+
   }
 
   /**
@@ -67,7 +78,7 @@ export class OlympicService {
    */
   loadInitialData(): Observable<Olympic[]> {
     //console.log('OlympicService.loadInitialData() : appel backend')
-    this.loadingService.loadingOn();
+    //this.loadingService.loadingOn();//solution 1 pour loading
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
@@ -86,7 +97,7 @@ export class OlympicService {
                                      //en tant que simple Observable (sans possibilité de le modifier)
                                      //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
         }),
-        finalize(()=>this.loadingService.loadingOff())
+        //finalize(()=>this.loadingService.loadingOff())  //solution 1 pour loading
       );
   }
 
@@ -117,7 +128,10 @@ export class OlympicService {
         });
 
         const totalYears = yearSet.size; // Nombre d'années uniques
-        return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]};
+        return {
+          name: 'Médailles par pays',
+          stats: [{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]
+        };
         //return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries},{label: 'stat3', value: 123}]};
       }),
       tap(stats => console.log('OlympicService.getHomeStats data', stats))
@@ -160,10 +174,16 @@ export class OlympicService {
         return country
           ? {
             //id: country.id,
-            name: country.country,stats:[
-              {label:'Nombre de participations',value:country.participations.length},
-              {label:'Nombre total de médailles',value:country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)},
-              {label:'Nombre total d\'athlètes',value:country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)}
+            name: country.country, stats: [
+              {label: 'Nombre de participations', value: country.participations.length},
+              {
+                label: 'Nombre total de médailles',
+                value: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
+              },
+              {
+                label: 'Nombre total d\'athlètes',
+                value: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
+              }
             ]
           }
           : undefined;
