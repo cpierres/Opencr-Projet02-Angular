@@ -21,7 +21,7 @@ L'application des Jeux Olympiques est conçue pour :
 
 - **Visualisation de données** : exploration des statistiques des Jeux Olympiques via des graphiques et des interfaces dynamiques.
 - **Navigation intuitive** : une structure bien organisée pour accéder aux différentes pages et fonctionnalités.
-- **Extensibilité** : base de code modulaire et facilement scalable.
+- **Extensibilité** : base de code modulaire et facilement évolutive.
 
 ---
 
@@ -29,10 +29,13 @@ L'application des Jeux Olympiques est conçue pour :
 
 Voici les principaux composants réutilisables utilisés dans le projet Angular :
 - **BoxStatsComponent** : Permet d'afficher des boites de statistiques (1 titre et n boites de stat. avec libellé et valeur) 
-- **GlobalGraphComponent** : Permet de visualiser des graphiques globaux concernant les statistiques des Jeux Olympiques.
+- **GlobalGraphComponent** : Permet de visualiser un graphique global concernant les statistiques des Jeux Olympiques.
 - **DetailGraphComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
+Ces composants peuvent être instanciés dans différents contextes.
 
 ## Composants de services partagés
+- **LoadingComponent** et **LoadingService** : pour faire patienter l'utilisateur lors du chargement d'un flux. La méthode `showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T>` permet de greffer le loading sur un Observable sans être intrusif. 
+- **MessagesService** : pour gérer les messages erreurs affichés à l'utilisateur.
 
 
 ## Pages
