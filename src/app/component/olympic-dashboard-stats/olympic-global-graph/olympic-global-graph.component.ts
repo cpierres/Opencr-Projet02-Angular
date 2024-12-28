@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {SelectPieData} from "../../../core/models/stats/SelectPieData";
+import {ChartPie} from "../../../core/models/stats/ChartPie";
 import {LoadingService} from "../../../core/services/loading.service";
 
 @Component({
@@ -20,10 +20,10 @@ import {LoadingService} from "../../../core/services/loading.service";
 export class OlympicGlobalGraphComponent implements OnInit {
 
   @Input()
-  medalPieData: SelectPieData[]  | null | undefined;
+  medalPieData: ChartPie[]  | null | undefined;
 
   // Événement de sortie : pour transmettre l'élément sélectionné
-  @Output() sliceSelected = new EventEmitter<SelectPieData>();
+  @Output() sliceSelected = new EventEmitter<ChartPie>();
 
   constructor() {
   }
@@ -37,7 +37,7 @@ export class OlympicGlobalGraphComponent implements OnInit {
    *  à transmettre en output du composant parent
    * @param event
    */
-  onSelectSlicePie(event: SelectPieData): void {
+  onSelectSlicePie(event: ChartPie): void {
     // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
     //console.log('Slice sélectionné :', event);
     // Émettre l'événement au composant parent

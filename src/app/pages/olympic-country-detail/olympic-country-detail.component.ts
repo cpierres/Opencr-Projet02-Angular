@@ -9,6 +9,7 @@ import {SeriesLine} from "../../core/models/stats/SeriesLine";
 import {Stats} from "../../core/models/stats/Stats";
 import {AsyncPipe} from "@angular/common";
 import {Observable} from "rxjs";
+import {ChartLine} from "../../core/models/stats/ChartLine";
 
 @Component({
   selector: 'app-olympic-country-detail',
@@ -23,7 +24,7 @@ import {Observable} from "rxjs";
 })
 export class OlympicCountryDetailComponent implements OnInit {
   boxStats$: Observable<Stats | undefined> | undefined;
-  lineChartData$: Observable<SeriesLine[] | undefined> | undefined;
+  lineChartData$: Observable<ChartLine | undefined> | undefined;
 
   constructor(
     private router: Router,
