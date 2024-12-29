@@ -1,4 +1,4 @@
-<ng-container *ngIf="(errors$ | async) as errors">
+<ng-container *ngIf="(errors$ | async) as errors"> <!-- ng-container car un seul ngIf par elt et qu'on ne veut pas 2eme div -->
   <div class="messages-container" *ngIf="showMessages">
     <div class="message" *ngFor="let error of errors">
       {{error}}

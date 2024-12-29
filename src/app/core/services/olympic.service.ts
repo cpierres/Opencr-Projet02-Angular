@@ -30,7 +30,6 @@ export class OlympicService {
     terminé.
     Si besoin, la méthode loadInitialData() pourrait être utilisée dans d'autres
     endroits de l'appli (par exemple sur un bouton Refresh pour obtenir les dernières données actualisées).
-    Actuellement, il s'agit d'une source de données statique de toute façon.
     Attention dans ce dernier cas, les développeurs ne devront pas oublier de faire le take(1) afin de
     limiter la souscription à un seul événement pour empêcher des écoutes inutiles ou récurrentes,
     et terminer la souscription proprement (en évitant ainsi des fuites mémoires).
@@ -43,22 +42,19 @@ export class OlympicService {
 
   /**
    * Rafraichit les données dans le cache (en s'assurant de bien gérer le BehaviorSubject sous-jacent)
-   *
+   * Utiliser cette méthode de préférence pour actualiser le flux
    * @return {void} This method does not return any value but reloads the data and logs output for debugging.
    */
   public refreshDataCache() {
-    //méthode 1
+    // méthode 1
     //  this.loadInitialData().pipe(
-    //   //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
-    //   //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
     //   take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
     //   // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
     // ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
 
-    this.loadingService.showLoaderUntilCompleted(//solution 2 pour loading (moins intrusive)
+    //solution 2 pour loading (moins intrusive)
+    this.loadingService.showLoaderUntilCompleted(//"ajoute/greffe" au cycle de vie de l'observable en paramètre la gestion du loading
       this.loadInitialData().pipe(
-        //switchMap pour ne garder qu'un flux rempli et éviter l'affichage des 0 avant vraies données sur réseau lent
-        //switchMap(() => this.subject.pipe(filter(data => !!data && data.length > 0))),
         take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
         // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
       )
@@ -78,15 +74,15 @@ export class OlympicService {
    */
   loadInitialData(): Observable<Olympic[]> {
     //console.log('OlympicService.loadInitialData() : appel backend')
-    //this.loadingService.loadingOn();//solution 1 pour loading
+    //this.loadingService.loadingOn();//SOLUTION 1 pour LOADING
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
         //filter(data => data.length > 0),
-        delay(3000), // délai de 3 secondes pour test loading
+        delay(2000), // délai de 2 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
-          this.messagesService.showErrors(message);
+          this.messagesService.showErrors(message);//service réactif partagé
           console.error(message, err);//à remplacer par un log serveur (elastik stack, sentry) dans la vraie vie
           return throwError(err);
         }),
@@ -97,12 +93,8 @@ export class OlympicService {
                                      //en tant que simple Observable (sans possibilité de le modifier)
                                      //Toutes nos méthodes de service se reposent sur olympics$ (non modifiable)
         }),
-        //finalize(()=>this.loadingService.loadingOff())  //solution 1 pour loading
+        //finalize(()=>this.loadingService.loadingOff())  //SOLUTION 1 pour LOADING
       );
-  }
-
-  getOlympics() {
-    return this.olympics$;
   }
 
   /**
@@ -132,7 +124,6 @@ export class OlympicService {
           name: 'Médailles par pays',
           stats: [{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]
         };
-        //return {name:'Médailles par pays',stats:[{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries},{label: 'stat3', value: 123}]};
       }),
       tap(stats => console.log('OlympicService.getHomeStats data', stats))
     );
@@ -143,7 +134,7 @@ export class OlympicService {
    * la distribution des médailles par pays.
    *
    * @return {Observable<ChartPie[]>} Un observable émettant un tableau d'objets ChartPie,
-   * qui correspondent aux données requises par le composant ngx-charts-pie-chart
+   * qui correspondent aux données requises composant ngx-charts-pie-chart
    */
   getMedalsPieData(): Observable<ChartPie[]> {
     //console.log('appel OlympicService.getMedalsPieData()');
@@ -244,4 +235,7 @@ export class OlympicService {
     );
   }
 
+  getOlympics() {
+    return this.olympics$;
+  }
 }

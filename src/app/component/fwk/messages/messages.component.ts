@@ -15,10 +15,27 @@ import {tap} from "rxjs/operators";
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
+/**
+ * Pour utiliser le service partagé, il suffit d'appeler
+ * de n'importe où (après avoir injecté le service évidemment)
+ * la méthode messagesService.showErrors(....).
+ * Note : l'abonnement et désabonnement sont gérés automatiquement
+ * via le pipe async ; par conséquent, pas de risque de fuite mémoire.
+ */
 export class MessagesComponent implements OnInit {
   showMessages: boolean = false;
   errors$: Observable<string[]> = of([]);
 
+  /**
+   * service en public pour :
+   * - indiquer aux développeurs qu'il peut être utilisable à l'extérieur du composant lui-même (service partagé).
+   *   Ainsi l'équipe peut comprendre que la méthode messagesService.showErrors(...) est accessible à l'extérieur.
+   * - éventuellement, pour y accéder directement dans le template ; facilite son exploitation (Pas besoin de
+   *   variables intermédiaires dans le composant pour exposer les données ou méthodes du service)
+   *   mais je préfère tout de même une variable intermédiaire errors$ pour le flux afin de bénéficier du
+   *   subscribe/unsubscribe automatique via le pipe async
+   * @param messagesService service réactif partagé
+   */
   constructor(public messagesService: MessagesService) {
     //console.log("MessagesComponent.constructor");
   }
@@ -26,10 +43,16 @@ export class MessagesComponent implements OnInit {
   ngOnInit(): void {
     this.errors$ = this.messagesService.errors$
       .pipe(
+        //à chaque nouvelle liste de messages reçue par l'observable
+        //on indique au composant qu'il doit s'afficher
         tap(() => this.showMessages = true)
       );
   }
 
+  /**
+   *  Lorsqu'on clique sur le bouton de fermeture, le
+   *  composant ne doit plus s'afficher.
+   */
   onClose() {
     this.showMessages = false;
   }

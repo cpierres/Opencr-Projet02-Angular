@@ -15,7 +15,7 @@ export class LoadingService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   /**
-   * va dériver un observable du loadingSubject qui émet exactement les mêmes valeurs que le sujet,
+   * dérive un observable du loadingSubject, qui émet exactement les mêmes valeurs que le sujet,
    * mais ce sera simplement un observable ; donc l'observable loading$ ne nous permettra pas de contrôler
    * quelles valeurs sont émises avec le loadingSubject.
    * Nous pourrons uniquement nous y abonner et être avertis lorsque de nouvelles valeurs seront
@@ -49,7 +49,7 @@ export class LoadingService {
    */
   showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T> {
     //console.log('showLoaderUntilCompleted()');
-    return of(null)//on crée un observable null qui se complète/termine immédiatement et on enchaine avec la suite
+    return of(null)//on crée un observable null qui se complète/termine immédiatement et on enchaine avec le flux en argument
       .pipe(
         tap(() => this.loadingOn()),//effet secondaire : on déclenche loadingOn() qui affiche l'indicateur
         concatMap(() => observable$),//les valeurs émises par le résultat observable vont être identiques
