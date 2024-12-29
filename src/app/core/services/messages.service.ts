@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, filter, Observable} from "rxjs";
 
-@Injectable({
-  providedIn: 'root'
-})
+//on ne veut pas Singleton car potentiellement plusieurs instances
+// @Injectable({
+//   providedIn: 'root'
+// })
+@Injectable()
 /**
  * Service partagé que vous pouvez utiliser n'importe (en ayant injecté le service évidemment)
  */
