@@ -7,10 +7,11 @@ import {tap} from "rxjs/operators";
  * Le but est de rendre très simple, pour les composants à différents niveaux de l'arborescence des
  * composants, de pouvoir interagir les uns avec les autres de manière découplée et maintenable
  */
-//@Injectable()//on ne veut pas Singleton car potentiellement plusieurs instances
-@Injectable({
-  providedIn: 'root'
-})
+//on ne veut pas Singleton car potentiellement plusieurs instances
+// @Injectable({
+//   providedIn: 'root'
+// })
+@Injectable()
 export class LoadingService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
