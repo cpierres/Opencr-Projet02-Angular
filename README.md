@@ -50,11 +50,14 @@ Ces composants peuvent être instanciés dans différents contextes.
 ## Screenshots
 
 ### Homepage Dashboard
-![Homepage Dashboard](src/assets/screenshots/homepage-dashboard.jpg)
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
+![Homepage Dashboard](src/assets/screenshots/homepage-dashboard.jpg)
+
 ### Detail Country
-![Detail Country](src/assets/screenshots/detail-country.jpg)
 Page détaillant les performances d'un pays spécifique.
+![Detail Country](src/assets/screenshots/detail-country.jpg)
+
+
 ---
 
 ## Prérequis
@@ -90,8 +93,8 @@ Nous déconseillons d'installer Angular CLI de manière globale pour éviter les
 
 1. Clonez le dépôt sur votre machine :
    ```bash
-   git clone <url-du-dépôt>
-   cd OlympicGamesStarter
+   git clone https://github.com/cpierres/Opencr-Projet02-Angular.git
+   cd Opencr-Projet02-Angular
    ```
 2. Installez les dépendances en exécutant :
    ```bash
