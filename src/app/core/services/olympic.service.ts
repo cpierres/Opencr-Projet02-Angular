@@ -43,7 +43,7 @@ export class OlympicService {
   /**
    * Rafraichit les données dans le cache (en s'assurant de bien gérer le BehaviorSubject sous-jacent)
    * Utiliser cette méthode de préférence pour actualiser le flux
-   * @return {void} This method does not return any value but reloads the data and logs output for debugging.
+   * @return {void} Cette méthode ne renvoie aucune valeur mais recharge les données et enregistre la sortie pour le débogage
    */
   public refreshDataCache() {
     // méthode 1
@@ -79,7 +79,7 @@ export class OlympicService {
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
         //filter(data => data.length > 0),
-        delay(2000), // délai de 2 secondes pour test affichage du loading
+        //delay(2000), // délai de 2 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
           this.messagesService.showErrors(message);//service réactif partagé
@@ -164,22 +164,25 @@ export class OlympicService {
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
-        return country
-          ? {
-            //id: country.id,
-            name: country.country, stats: [
-              {label: 'Nombre de participations', value: country.participations.length},
-              {
-                label: 'Nombre total de médailles',
-                value: country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0)
-              },
-              {
-                label: 'Nombre total d\'athlètes',
-                value: country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0)
-              }
+        if (country) {
+          const totalParticipations = country.participations.length;
+          const totalAthletes = country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0);
+          const totalMedals = country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0);
+          const averageAthletesPerParticipation = totalParticipations > 0 ? (totalAthletes / totalParticipations) : 0;
+          const averageMedalsPerParticipation = totalParticipations > 0 ? (totalMedals / totalParticipations) : 0;
+
+          return {
+            name: country.country,
+            stats: [
+              {label: 'Nombre de participations', value: totalParticipations},
+              {label: 'Nombre total de médailles',value: totalMedals},
+              {label: 'Nombre total d\'athlètes', value: totalAthletes},
+              // {label: 'Moyenne d\'athlètes par participation',value: parseFloat(averageAthletesPerParticipation.toFixed(0))},
+              // {label: 'Moyenne de médailles par participation',value: parseFloat(averageMedalsPerParticipation.toFixed(0))}
             ]
-          }
-          : undefined;
+          };
+        }
+        return undefined;
       }),
       tap(data => console.log('OlympicService.getOlympicStatsOfCountryId => data : ', data))
     );
