@@ -1,11 +1,31 @@
 
 # Application Jeux Olympiques 
+![telesport_P2_banner.png](assets/docs/images/telesport_P2_banner.png)
+## Table des matières
+- [Auteur et dépôt](#auteur-et-dépôt)
+- [Description](#description)
+- [Fonctionnalités](#fonctionnalités)
+- [Composants Réutilisables](#composants-réutilisables)
+- [Composants de services partagés (réactifs)](#composants-de-services-partagés-réactifs)
+- [Pages](#pages)
+- [Démo](#démo)
+- [Screenshots](#screenshots)
+- [Prérequis pour l'installation](#prérequis-pour-linstallation)
+- [Installation](#installation)
+- [Démarrage du projet](#démarrage-du-projet)
+- [Architecture du projet](#architecture-du-projet)
+- [Commandes disponibles](#commandes-disponibles)
+- [Contributions](#contributions)
+- [Licence](#licence)
+
+
 ## Auteur et dépôt
 - Auteur : Christophe Pierrès 
-- Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/))
+- Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/)
 - Dépôt GitHub : https://github.com/cpierres/Opencr-Projet02-Angular
 
-Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer les données et fonctionnalités liées aux Jeux Olympiques. 
+Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer 
+les données et fonctionnalités liées aux Jeux Olympiques pour le compte de la société Télésport. 
 
 ## Description
 
@@ -60,7 +80,7 @@ Page détaillant les performances d'un pays spécifique.
 
 ---
 
-## Prérequis
+## Prérequis pour l'installation
 
 ### 1. Installer **nvm** (Node Version Manager)
 
