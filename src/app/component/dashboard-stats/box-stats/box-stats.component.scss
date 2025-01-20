@@ -13,7 +13,7 @@
 }
 
 .title-box h1 {
-  font-size: 40px; /* Taille de la police */
+  font-size: 2.5rem; /* 40px / 16 = 2.5rem */
   font-family: 'Arial', sans-serif; /* Police propre */
   color: white; /* Couleur du texte en blanc */
   margin: 0; /* Supprime toute marge supplémentaire */
@@ -40,7 +40,7 @@
 }
 
 .stat-box h2 {
-  font-size: 30px; /* Taille du titre */
+  font-size: 1.875rem; /* 30px / 16 = 1.875rem */
   color: #333; /* Couleur principale des titres */
   font-weight: normal; /* Texte non gras */
   margin-bottom: 5px; /* Espacement bas réduit pour le titre */
@@ -48,7 +48,7 @@
 }
 
 .stat-box p {
-  font-size: 30px; /* Taille adaptée aux valeurs */
+  font-size: 1.875rem; /* 30px / 16 = 1.875rem */
   color: black; /* La couleur turquoise foncée des valeurs */
   font-weight: bolder; /* Texte en gras pour les valeurs */
   margin: 0 0 15px; /* Augmente l'espacement en bas (margin-bottom: 15px) */
