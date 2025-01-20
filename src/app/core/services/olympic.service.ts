@@ -82,8 +82,11 @@ export class OlympicService {
         //delay(2000), // délai de 2 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
+          //affichage de l'erreur pour l'utilisateur
           this.messagesService.showErrors(message);//service réactif partagé
-          console.error(message, err);//à remplacer par un log serveur (elastik stack, sentry) dans la vraie vie
+          //Temporaire : Affichage de l'erreur technique dans la console
+          //TODO à remplacer par un log serveur (elastik stack, sentry) dans la vraie vie
+          console.error(message, err);
           return throwError(err);
         }),
         tap(olympics => {
