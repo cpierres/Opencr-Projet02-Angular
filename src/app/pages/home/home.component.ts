@@ -13,8 +13,8 @@ import {AppRoutes} from "../../app.routes";
  * vers les pages de détails pour les statistiques de pays spécifiques.
  *
  * Le template inclut les composants réutilisables :
- * - <app-box-stats/>
- * - <app-global-graph />
+ * - app-box-stats
+ * - app-global-graph
  *
  * HomeComponent comprend les responsabilités suivantes :
  * - Récupérer et afficher les statistiques de la page d'accueil à l'aide du service.

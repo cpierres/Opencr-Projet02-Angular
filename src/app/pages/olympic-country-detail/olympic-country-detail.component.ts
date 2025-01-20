@@ -18,8 +18,9 @@ import {ChartLine} from "../../core/models/stats/ChartLine";
  * récupéré à partir des paramètres ActivatedRoute.
  *
  * Il intègre les composants enfants suivants :
- * - DetailGraphComponent : affiche des détails graphiques, tels qu'un graphique linéaire.
  * - BoxStatsComponent : affiche des statistiques récapitulatives dans un format de type boîte.
+ * - DetailGraphComponent : affiche des détails graphiques dans un graphe linéaire (potentiellement, d'autres séries
+ * peuvent être ajoutées.
  *
  * Il utilise également AsyncPipe d'Angular pour gérer les flux de données asynchrones.
  *
