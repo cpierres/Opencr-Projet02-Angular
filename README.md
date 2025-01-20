@@ -72,11 +72,11 @@ Ces composants peuvent être instanciés dans différents contextes.
 
 ### Homepage Dashboard
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
-![Homepage Dashboard](src/assets/docs/images/homepage-dashboard.jpg)
+![Homepage Dashboard](src/assets/docs/images/homepage-dashboard.png)
 
 ### Detail Country
 Page détaillant les performances d'un pays spécifique.
-![Detail Country](src/assets/docs/images/detail-country.jpg)
+![Detail Country](src/assets/docs/images/detail-country.png)
 
 
 ---
