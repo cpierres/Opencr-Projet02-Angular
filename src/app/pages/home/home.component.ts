@@ -6,6 +6,21 @@ import {Stats} from "../../core/models/stats/Stats";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../app.routes";
 
+
+/**
+ * HomeComponent est le composant principal de l'application (dashboard), affichant des statistiques et un graphique
+ * à secteurs (Pie) des médailles olympiques. Il récupère et traite les données de OlympicService et gère la navigation
+ * vers les pages de détails pour les statistiques de pays spécifiques.
+ *
+ * Le template inclut les composants réutilisables :
+ * - <app-box-stats/>
+ * - <app-global-graph />
+ *
+ * HomeComponent comprend les responsabilités suivantes :
+ * - Récupérer et afficher les statistiques de la page d'accueil à l'aide du service.
+ * - Gérer les interactions des utilisateurs avec le graphique à secteurs pour accéder à une vue détaillée d'un pays.
+ * - Câblage de la communication pilotée par événement pour la sélection des tranches du graphique à secteurs.
+ */
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

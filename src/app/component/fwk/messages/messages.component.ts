@@ -4,6 +4,16 @@ import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {Observable, of} from "rxjs";
 import {tap} from "rxjs/operators";
 
+/**
+ * Le composant MessagesComponent est un composant Angular standalone chargé d'afficher les messages d'erreur.
+ * Il utilise la programmation réactive pour afficher et gérer une liste de messages d'erreur.
+ * Le composant s'abonne à un service de messages pour recevoir les mises à jour et gérer les interactions des
+ * utilisateurs pour fermer l'affichage du message.
+ * Pour utiliser le service partagé, il suffit d'appeler de n'importe où (après avoir injecté le service évidemment)
+ * la méthode messagesService.showErrors(....).
+ * Note : l'abonnement et désabonnement sont gérés automatiquement via le pipe async ; par conséquent, pas de risque
+ * de fuite mémoire.
+ */
 @Component({
   selector: 'app-messages',
   standalone: true,
@@ -15,13 +25,7 @@ import {tap} from "rxjs/operators";
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.scss'
 })
-/**
- * Pour utiliser le service partagé, il suffit d'appeler
- * de n'importe où (après avoir injecté le service évidemment)
- * la méthode messagesService.showErrors(....).
- * Note : l'abonnement et désabonnement sont gérés automatiquement
- * via le pipe async ; par conséquent, pas de risque de fuite mémoire.
- */
+
 export class MessagesComponent implements OnInit {
   showMessages: boolean = false;
   errors$: Observable<string[]> = of([]);

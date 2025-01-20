@@ -9,10 +9,16 @@ import {Stats} from "../models/stats/Stats";
 import {MessagesService} from "./messages.service";
 import {ChartLine} from "../models/stats/ChartLine";
 
+/**
+ * Service métier destiné à gérer les données liées aux Jeux Olympiques (Olympics). Il utilise un BehaviorSubject pour
+ * mettre en cache localement les données, afin de limiter les requêtes HTTP et de fournir un accès centralisé et
+ * réactif aux données.
+ * Ce service inclut plusieurs fonctionnalités, telles que le calcul des données statistiques pour un tableau de bord
+ * ou des graphiques.
+ */
 @Injectable({
   providedIn: 'root',
 })
-
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
 

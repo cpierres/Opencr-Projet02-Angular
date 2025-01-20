@@ -3,9 +3,14 @@ import {BehaviorSubject, concatMap, finalize, Observable, of} from "rxjs";
 import {tap} from "rxjs/operators";
 
 /**
- * Service de loading (message d'attente) partagé réactif.
- * Le but est de rendre très simple, pour les composants à différents niveaux de l'arborescence des
- * composants, de pouvoir interagir les uns avec les autres de manière découplée et maintenable
+ * Service de loading (message d'attente) partagé réactif chargé de contrôler un indicateur de chargement, de l'activer
+ * et de le désactiver en fonction du cycle de vie des observables qui lui sont fournis. Ce service fournit un
+ * observable <code>loading$</code> qui peut être utilisé pour surveiller l'état actif de l'indicateur de chargement.
+ * Il encapsule également la logique permettant de contrôler l'état de chargement pendant le fonctionnement des
+ * observables fournis.
+ *
+ * Le but est de rendre très simple, pour les composants à différents niveaux de l'arborescence des composants,
+ * d'interagir avec ce composant d'une manière découplée.
  */
 //on ne veut pas Singleton car potentiellement plusieurs instances
 // @Injectable({
