@@ -72,11 +72,11 @@ Ces composants peuvent être instanciés dans différents contextes.
 
 ### Homepage Dashboard
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
-![Homepage Dashboard](src/assets/screenshots/homepage-dashboard.jpg)
+![Homepage Dashboard](src/assets/docs/images/homepage-dashboard.jpg)
 
 ### Detail Country
 Page détaillant les performances d'un pays spécifique.
-![Detail Country](src/assets/screenshots/detail-country.jpg)
+![Detail Country](src/assets/docs/images/detail-country.jpg)
 
 
 ---
@@ -179,7 +179,7 @@ npx ng build
 
 ## Contributions
 
-Les contributions sont les bienvenues ! Si vous souhaitez contribuer :
+Les contributions sont les bienvenues ! Si vous souhaitez contribuer :
 1. Forkez ce dépôt.
 2. Travaillez sur une nouvelle branche.
 3. Soumettez une *Pull Request* avec une description détaillée de vos modifications.
