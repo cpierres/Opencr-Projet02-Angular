@@ -2,6 +2,23 @@ import {Component, Input} from '@angular/core';
 import {Stats} from "../../../core/models/stats/Stats";
 import {NgForOf, NgIf} from "@angular/common";
 
+
+/**
+ * BoxStatsComponent est un composant Angular standalone conçu pour afficher des informations statistiques
+ * de manière structurée et visuelle. Il accepte les données via la propriété d'entrée `boxStats`, qui
+ * définit les statistiques à afficher.
+ *
+ * Le composant restitue les statistiques fournies de manière dynamique dans son modèle et applique
+ * tous les styles associés à partir du fichier SCSS lié.
+ *
+ * Le composant
+ * - Utilise les directives NgForOf et NgIf d'Angular pour parcourir et afficher conditionnellement le contenu.
+ * - Accepte une propriété d'entrée `boxStats` qui détermine le contenu des statistiques.
+ *
+ * Entrée :
+ * - `boxStats` : un objet de type `Stats`, qui contient un titre et un tableau d'éléments statistiques.
+ * Chaque élément statistique comprend un `label` et une `value`. L'entrée est nullable et peut être indéfinie.
+ */
 @Component({
   selector: 'app-box-stats',
   standalone: true,

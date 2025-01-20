@@ -1,14 +1,21 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, filter, Observable} from "rxjs";
 
+
+/**
+ * Un service de gestion et de traitement des messages d'erreur. Le service utilise une approche réactive
+ * avec BehaviorSubject pour stocker et exposer les messages d'erreur sous forme d'observable, permettant
+ * ainsi un accès et des mises à jour contrôlés.
+ * Pour utiliser le service partagé, il suffit d'appeler de n'importe où (après avoir injecté le service évidemment)
+ * la méthode messagesService.showErrors(....).
+ * Note : l'abonnement et désabonnement sont gérés automatiquement via le pipe async ; par conséquent, pas de risque
+ * de fuite mémoire.
+ */
 //on ne veut pas Singleton car potentiellement plusieurs instances
 // @Injectable({
 //   providedIn: 'root'
 // })
 @Injectable()
-/**
- * Service partagé que vous pouvez utiliser n'importe (en ayant injecté le service évidemment)
- */
 export class MessagesService {
 
   //important de rendre le BehaviorSubject privé pour éviter une utilisation non souhaitable
