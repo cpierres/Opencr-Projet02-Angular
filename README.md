@@ -2,7 +2,7 @@
 # Application Jeux Olympiques 
 ![telesport_P2_banner.png](assets/docs/images/telesport_P2_banner.png)
 ## Table des matières
-- [Auteur et dépôt](#auteur-et-dépôt)
+- [Auteur et dépôts](#auteur-et-dépôts)
 - [Description](#description)
 - [Fonctionnalités](#fonctionnalités)
 - [Composants Réutilisables](#composants-réutilisables)
@@ -19,10 +19,11 @@
 - [Licence](#licence)
 
 
-## Auteur et dépôt
+## Auteur et dépôts
 - Auteur : Christophe Pierrès 
 - Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/)
-- Dépôt GitHub : https://github.com/cpierres/Opencr-Projet02-Angular
+- Dépôt GitHub des sources : https://github.com/cpierres/Opencr-Projet02-Angular
+- Documentation technique (compodoc) : https://cpierres.github.io/Opencr-Projet02-Angular/
 
 Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer 
 les données et fonctionnalités liées aux Jeux Olympiques pour le compte de la société Télésport. 
