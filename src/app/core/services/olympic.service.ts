@@ -247,6 +247,71 @@ export class OlympicService {
     );
   }
 
+  /**
+   *  Méthode pour démo d'évolutivité possible grâce à la souplesse du composant.
+   *  Ici on ajoute sans difficulté une 2ème série représentant la moyenne du nombre de médailles pour les autres
+   *  pays.
+   * @param olympicId =id du pays
+   */
+  getMedalsChartLineByOlympicV2(olympicId: number): Observable<ChartLine | undefined> {
+    return this.olympics$.pipe(
+      map((data) => {
+        // Recherche de l'Olympic pour l'ID donné
+        const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
+        if (!olympic) {
+          // Aucun Olympic trouvé pour cet ID
+          return undefined;
+        }
+
+        // Calcul de la moyenne de médailles par année pour tous les pays, sauf celui en cours
+        const excludedOlympicId = olympic.id; // ID du pays à exclure
+        const averageSeries = olympic.participations.map(participation => {
+          const year = participation.year;
+
+          // Calculer la moyenne pour cette année
+          const totalMedals = data
+            .filter(o => o.id !== excludedOlympicId) // Exclure le pays en cours
+            .reduce((sum, otherCountry) => {
+              const yearParticipation = otherCountry.participations.find(p => p.year === year);
+              return sum + (yearParticipation ? yearParticipation.medalsCount : 0);
+            }, 0);
+
+          // Nombre total de pays participant cette année (hors exclu)
+          const participatingCountries = data.filter(o => o.id !== excludedOlympicId)
+            .filter(o => o.participations.some(p => p.year === year)).length;
+
+          const avgMedals = participatingCountries > 0 ? totalMedals / participatingCountries : 0;
+
+          return {
+            name: `${year}`,
+            value: avgMedals // Médaille moyenne calculée
+          };
+        });
+
+        // Construction des données pour le graphique
+        const chartLine: ChartLine = {
+          xAxisLabel: 'Dates',
+          yAxisLabel: 'Nombre de médailles',
+          seriesLines: [
+            {
+              name: olympic.country, // Série pour le pays sélectionné
+              series: olympic.participations.map(part => ({
+                name: `${part.year}`, // Année
+                value: part.medalsCount // Médailles pour cette année
+              }))
+            },
+            {
+              name: 'Moyenne globale (hors pays sélectionné)', // Série pour la moyenne
+              series: averageSeries
+            }
+          ]
+        };
+        return chartLine;
+      }),
+      tap(data => console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data))
+    );
+  }
+
   getOlympics() {
     return this.olympics$;
   }

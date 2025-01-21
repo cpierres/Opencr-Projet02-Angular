@@ -59,6 +59,9 @@ export class OlympicCountryDetailComponent implements OnInit {
     if (countryId) {
       this.boxStats$ = this.olympicService.getOlympicStatsOfCountryId(+countryId);
       this.lineChartData$ = this.olympicService.getMedalsChartLineByOlympic(+countryId);
+      //démo : capacité à ajouter une nouvelle ligne de statistiques sans problème
+      //(en comparant avec la moyenne du nombre de médailles hors payé sélectionné)
+      //this.lineChartData$ = this.olympicService.getMedalsChartLineByOlympicV2(+countryId);
     }
   }
 
