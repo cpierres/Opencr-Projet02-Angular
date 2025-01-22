@@ -98,7 +98,7 @@
   <li class="breadcrumb-item">Interfaces</li>
   <li class="breadcrumb-item"
   >
-  Stats</li>
+  BoxStat</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -122,7 +122,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/core/models/stats/Stats.ts</code>
+            <code>src/app/core/models/stats/BoxStat.ts</code>
         </p>
 
 
@@ -130,8 +130,7 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Le composant box-stats peut afficher n boites de
-statistiques et il y a également un titre global (name).</p>
+                <p>Interface des données présentes dans un cadre de statistique global (composant standalone app-box-stats)</p>
 
             </p>
 
@@ -149,15 +148,15 @@ statistiques et il y a également un titre global (name).</p>
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#name" 
+                                        <a href="#label" 
 >
-                                            name
+                                            label
                                         </a>
                                 </li>
                                 <li>
-                                        <a href="#stats" 
+                                        <a href="#value" 
 >
-                                            stats
+                                            value
                                         </a>
                                 </li>
                             </ul>
@@ -175,9 +174,9 @@ statistiques et il y a également un titre global (name).</p>
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="name"></a>
-                                        <span class="name "><b>name</b>
-                                            <a href="#name">
+                                        <a name="label"></a>
+                                        <span class="name "><b>label</b>
+                                            <a href="#label">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -185,7 +184,7 @@ statistiques et il y a également un titre global (name).</p>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>name:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>label:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -208,9 +207,9 @@ statistiques et il y a également un titre global (name).</p>
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="stats"></a>
-                                        <span class="name "><b>stats</b>
-                                            <a href="#stats">
+                                        <a name="value"></a>
+                                        <span class="name "><b>value</b>
+                                            <a href="#value">
                                                 <span class="icon ion-ios-link"></span>
                                             </a>
                                         </span>
@@ -218,7 +217,7 @@ statistiques et il y a également un titre global (name).</p>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>stats:         <code><a href="../interfaces/Stat.html" target="_self" >Stat[]</a></code>
+                                        <code>value:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -226,7 +225,7 @@ statistiques et il y a également un titre global (name).</p>
 
                                     <tr>
                                         <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="../interfaces/Stat.html" target="_self" >Stat[]</a></code>
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
 
                                         </td>
                                     </tr>
@@ -242,15 +241,9 @@ statistiques et il y a également un titre global (name).</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Stat} from &quot;./Stat&quot;;
-
-/**
- * Le composant box-stats peut afficher n boites de
- * statistiques et il y a également un titre global (name).
- */
-export interface Stats {
-  name: string;
-  stats: Stat[];
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface BoxStat {
+  label: string;
+  value: number;
 }
 </code></pre>
     </div>
@@ -289,7 +282,7 @@ export interface Stats {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'Stats.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'BoxStat.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

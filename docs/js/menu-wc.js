@@ -156,7 +156,19 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         </div>
                         <ul class="links collapse " ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
+                                <a href="interfaces/BoxStat.html" data-type="entity-link" >BoxStat</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/BoxStats.html" data-type="entity-link" >BoxStats</a>
+                            </li>
+                            <li class="link">
                                 <a href="interfaces/ChartLine.html" data-type="entity-link" >ChartLine</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ChartLineSeries.html" data-type="entity-link" >ChartLineSeries</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/ChartLineSeriesDetail.html" data-type="entity-link" >ChartLineSeriesDetail</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/ChartPie.html" data-type="entity-link" >ChartPie</a>
@@ -166,18 +178,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </li>
                             <li class="link">
                                 <a href="interfaces/Participation.html" data-type="entity-link" >Participation</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/SeriesLine.html" data-type="entity-link" >SeriesLine</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/SeriesLineDetail.html" data-type="entity-link" >SeriesLineDetail</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/Stat.html" data-type="entity-link" >Stat</a>
-                            </li>
-                            <li class="link">
-                                <a href="interfaces/Stats.html" data-type="entity-link" >Stats</a>
                             </li>
                         </ul>
                     </li>

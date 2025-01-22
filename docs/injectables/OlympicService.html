@@ -175,6 +175,9 @@ ou des graphiques.</p>
                                 <a href="#getMedalsChartLineByOlympic" >getMedalsChartLineByOlympic</a>
                             </li>
                             <li>
+                                <a href="#getMedalsChartLineByOlympicV2" >getMedalsChartLineByOlympicV2</a>
+                            </li>
+                            <li>
                                 <a href="#getMedalsPieData" >getMedalsPieData</a>
                             </li>
                             <li>
@@ -323,11 +326,11 @@ et elles seront dynamiquement affichées dans le composant d&#39;affichage réut
 </div>
 
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;Stats&gt;</code>
+                            <b>Returns : </b>    <code>Observable&lt;BoxStats&gt;</code>
 
                         </div>
                             <div class="io-description">
-                                <p>Un Observable incluant un tableau de Stat avec le nombre de pays participants et
+                                <p>Un Observable incluant un tableau de BoxStat avec le nombre de pays participants et
 le nombre d&#39;années uniques de participations.</p>
 
                             </div>
@@ -406,9 +409,85 @@ le nombre d&#39;années uniques de participations.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Observable émettant un ChartLine avec son array d&#39;objets SeriesLine
+                                <p>Observable émettant un ChartLine avec son array d&#39;objets ChartLineSeries
 contenant les informations de médaille pour le country/olympic</p>
 
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getMedalsChartLineByOlympicV2"></a>
+                    <span class="name">
+                        <span ><b>getMedalsChartLineByOlympicV2</b></span>
+                        <a href="#getMedalsChartLineByOlympicV2"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getMedalsChartLineByOlympicV2(olympicId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="256"
+                                    class="link-to-prism">src/app/core/services/olympic.service.ts:256</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p> Méthode pour démo d&#39;évolutivité possible grâce à la souplesse du composant.
+ Ici on ajoute sans difficulté une 2ème série représentant la moyenne du nombre de médailles pour les autres
+ pays.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>olympicId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>=id du pays</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/ChartLine.html" target="_self" >Observable&lt;ChartLine | undefined&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
                             </div>
                 </td>
             </tr>
@@ -555,8 +634,8 @@ qui correspondent aux données requises composant ngx-charts-pie-chart</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="250"
-                                    class="link-to-prism">src/app/core/services/olympic.service.ts:250</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="315"
+                                    class="link-to-prism">src/app/core/services/olympic.service.ts:315</a></div>
                         </td>
                     </tr>
 
@@ -636,7 +715,7 @@ qui correspondent aux données requises composant ngx-charts-pie-chart</p>
                                 </table>
                             </div>
                         <div class="io-description">
-                            <b>Returns : </b>    <code>Observable&lt;Stats | undefined&gt;</code>
+                            <b>Returns : </b>    <code>Observable&lt;BoxStats | undefined&gt;</code>
 
                         </div>
                             <div class="io-description">
@@ -841,7 +920,7 @@ import {catchError, tap} from &#x27;rxjs/operators&#x27;;
 import {Olympic} from &quot;../models/Olympic&quot;;
 import {ChartPie} from &quot;../models/stats/ChartPie&quot;;
 import {LoadingService} from &quot;./loading.service&quot;;
-import {Stats} from &quot;../models/stats/Stats&quot;;
+import {BoxStats} from &quot;../models/stats/BoxStats&quot;;
 import {MessagesService} from &quot;./messages.service&quot;;
 import {ChartLine} from &quot;../models/stats/ChartLine&quot;;
 
@@ -949,10 +1028,10 @@ export class OlympicService {
    * - Nombre de pays
    * La structure est évolutive. Il suffit d&#x27;ajouter une statistique dans le tableau retourné
    * et elles seront dynamiquement affichées dans le composant d&#x27;affichage réutilisable.
-   * @returns Un Observable incluant un tableau de Stat avec le nombre de pays participants et
+   * @returns Un Observable incluant un tableau de BoxStat avec le nombre de pays participants et
    *          le nombre d&#x27;années uniques de participations.
    */
-  getHomeStats(): Observable&lt;Stats&gt; {
+  getHomeStats(): Observable&lt;BoxStats&gt; {
     //console.log(&#x27;appel OlympicService.getHomeStats()&#x27;);
     return this.olympics$.pipe(
       map((olympics: Olympic[]) &#x3D;&gt; {
@@ -1004,7 +1083,7 @@ export class OlympicService {
    * @param id L&#x27;identifiant du pays.
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
-  getOlympicStatsOfCountryId(id: number): Observable&lt;Stats | undefined&gt; {
+  getOlympicStatsOfCountryId(id: number): Observable&lt;BoxStats | undefined&gt; {
     console.log(&#x27;appel OlympicService.getOlympicStatsOfCountryId(&#x27; + id + &#x27;)&#x27;);
     return this.olympics$.pipe(
       map((olympics: Olympic[]) &#x3D;&gt; {
@@ -1049,7 +1128,7 @@ export class OlympicService {
    * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
    *
    * @param {number} olympicId - ID de l&#x27;Olympic
-   * @return {Observable&lt;ChartLine&gt;} Observable émettant un ChartLine avec son array d&#x27;objets SeriesLine
+   * @return {Observable&lt;ChartLine&gt;} Observable émettant un ChartLine avec son array d&#x27;objets ChartLineSeries
    * contenant les informations de médaille pour le country/olympic
    */
   getMedalsChartLineByOlympic(olympicId: number): Observable&lt;ChartLine | undefined&gt; {
@@ -1062,7 +1141,7 @@ export class OlympicService {
           //throw new Error(&#x60;Aucun Olympic trouvé pour l&#x27;ID ${olympicId}&#x60;);
           return undefined; // En cas d&#x27;actualisation, retourner undefined pour respecter le type Observable&lt;ChartLine | undefined&gt;.
         }
-        // Construction de l&#x27;objet SeriesLine
+        // Construction de l&#x27;objet ChartLineSeries
         const chartLine: ChartLine &#x3D; {
           xAxisLabel: &#x27;Dates&#x27;,
           yAxisLabel: &#x27;Nombre de médailles&#x27;,
@@ -1078,6 +1157,71 @@ export class OlympicService {
           ]
         };
         return chartLine; // Retourner un descriptif de chart avec les données de séries
+      }),
+      tap(data &#x3D;&gt; console.log(&#x27;OlympicService.getMedalsChartLineByOlympic &#x3D;&gt; data : &#x27;, data))
+    );
+  }
+
+  /**
+   *  Méthode pour démo d&#x27;évolutivité possible grâce à la souplesse du composant.
+   *  Ici on ajoute sans difficulté une 2ème série représentant la moyenne du nombre de médailles pour les autres
+   *  pays.
+   * @param olympicId &#x3D;id du pays
+   */
+  getMedalsChartLineByOlympicV2(olympicId: number): Observable&lt;ChartLine | undefined&gt; {
+    return this.olympics$.pipe(
+      map((data) &#x3D;&gt; {
+        // Recherche de l&#x27;Olympic pour l&#x27;ID donné
+        const olympic: Olympic | undefined &#x3D; data.find((item: Olympic) &#x3D;&gt; item.id &#x3D;&#x3D;&#x3D; olympicId);
+        if (!olympic) {
+          // Aucun Olympic trouvé pour cet ID
+          return undefined;
+        }
+
+        // Calcul de la moyenne de médailles par année pour tous les pays, sauf celui en cours
+        const excludedOlympicId &#x3D; olympic.id; // ID du pays à exclure
+        const averageSeries &#x3D; olympic.participations.map(participation &#x3D;&gt; {
+          const year &#x3D; participation.year;
+
+          // Calculer la moyenne pour cette année
+          const totalMedals &#x3D; data
+            .filter(o &#x3D;&gt; o.id !&#x3D;&#x3D; excludedOlympicId) // Exclure le pays en cours
+            .reduce((sum, otherCountry) &#x3D;&gt; {
+              const yearParticipation &#x3D; otherCountry.participations.find(p &#x3D;&gt; p.year &#x3D;&#x3D;&#x3D; year);
+              return sum + (yearParticipation ? yearParticipation.medalsCount : 0);
+            }, 0);
+
+          // Nombre total de pays participant cette année (hors exclu)
+          const participatingCountries &#x3D; data.filter(o &#x3D;&gt; o.id !&#x3D;&#x3D; excludedOlympicId)
+            .filter(o &#x3D;&gt; o.participations.some(p &#x3D;&gt; p.year &#x3D;&#x3D;&#x3D; year)).length;
+
+          const avgMedals &#x3D; participatingCountries &gt; 0 ? totalMedals / participatingCountries : 0;
+
+          return {
+            name: &#x60;${year}&#x60;,
+            value: avgMedals // Moyenne de médailles
+          };
+        });
+
+        // Construction des données pour le graphique
+        const chartLine: ChartLine &#x3D; {
+          xAxisLabel: &#x27;Dates&#x27;,
+          yAxisLabel: &#x27;Nombre de médailles&#x27;,
+          seriesLines: [
+            {
+              name: olympic.country, // Série pour le pays sélectionné
+              series: olympic.participations.map(part &#x3D;&gt; ({
+                name: &#x60;${part.year}&#x60;, // Année
+                value: part.medalsCount // Médailles pour cette année
+              }))
+            },
+            {
+              name: &#x27;Moyenne globale (hors pays sélectionné)&#x27;, // Série pour la moyenne
+              series: averageSeries
+            }
+          ]
+        };
+        return chartLine;
       }),
       tap(data &#x3D;&gt; console.log(&#x27;OlympicService.getMedalsChartLineByOlympic &#x3D;&gt; data : &#x27;, data))
     );
