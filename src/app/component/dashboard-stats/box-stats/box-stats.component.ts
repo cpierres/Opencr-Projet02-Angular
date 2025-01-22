@@ -16,8 +16,10 @@ import {NgForOf, NgIf} from "@angular/common";
  * - Accepte une propriété d'entrée `boxStats` qui détermine le contenu des statistiques.
  *
  * Entrée :
- * - `boxStats` : un objet de type `BoxStats`, qui contient un titre et un tableau d'éléments statistiques `BoxStat`.
- * Chaque élément statistique comprend un `label` et une `value`. L'entrée est nullable et peut être indéfinie.
+ * - `boxStats` : un objet de type `BoxStats`, qui contient un titre
+ * - et un tableau d'éléments statistiques `BoxStat`. Chaque élément statistique comprend un `label` et une `value`.
+ *
+ * L'entrée est nullable et peut être indéfinie.
  */
 @Component({
   selector: 'app-box-stats',

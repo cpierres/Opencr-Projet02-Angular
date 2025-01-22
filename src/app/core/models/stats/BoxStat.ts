@@ -1,6 +1,5 @@
 /**
- * Interface des données présentes dans un cadre de statistique
- * (composant standalone box-stats)
+ * Interface des données présentes dans un cadre de statistique global (composant standalone app-box-stats)
  */
 export interface BoxStat {
   label: string;
