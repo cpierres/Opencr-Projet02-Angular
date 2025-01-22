@@ -5,7 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {ChartPie} from "../models/stats/ChartPie";
 import {LoadingService} from "./loading.service";
-import {Stats} from "../models/stats/Stats";
+import {BoxStats} from "../models/stats/BoxStats";
 import {MessagesService} from "./messages.service";
 import {ChartLine} from "../models/stats/ChartLine";
 
@@ -113,10 +113,10 @@ export class OlympicService {
    * - Nombre de pays
    * La structure est évolutive. Il suffit d'ajouter une statistique dans le tableau retourné
    * et elles seront dynamiquement affichées dans le composant d'affichage réutilisable.
-   * @returns Un Observable incluant un tableau de Stat avec le nombre de pays participants et
+   * @returns Un Observable incluant un tableau de BoxStat avec le nombre de pays participants et
    *          le nombre d'années uniques de participations.
    */
-  getHomeStats(): Observable<Stats> {
+  getHomeStats(): Observable<BoxStats> {
     //console.log('appel OlympicService.getHomeStats()');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
@@ -168,7 +168,7 @@ export class OlympicService {
    * @param id L'identifiant du pays.
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
-  getOlympicStatsOfCountryId(id: number): Observable<Stats | undefined> {
+  getOlympicStatsOfCountryId(id: number): Observable<BoxStats | undefined> {
     console.log('appel OlympicService.getOlympicStatsOfCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
@@ -213,7 +213,7 @@ export class OlympicService {
    * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
    *
    * @param {number} olympicId - ID de l'Olympic
-   * @return {Observable<ChartLine>} Observable émettant un ChartLine avec son array d'objets SeriesLine
+   * @return {Observable<ChartLine>} Observable émettant un ChartLine avec son array d'objets ChartLineSeries
    * contenant les informations de médaille pour le country/olympic
    */
   getMedalsChartLineByOlympic(olympicId: number): Observable<ChartLine | undefined> {
@@ -226,7 +226,7 @@ export class OlympicService {
           //throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
           return undefined; // En cas d'actualisation, retourner undefined pour respecter le type Observable<ChartLine | undefined>.
         }
-        // Construction de l'objet SeriesLine
+        // Construction de l'objet ChartLineSeries
         const chartLine: ChartLine = {
           xAxisLabel: 'Dates',
           yAxisLabel: 'Nombre de médailles',
@@ -284,7 +284,7 @@ export class OlympicService {
 
           return {
             name: `${year}`,
-            value: avgMedals // Médaille moyenne calculée
+            value: avgMedals // Moyenne de médailles
           };
         });
 

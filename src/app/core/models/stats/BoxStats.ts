@@ -1,10 +1,10 @@
-import {Stat} from "./Stat";
+import {BoxStat} from "./BoxStat";
 
 /**
  * Le composant box-stats peut afficher n boites de
  * statistiques et il y a également un titre global (name).
  */
-export interface Stats {
+export interface BoxStats {
   name: string;
-  stats: Stat[];
+  stats: BoxStat[];
 }
