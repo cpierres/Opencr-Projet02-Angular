@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Stats} from "../../../core/models/stats/Stats";
+import {BoxStats} from "../../../core/models/stats/BoxStats";
 import {NgForOf, NgIf} from "@angular/common";
 
 
@@ -16,8 +16,10 @@ import {NgForOf, NgIf} from "@angular/common";
  * - Accepte une propriété d'entrée `boxStats` qui détermine le contenu des statistiques.
  *
  * Entrée :
- * - `boxStats` : un objet de type `Stats`, qui contient un titre et un tableau d'éléments statistiques.
- * Chaque élément statistique comprend un `label` et une `value`. L'entrée est nullable et peut être indéfinie.
+ * - `boxStats` : un objet de type `BoxStats`, qui contient un titre
+ * - et un tableau d'éléments statistiques `BoxStat`. Chaque élément statistique comprend un `label` et une `value`.
+ *
+ * L'entrée est nullable et peut être indéfinie.
  */
 @Component({
   selector: 'app-box-stats',
@@ -31,7 +33,7 @@ import {NgForOf, NgIf} from "@angular/common";
 })
 export class BoxStatsComponent {
   @Input()
-  boxStats: Stats | null | undefined = {
+  boxStats: BoxStats | null | undefined = {
     name: 'Titre stats',
     stats: [
       { label: 'stat1', value: 10 },

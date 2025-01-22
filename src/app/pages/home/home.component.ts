@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {ChartPie} from "../../core/models/stats/ChartPie";
 import {OlympicService} from "../../core/services/olympic.service";
-import {Stats} from "../../core/models/stats/Stats";
+import {BoxStats} from "../../core/models/stats/BoxStats";
 import {Router} from "@angular/router";
 import {AppRoutes} from "../../app.routes";
 
@@ -28,7 +28,7 @@ import {AppRoutes} from "../../app.routes";
 })
 export class HomeComponent implements OnInit {
   //olympics$: Observable<Olympic[]> = of([]) ;
-  boxStats$: Observable<Stats> | undefined;
+  boxStats$: Observable<BoxStats> | undefined;
   medalPieData$: Observable<ChartPie[]> | undefined;
 
   constructor(

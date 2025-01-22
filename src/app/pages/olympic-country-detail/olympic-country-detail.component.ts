@@ -5,7 +5,7 @@ import {
 import {ActivatedRoute, Router} from "@angular/router";
 import {BoxStatsComponent} from "../../component/dashboard-stats/box-stats/box-stats.component";
 import {OlympicService} from "../../core/services/olympic.service";
-import {Stats} from "../../core/models/stats/Stats";
+import {BoxStats} from "../../core/models/stats/BoxStats";
 import {AsyncPipe} from "@angular/common";
 import {Observable} from "rxjs";
 import {ChartLine} from "../../core/models/stats/ChartLine";
@@ -45,7 +45,7 @@ import {ChartLine} from "../../core/models/stats/ChartLine";
   styleUrl: './olympic-country-detail.component.scss'
 })
 export class OlympicCountryDetailComponent implements OnInit {
-  boxStats$: Observable<Stats | undefined> | undefined;
+  boxStats$: Observable<BoxStats | undefined> | undefined;
   lineChartData$: Observable<ChartLine | undefined> | undefined;
 
   constructor(
