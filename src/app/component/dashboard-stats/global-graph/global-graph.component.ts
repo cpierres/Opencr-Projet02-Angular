@@ -75,11 +75,7 @@ export class GlobalGraphComponent implements OnInit {
    *  à transmettre en output du composant parent
    * @param event
    */
-  onSelectSlice(event
-                :
-                SerieData
-  ):
-    void {
+  onSelectSlice(event:SerieData):void {
     // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
     //console.log('Slice sélectionné :', event);
     // Émettre l'événement au composant parent

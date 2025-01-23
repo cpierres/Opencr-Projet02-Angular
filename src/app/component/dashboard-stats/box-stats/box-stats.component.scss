@@ -14,7 +14,7 @@
 
 .title-box h1 {
   font-size: 2.5rem; /* 40px / 16 = 2.5rem */
-  font-family: 'Arial', sans-serif; /* Police propre */
+  font-family: 'Arial', sans-serif;
   color: white; /* Couleur du texte en blanc */
   margin: 0; /* Supprime toute marge supplémentaire */
 }
@@ -31,26 +31,26 @@
 .stat-box {
   flex: 1; /* Permet à chaque boîte d'occuper un espace égal */
   min-width: 250px; /* Largeur minimale avant qu'elles passent l'une sous l'autre */
-  background-color: white; /* Fond blanc */
+  background-color: white;
   border: 2px solid #008b8b; /* Bordure turquoise foncé */
   border-radius: 10px; /* Bords arrondis */
   padding: 1px; /* Espacement interne réduit mais équilibré */
   text-align: center; /* Centre le texte dans chaque boîte */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
 }
 
 .stat-box h2 {
   font-size: 1.875rem; /* 30px / 16 = 1.875rem */
-  color: #333; /* Couleur principale des titres */
-  font-weight: normal; /* Texte non gras */
+  color: #333;
+  font-weight: normal;
   margin-bottom: 5px; /* Espacement bas réduit pour le titre */
   min-width: 20px;
 }
 
 .stat-box p {
   font-size: 1.875rem; /* 30px / 16 = 1.875rem */
-  color: black; /* La couleur turquoise foncée des valeurs */
-  font-weight: bolder; /* Texte en gras pour les valeurs */
+  color: black;
+  font-weight: bolder;
   margin: 0 0 15px; /* Augmente l'espacement en bas (margin-bottom: 15px) */
 }
 
@@ -71,4 +71,28 @@
 .no-data-container p {
   font-size: 1.2rem;
   color: #555;
+}
+
+// Media query pour mobiles
+//Réduction de la taille de police spécifique aux mobiles
+@media (max-width: 768px) {
+  .title-box h1 {
+    font-size: 2rem;
+  }
+
+  .stat-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .stat-box p {
+    font-size: 1.5rem;
+  }
+
+  .no-data-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .no-data-container p {
+    font-size: 1rem;
+  }
 }

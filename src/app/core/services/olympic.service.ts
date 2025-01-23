@@ -65,7 +65,9 @@ export class OlympicService {
         take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
         // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
       )
-    ).subscribe(data => console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
+    ).subscribe(data =>{
+      //console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
+    });
 
   }
 
@@ -178,7 +180,7 @@ export class OlympicService {
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
   getOlympicStatsOfCountryId(id: number): Observable<BoxStats | undefined> {
-    console.log('appel OlympicService.getOlympicStatsOfCountryId(' + id + ')');
+    //console.log('appel OlympicService.getOlympicStatsOfCountryId(' + id + ')');
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
