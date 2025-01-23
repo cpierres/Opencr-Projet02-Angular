@@ -1,6 +1,6 @@
 
 # Application Jeux Olympiques 
-![telesport_P2_banner.png](docs/docs/assets/images/telesport_P2_banner.png)
+![telesport_P2_banner.png](/docs/assets/images/telesport_P2_banner.png)
 ## Table des matières
 - [Auteur et dépôts](#auteur-et-dépôts)
 - [Description](#description)
@@ -25,10 +25,10 @@
 - Dépôt GitHub des sources : https://github.com/cpierres/Opencr-Projet02-Angular
 - Documentation technique (compodoc) : https://cpierres.github.io/Opencr-Projet02-Angular/
 
-Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer 
-les données et fonctionnalités liées aux Jeux Olympiques pour le compte de la société Télésport. 
-
 ## Description
+
+Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer
+les données liées aux Jeux Olympiques pour le compte de la société Télésport.
 
 L'application des Jeux Olympiques est conçue pour :
 - Explorer les performances des pays participants à travers des graphiques et des données interactives.
@@ -71,12 +71,16 @@ Ces composants peuvent être instanciés dans différents contextes.
 ## Screenshots
 
 ### Homepage Dashboard
+
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
-![Homepage Dashboard](docs/docs/assets/images/homepage-dashboard.png)
+
+![Homepage Dashboard](/docs/assets/images/homepage-dashboard.png)
 
 ### Detail Country
+
 Page détaillant les performances d'un pays spécifique.
-![Detail Country](docs/docs/assets/images/detail-country.png)
+
+![Detail Country](/docs/assets/images/detail-country.png)
 
 
 ---
