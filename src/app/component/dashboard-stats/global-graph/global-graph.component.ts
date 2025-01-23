@@ -1,7 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import {ChartPie} from "../../../core/models/stats/ChartPie";
+//import {GlobalGraph} from "../../../core/models/stats/GlobalGraph";
+import {SerieData} from "../../../core/models/stats/SerieData";
+import {GlobalGraph} from "../../../core/models/stats/GlobalGraph";
 
 /**
  * Le composant GlobalGraphComponent est un composant Angular standalone utilisé pour afficher
@@ -28,45 +30,67 @@ import {ChartPie} from "../../../core/models/stats/ChartPie";
   providers: []
 })
 export class GlobalGraphComponent implements OnInit {
+  @Input()
+  chartType: 'pie' | 'bar' = 'pie';
 
   @Input()
-  medalPieData: ChartPie[]  | null | undefined = [
-    {
-      "name": "Pays 1",
-      "value": 96,
-      "extra": {
-        "id": 1
-      }
-    },
-    {
-      "name": "Pays 2",
-      "value": 54,
-      "extra": {
-        "id": 2
-      }
-    }
-  ]
+  toggleChart: boolean = true;
 
+  @Input()
+  globalGraph: GlobalGraph | null | undefined =
+    {
+      serieDatas: [
+        {
+          "name": "Pays 1",
+          "value": 96,
+          "extra": {
+            "id": 1
+          }
+        },
+        {
+          "name": "Pays 2",
+          "value": 54,
+          "extra": {
+            "id": 2
+          }
+        }
+      ]
+    };
 
-  // Événement de sortie : pour transmettre l'élément sélectionné
-  @Output() sliceSelected = new EventEmitter<ChartPie>();
+// Événement de sortie : pour transmettre l'élément sélectionné
+  @Output()
+  sliceSelected = new EventEmitter<SerieData>();
 
   constructor() {
   }
 
-  ngOnInit(): void {
+  ngOnInit()
+    :
+    void {
     //console.log('GlobalGraphComponent.ngOnInit');
   }
 
   /**
-   *  Gestion de l'événément de sélection d'un slice de pie
+   *  Gestion de l'événement de sélection d'un slice de pie
    *  à transmettre en output du composant parent
    * @param event
    */
-  onSelectSlicePie(event: ChartPie): void {
+  onSelectSlice(event
+                :
+                SerieData
+  ):
+    void {
     // Vous pouvez effectuer des traitements supplémentaires si nécessaire ici
     //console.log('Slice sélectionné :', event);
     // Émettre l'événement au composant parent
     this.sliceSelected.emit(event);
   }
+
+// Méthode appelée lors d'un double clic sur le graphe pour alterner le type de graphe
+  onToggleChart() {
+    if (this.toggleChart) {
+      this.chartType = this.chartType === 'pie' ? 'bar' : 'pie';
+    }
+  }
+
 }

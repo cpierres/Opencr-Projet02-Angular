@@ -3,11 +3,12 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, delay, finalize, map, Observable, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
-import {ChartPie} from "../models/stats/ChartPie";
+import {GlobalGraph} from "../models/stats/GlobalGraph";
 import {LoadingService} from "./loading.service";
 import {BoxStats} from "../models/stats/BoxStats";
 import {MessagesService} from "./messages.service";
-import {ChartLine} from "../models/stats/ChartLine";
+import {DetailGraph} from "../models/stats/DetailGraph";
+import {SerieData} from "../models/stats/SerieData";
 
 /**
  * Service métier destiné à gérer les données liées aux Jeux Olympiques (Olympics). Il utilise un BehaviorSubject pour
@@ -84,7 +85,6 @@ export class OlympicService {
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
-        //filter(data => data.length > 0),
         //delay(2000), // délai de 2 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
@@ -134,7 +134,9 @@ export class OlympicService {
           stats: [{label: 'Nombre de JOs', value: totalYears}, {label: 'Nombre de pays', value: totalCountries}]
         };
       }),
-      tap(stats => console.log('OlympicService.getHomeStats data', stats))
+      tap(stats => {
+        //console.log('OlympicService.getHomeStats data', stats)
+      })
     );
   }
 
@@ -142,24 +144,31 @@ export class OlympicService {
    * Traite les données des Jeux olympiques pour créer une liste d'objets représentant
    * la distribution des médailles par pays.
    *
-   * @return {Observable<ChartPie[]>} Un observable émettant un tableau d'objets ChartPie,
+   * @return {Observable<GlobalGraph>} Un observable émettant un GlobalGraph, contenant SerieData[]),
    * qui correspondent aux données requises composant ngx-charts-pie-chart
    */
-  getMedalsPieData(): Observable<ChartPie[]> {
-    //console.log('appel OlympicService.getMedalsPieData()');
+  getMedalsGlobalGraph(): Observable<GlobalGraph> {
+    //console.log('appel OlympicService.getMedalsGlobalGraph()');
     return this.olympics$.pipe(
-      map((olympics: Olympic[]) =>
-        olympics.map((o: Olympic) => ({
+      map((olympics: Olympic[]) => {
+        // Construction des objets SerieData[] pour les données du pie chart
+        const datas: SerieData[] = olympics.map((o: Olympic) => ({
           name: o.country,
-          value: o.participations.reduce((accumulator, current) => accumulator + current.medalsCount, 0), // Total des médailles
-          extra: {id: o.id}
-        }))
-      ),
-      tap(
-        data => {
-        console.log('OlympicService.getMedalsPieData data', data)
-        }
-      )
+          value: o.participations.reduce(
+            (accumulator, current) => accumulator + current.medalsCount,
+            0
+          ), // Total des médailles
+          extra: { id: o.id }
+        }));
+
+        // Construction de l'objet GlobalGraph à retourner
+        return {
+          serieDatas: datas
+        } as GlobalGraph;
+      }),
+      tap(data => {
+        //console.log('OlympicService.getMedalsGlobalGraph data', data)
+      })
     );
   }
 
@@ -193,7 +202,9 @@ export class OlympicService {
         }
         return undefined;
       }),
-      tap(data => console.log('OlympicService.getOlympicStatsOfCountryId => data : ', data))
+      tap(data => {
+        //console.log('OlympicService.getOlympicStatsOfCountryId => data : ', data)
+      })
     );
   }
 
@@ -213,10 +224,10 @@ export class OlympicService {
    * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
    *
    * @param {number} olympicId - ID de l'Olympic
-   * @return {Observable<ChartLine>} Observable émettant un ChartLine avec son array d'objets ChartLineSeries
+   * @return {Observable<DetailGraph>} Observable émettant un DetailGraph avec son array d'objets SerieName
    * contenant les informations de médaille pour le country/olympic
    */
-  getMedalsChartLineByOlympic(olympicId: number): Observable<ChartLine | undefined> {
+  getMedalsChartLineByOlympic(olympicId: number): Observable<DetailGraph | undefined> {
     //console.log('appel OlympicService.getMedalsChartLineByOlympic(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
@@ -224,13 +235,13 @@ export class OlympicService {
         const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
         if (!olympic) {
           //throw new Error(`Aucun Olympic trouvé pour l'ID ${olympicId}`);
-          return undefined; // En cas d'actualisation, retourner undefined pour respecter le type Observable<ChartLine | undefined>.
+          return undefined; // En cas d'actualisation, retourner undefined pour respecter le type Observable<DetailGraph | undefined>.
         }
-        // Construction de l'objet ChartLineSeries
-        const chartLine: ChartLine = {
+        // Construction de l'objet SerieName
+        const chartLine: DetailGraph = {
           xAxisLabel: 'Dates',
           yAxisLabel: 'Nombre de médailles',
-          seriesLines: [
+          serieNames: [
             {
               name: olympic.country,
               series:
@@ -243,7 +254,9 @@ export class OlympicService {
         };
         return chartLine; // Retourner un descriptif de chart avec les données de séries
       }),
-      tap(data => console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data))
+      tap(data => {
+        //console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data)
+      })
     );
   }
 
@@ -253,7 +266,7 @@ export class OlympicService {
    *  pays.
    * @param olympicId =id du pays
    */
-  getMedalsChartLineByOlympicV2(olympicId: number): Observable<ChartLine | undefined> {
+  getMedalsChartLineByOlympicV2(olympicId: number): Observable<DetailGraph | undefined> {
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic pour l'ID donné
@@ -289,10 +302,10 @@ export class OlympicService {
         });
 
         // Construction des données pour le graphique
-        const chartLine: ChartLine = {
+        const detailChart: DetailGraph = {
           xAxisLabel: 'Dates',
           yAxisLabel: 'Nombre de médailles',
-          seriesLines: [
+          serieNames: [
             {
               name: olympic.country, // Série pour le pays sélectionné
               series: olympic.participations.map(part => ({
@@ -306,9 +319,11 @@ export class OlympicService {
             }
           ]
         };
-        return chartLine;
+        return detailChart;
       }),
-      tap(data => console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data))
+      tap(data => {
+        //console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data)
+      })
     );
   }
 

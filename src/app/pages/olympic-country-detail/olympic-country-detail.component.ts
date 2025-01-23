@@ -8,7 +8,7 @@ import {OlympicService} from "../../core/services/olympic.service";
 import {BoxStats} from "../../core/models/stats/BoxStats";
 import {AsyncPipe} from "@angular/common";
 import {Observable} from "rxjs";
-import {ChartLine} from "../../core/models/stats/ChartLine";
+import {DetailGraph} from "../../core/models/stats/DetailGraph";
 
 
 /**
@@ -46,7 +46,7 @@ import {ChartLine} from "../../core/models/stats/ChartLine";
 })
 export class OlympicCountryDetailComponent implements OnInit {
   boxStats$: Observable<BoxStats | undefined> | undefined;
-  lineChartData$: Observable<ChartLine | undefined> | undefined;
+  lineChartData$: Observable<DetailGraph | undefined> | undefined;
 
   constructor(
     private router: Router,
