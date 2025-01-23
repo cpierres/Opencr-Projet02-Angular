@@ -1,14 +1,15 @@
-<div *ngIf="medalPieData">
-  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;">
+<div *ngIf="globalGraph?.serieDatas">
+  <div style="display: flex; justify-content: center; align-items: center; width: 100%; height: 400px;"
+       (dblclick)="onToggleChart()">
     <ngx-charts-pie-chart
-      [results]="medalPieData"
+      *ngIf="chartType === 'pie'"
+      [results]="globalGraph?.serieDatas"
       [legend]="false"
       [explodeSlices]="false"
       [labels]="true"
       [doughnut]="false"
       [gradient]="false"
-      [legendTitle]="'Pays'"
-      (select)="onSelectSlicePie($event)">
+      (select)="onSelectSlice($event)">
       <ng-template #tooltipTemplate let-model="model">
         <div ngx-tooltip>
           <p>{{ model.name }}</p>
@@ -16,5 +17,25 @@
         </div>
       </ng-template>
     </ngx-charts-pie-chart>
+    <ngx-charts-bar-vertical
+      *ngIf="chartType === 'bar'"
+      [results]="globalGraph?.serieDatas"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      [gradient]="false"
+      [showDataLabel]="true"
+      [barPadding]="10"
+      (select)="onSelectSlice($event)">
+      <ng-template #tooltipTemplate let-model="model">
+        <div ngx-tooltip>
+          <p>{{ model.name }}</p>
+          <p>🏅 {{ model.value }}</p>
+        </div>
+      </ng-template>
+    </ngx-charts-bar-vertical>
   </div>
 </div>
+

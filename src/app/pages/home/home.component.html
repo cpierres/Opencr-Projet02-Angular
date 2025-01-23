@@ -1,4 +1,6 @@
-<!-- h2>Olympic games dashboard (page Home)</h2 -->
 <app-box-stats [boxStats]="boxStats$ | async"/>
-<app-global-graph [medalPieData]="medalPieData$ | async"
-                  (sliceSelected)="onSelectSlicePie($event)" />
+<app-global-graph [globalGraph]="globalGraph$ | async"
+                  (sliceSelected)="onSelectSlice($event)" [chartType]="'pie'" [toggleChart]="true" />
+
+<!-- app-global-graph (sliceSelected)="onSelectSlice($event)" / -->
+

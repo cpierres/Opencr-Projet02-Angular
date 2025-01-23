@@ -1,6 +1,6 @@
 
-# Application Jeux Olympiques 
-![telesport_P2_banner.png](docs/assets/images/telesport_P2_banner.png)
+# Application Jeux Olympiques
+![telesport_P2_banner.png](/docs/assets/images/telesport_P2_banner.png)
 ## Table des matières
 - [Auteur et dépôts](#auteur-et-dépôts)
 - [Description](#description)
@@ -20,15 +20,15 @@
 
 
 ## Auteur et dépôts
-- Auteur : Christophe Pierrès 
+- Auteur : Christophe Pierrès
 - Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/)
 - Dépôt GitHub des sources : https://github.com/cpierres/Opencr-Projet02-Angular
 - Documentation technique (compodoc) : https://cpierres.github.io/Opencr-Projet02-Angular/
 
-Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer 
-les données et fonctionnalités liées aux Jeux Olympiques pour le compte de la société Télésport. 
-
 ## Description
+
+Cette application a été développée en utilisant Angular (version 18.0.3) et vise à fournir une expérience interactive pour explorer
+les données liées aux Jeux Olympiques pour le compte de la société Télésport.
 
 L'application des Jeux Olympiques est conçue pour :
 - Explorer les performances des pays participants à travers des graphiques et des données interactives.
@@ -49,21 +49,21 @@ L'application des Jeux Olympiques est conçue pour :
 ## Composants Réutilisables
 
 Voici les principaux composants réutilisables utilisés dans le projet Angular :
-- **BoxStatsComponent** : Permet d'afficher des boites de statistiques (1 titre et n boites de stat. avec libellé et valeur) 
+- **BoxStatsComponent** : Permet d'afficher des boites de statistiques (1 titre et n boites de stat. avec libellé et valeur)
 - **GlobalGraphComponent** : Permet de visualiser un graphique global concernant les statistiques des Jeux Olympiques.
 - **DetailGraphComponent** : Affiche les détails spécifiques d'un pays pour les Jeux Olympiques.
-Ces composants peuvent être instanciés dans différents contextes.
+  Ces composants peuvent être instanciés dans différents contextes.
 
 ## Composants de services partagés (réactifs)
 
-- **LoadingComponent** et **LoadingService** : pour faire patienter l'utilisateur lors du chargement d'un flux. La méthode `showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T>` permet de greffer le loading sur un Observable sans être intrusif. 
+- **LoadingComponent** et **LoadingService** : pour faire patienter l'utilisateur lors du chargement d'un flux. La méthode `showLoaderUntilCompleted<T>(observable$: Observable<T>): Observable<T>` permet de greffer le loading sur un Observable sans être intrusif.
 - **MessagesService** : pour gérer les messages erreurs affichés à l'utilisateur.
 
 
 ## Pages
 - **HomeComponent** : Page d'entrée du tableau de bord olympique, servant de point de départ pour explorer les fonctionnalités.
 - **OlympicCountryDetail** : Page de détail des statistiques par pays, pour gérer la navigation et inclure le composant ci-dessous.
-- 
+-
 ## Démo
 
 - **Serveur de développement** : `http://localhost:4200/`
@@ -71,12 +71,16 @@ Ces composants peuvent être instanciés dans différents contextes.
 ## Screenshots
 
 ### Homepage Dashboard
+
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
-![Homepage Dashboard](docs/assets/images/homepage-dashboard.png)
+
+![Homepage Dashboard](/docs/assets/images/homepage-dashboard.png)
 
 ### Detail Country
+
 Page détaillant les performances d'un pays spécifique.
-![Detail Country](docs/assets/images/detail-country.png)
+
+![Detail Country](/docs/assets/images/detail-country.png)
 
 
 ---
@@ -199,5 +203,5 @@ Ce projet est sous licence MIT.
 
 ## Auteur et contributeur
 
-- [Christophe Pierrès](https://github.com/cpierres)  
+- [Christophe Pierrès](https://github.com/cpierres)
 - Rachid Oubraim, mentor d'OpenClassrooms
