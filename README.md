@@ -1,6 +1,6 @@
 
 # Application Jeux Olympiques
-![telesport_P2_banner.png](/docs/assets/images/telesport_P2_banner.png)
+![telesport_P2_banner.png](docs/assets/images/telesport_P2_banner.png)
 ## Table des matières
 - [Auteur et dépôts](#auteur-et-dépôts)
 - [Description](#description)
@@ -74,13 +74,13 @@ Voici les principaux composants réutilisables utilisés dans le projet Angular 
 
 Page d'accueil avec possibilité de drill-down sur un pays afin d'accéder à l'écran détail.
 
-![Homepage Dashboard](/docs/assets/images/homepage-dashboard.png)
+![Homepage Dashboard](docs/assets/images/homepage-dashboard.png)
 
 ### Detail Country
 
 Page détaillant les performances d'un pays spécifique.
 
-![Detail Country](/docs/assets/images/detail-country.png)
+![Detail Country](docs/assets/images/detail-country.png)
 
 
 ---
