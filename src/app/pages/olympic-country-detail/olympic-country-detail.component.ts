@@ -46,7 +46,7 @@ import {DetailGraph} from "../../core/models/stats/DetailGraph";
 })
 export class OlympicCountryDetailComponent implements OnInit {
   boxStats$: Observable<BoxStats | undefined> | undefined;
-  lineChartData$: Observable<DetailGraph | undefined> | undefined;
+  detailChartData$: Observable<DetailGraph | undefined> | undefined;
 
   constructor(
     private router: Router,
@@ -57,11 +57,15 @@ export class OlympicCountryDetailComponent implements OnInit {
   ngOnInit(): void {
     const countryId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
     if (countryId) {
-      this.boxStats$ = this.olympicService.getOlympicStatsOfCountryId(+countryId);
-      this.lineChartData$ = this.olympicService.getMedalsChartLineByOlympic(+countryId);
-      //démo : capacité à ajouter une nouvelle ligne de statistiques sans problème
+      const showAverages : boolean = false;
+      //démo : ajouter des box statistiques avec des moyennes
+      //les boxstats s'adaptent
+      this.boxStats$ = this.olympicService.getOlympicStatsOfCountryId(+countryId, showAverages);
+
+      //démo : capacité à ajouter une série de statistiques
       //(en comparant avec la moyenne du nombre de médailles hors payé sélectionné)
-      //this.lineChartData$ = this.olympicService.getMedalsChartLineByOlympicV2(+countryId);
+      //le composant graphique s'adapte
+      this.detailChartData$ = this.olympicService.getMedalsDetailGraphOfCountryV2(+countryId, showAverages);
     }
   }
 

@@ -54,6 +54,7 @@ export class OlympicService {
    */
   public refreshDataCache() {
     // méthode 1
+
     //  this.loadInitialData().pipe(
     //   take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
     //   // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
@@ -65,7 +66,7 @@ export class OlympicService {
         take(1)// Prend juste la 1ère donnée et se complète automatiquement (=> unsubscribe)
         // On met take(1) ici et non pas dans loadInitialData pour plus de flexibilité
       )
-    ).subscribe(data =>{
+    ).subscribe(data => {
       //console.log('OlympicService.refreshDataCache() ; Data reçues dans subscribe : ', data));
     });
 
@@ -160,7 +161,7 @@ export class OlympicService {
             (accumulator, current) => accumulator + current.medalsCount,
             0
           ), // Total des médailles
-          extra: { id: o.id }
+          extra: {id: o.id}
         }));
 
         // Construction de l'objet GlobalGraph à retourner
@@ -176,11 +177,16 @@ export class OlympicService {
 
   /**
    * Données statistiques d'un seul pays à partir de son identifiant.
+   * Permet d'inclure ou non les moyennes calculées en configurant l'option `includeAverages`.
+   *
    * @param id L'identifiant du pays.
+   * @param includeAverages Indique si les moyennes doivent être calculées (par défaut false).
    * @returns Un Observable contenant les stats du pays, y compris son id et son nom.
    */
-  getOlympicStatsOfCountryId(id: number): Observable<BoxStats | undefined> {
-    //console.log('appel OlympicService.getOlympicStatsOfCountryId(' + id + ')');
+  getOlympicStatsOfCountryId(
+    id: number,
+    includeAverages: boolean = false
+  ): Observable<BoxStats | undefined> {
     return this.olympics$.pipe(
       map((olympics: Olympic[]) => {
         const country = olympics.find((o: Olympic) => o.id === id);
@@ -188,18 +194,34 @@ export class OlympicService {
           const totalParticipations = country.participations.length;
           const totalAthletes = country.participations.reduce((acc, curr) => acc + curr.athleteCount, 0);
           const totalMedals = country.participations.reduce((acc, curr) => acc + curr.medalsCount, 0);
-          const averageAthletesPerParticipation = totalParticipations > 0 ? (totalAthletes / totalParticipations) : 0;
-          const averageMedalsPerParticipation = totalParticipations > 0 ? (totalMedals / totalParticipations) : 0;
+
+          // Préparer les statistiques de base
+          const stats = [
+            {label: 'Nombre de participations', value: totalParticipations},
+            {label: 'Nombre total de médailles', value: totalMedals},
+            {label: 'Nombre total d\'athlètes', value: totalAthletes},
+          ];
+
+          // Ajouter les moyennes si demandé
+          if (includeAverages && totalParticipations > 0) {
+            const averageAthletesPerParticipation = totalAthletes / totalParticipations;
+            const averageMedalsPerParticipation = totalMedals / totalParticipations;
+
+            stats.push(
+              {
+                label: 'Moyenne d\'athlètes par participation',
+                value: parseFloat(averageAthletesPerParticipation.toFixed(0)),
+              },
+              {
+                label: 'Moyenne de médailles par participation',
+                value: parseFloat(averageMedalsPerParticipation.toFixed(0)),
+              }
+            );
+          }
 
           return {
             name: country.country,
-            stats: [
-              {label: 'Nombre de participations', value: totalParticipations},
-              {label: 'Nombre total de médailles',value: totalMedals},
-              {label: 'Nombre total d\'athlètes', value: totalAthletes},
-              // {label: 'Moyenne d\'athlètes par participation',value: parseFloat(averageAthletesPerParticipation.toFixed(0))},
-              // {label: 'Moyenne de médailles par participation',value: parseFloat(averageMedalsPerParticipation.toFixed(0))}
-            ]
+            stats,
           };
         }
         return undefined;
@@ -209,6 +231,7 @@ export class OlympicService {
       })
     );
   }
+
 
   /**
    * Données d'un seul pays à partir de son identifiant.
@@ -223,14 +246,15 @@ export class OlympicService {
   }
 
   /**
-   * Récupère les données de la série de médailles (graphe Line) pour un événement olympique (country) spécifique.
+   * Spéc originale : Récupère les données de la série de médailles (graphe détail) pour un événement olympique
+   * (country) spécifique.
    *
    * @param {number} olympicId - ID de l'Olympic
    * @return {Observable<DetailGraph>} Observable émettant un DetailGraph avec son array d'objets SerieName
    * contenant les informations de médaille pour le country/olympic
    */
-  getMedalsChartLineByOlympic(olympicId: number): Observable<DetailGraph | undefined> {
-    //console.log('appel OlympicService.getMedalsChartLineByOlympic(' + olympicId + ')');
+  getMedalsDetailGraphOfCountry(olympicId: number): Observable<DetailGraph | undefined> {
+    //console.log('appel OlympicService.getMedalsDetailGraphOfCountry(' + olympicId + ')');
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic au param olympicId
@@ -240,7 +264,7 @@ export class OlympicService {
           return undefined; // En cas d'actualisation, retourner undefined pour respecter le type Observable<DetailGraph | undefined>.
         }
         // Construction de l'objet SerieName
-        const chartLine: DetailGraph = {
+        const detailGraph: DetailGraph = {
           xAxisLabel: 'Dates',
           yAxisLabel: 'Nombre de médailles',
           serieNames: [
@@ -254,77 +278,93 @@ export class OlympicService {
             }
           ]
         };
-        return chartLine; // Retourner un descriptif de chart avec les données de séries
+        return detailGraph; // Retourner un descriptif de graphique avec les données de séries
       }),
       tap(data => {
-        //console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data)
+        //console.log('OlympicService.getMedalsDetailGraphOfCountry => data : ', data)
       })
     );
   }
 
   /**
-   *  Méthode pour démo d'évolutivité possible grâce à la souplesse du composant.
-   *  Ici on ajoute sans difficulté une 2ème série représentant la moyenne du nombre de médailles pour les autres
-   *  pays.
-   * @param olympicId =id du pays
+   * Pour démo : Méthode pour générer un graphique détaillé des médailles pour un pays sélectionné.
+   * Le calcul des moyennes des autres pays est optionnel selon le paramètre includeAverages.
+   * @param olympicId - ID du pays
+   * @param includeAverages - Indique si les moyennes des médailles doivent être calculées (par défaut à false)
+   * @returns Observable<DetailGraph | undefined>
    */
-  getMedalsChartLineByOlympicV2(olympicId: number): Observable<DetailGraph | undefined> {
+  getMedalsDetailGraphOfCountryV2(
+    olympicId: number,
+    includeAverages: boolean = false
+  ): Observable<DetailGraph | undefined> {
     return this.olympics$.pipe(
       map((data) => {
         // Recherche de l'Olympic pour l'ID donné
         const olympic: Olympic | undefined = data.find((item: Olympic) => item.id === olympicId);
         if (!olympic) {
-          // Aucun Olympic trouvé pour cet ID
           return undefined;
         }
 
-        // Calcul de la moyenne de médailles par année pour tous les pays, sauf celui en cours
-        const excludedOlympicId = olympic.id; // ID du pays à exclure
-        const averageSeries = olympic.participations.map(participation => {
-          const year = participation.year;
+        // Série principale : nombre de médailles du pays sélectionné
+        const countrySeries: SerieData[] = olympic.participations.map((part) => ({
+          name: `${part.year}`, // Année
+          value: part.medalsCount, // Nombre de médailles pour cette année
+        }));
 
-          // Calculer la moyenne pour cette année
-          const totalMedals = data
-            .filter(o => o.id !== excludedOlympicId) // Exclure le pays en cours
-            .reduce((sum, otherCountry) => {
-              const yearParticipation = otherCountry.participations.find(p => p.year === year);
+        //série optionnelle : moyenne du nombre de médailles hors pays sélectionné
+        let averageSeries: SerieData[] | undefined;
+        if (includeAverages) {
+          // Préfiltrage : Exclure le pays sélectionné
+          const otherCountries = data.filter((o) => o.id !== olympic.id);
+
+          // Calcul de la moyenne de médailles par année
+          averageSeries = olympic.participations.map((participation) => {
+            const year = participation.year;
+
+            // Calcul du total des médailles pour l'année
+            const totalMedals = otherCountries.reduce((sum, otherCountry) => {
+              const yearParticipation = otherCountry.participations.find((p) => p.year === year);
               return sum + (yearParticipation ? yearParticipation.medalsCount : 0);
             }, 0);
 
-          // Nombre total de pays participant cette année (hors exclu)
-          const participatingCountries = data.filter(o => o.id !== excludedOlympicId)
-            .filter(o => o.participations.some(p => p.year === year)).length;
+            // Calcul du nombre de pays participant pour l'année
+            const participatingCountries = otherCountries.reduce((count, otherCountry) => {
+              return count + (otherCountry.participations.some((p) => p.year === year) ? 1 : 0);
+            }, 0);
 
-          const avgMedals = participatingCountries > 0 ? totalMedals / participatingCountries : 0;
+            // Calcul de la moyenne de médailles
+            const avgMedals = participatingCountries > 0 ? totalMedals / participatingCountries : 0;
 
-          return {
-            name: `${year}`,
-            value: avgMedals // Moyenne de médailles
-          };
-        });
+            return {
+              name: `${year}`,
+              value: avgMedals, // Moyenne calculée pour cette année
+            };
+          });
+        }
 
-        // Construction des données pour le graphique
-        const detailChart: DetailGraph = {
+        // Construction de l'objet de données final
+        return {
           xAxisLabel: 'Dates',
           yAxisLabel: 'Nombre de médailles',
           serieNames: [
             {
-              name: olympic.country, // Série pour le pays sélectionné
-              series: olympic.participations.map(part => ({
-                name: `${part.year}`, // Année
-                value: part.medalsCount // Médailles pour cette année
-              }))
+              name: olympic.country, // Série principale (médailles du pays sélectionné)
+              series: countrySeries,
             },
-            {
-              name: 'Moyenne globale (hors pays sélectionné)', // Série pour la moyenne
-              series: averageSeries
-            }
-          ]
+            // Ajout conditionnel pour la moyenne seulement si includeAverages est activé
+            ...(averageSeries
+              ? [
+                {
+                  name: 'Moyenne globale (hors pays sélectionné)', // Série pour la moyenne
+                  series: averageSeries,
+                },
+              ]
+              : []),
+          ],
         };
-        return detailChart;
       }),
-      tap(data => {
-        //console.log('OlympicService.getMedalsChartLineByOlympic => data : ', data)
+      tap((data) => {
+        //console.log('OlympicService.getMedalsDetailGraphOfCountryV2 => data : ', data)
       })
     );
   }

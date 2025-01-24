@@ -1,16 +1,16 @@
-<div *ngIf="chartLineData">
+<div *ngIf="chartData">
   <div class="chart-container">
     <ngx-charts-line-chart
-      [results]="chartLineData.serieNames"
+      [results]="chartData.serieNames"
       [gradient]="false"
       [xAxis]="true"
       [yAxis]="true"
       [legend]="false"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
-      [xAxisLabel]="chartLineData.xAxisLabel"
-      [yAxisLabel]="chartLineData.yAxisLabel"
+      [xAxisLabel]="chartData.xAxisLabel"
+      [yAxisLabel]="chartData.yAxisLabel"
       [autoScale]="true">
-    </ngx-charts-line-chart>
+    </ngx-charts-line-chart>²
   </div>
 </div>

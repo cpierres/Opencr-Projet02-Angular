@@ -6,7 +6,7 @@ import {DetailGraph} from "../../../core/models/stats/DetailGraph";
 /**
  * DetailGraphComponent est un composant Angular standalone utilisé pour afficher une visualisation
  * graphique détaillée à l'aide du LineChartModule. Il est configurable via une propriété d'entrée
- * chartLineData pour afficher des ensembles de données spécifiques avec des étiquettes pour les axes x et y.
+ * chartData pour afficher des ensembles de données spécifiques avec des étiquettes pour les axes x et y.
  *
  * Le composant comprend :
  * - Un sélecteur `app-detail-graph` pour une intégration facile dans les modèles.
@@ -15,7 +15,7 @@ import {DetailGraph} from "../../../core/models/stats/DetailGraph";
  * - Style via un fichier SCSS associé et un template défini pour la structure.
  *
  * Propriétés d'entrée :
- * - chartLineData : accepte un objet DetailGraph ou undefined/null. Fournit les données nécessaires au rendu
+ * - chartData : accepte un objet DetailGraph ou undefined/null. Fournit les données nécessaires au rendu
  * du graphique en courbes, y compris les étiquettes des axes x et y ainsi que les données de série pour le traçage.
  * La structure de données permet la personnalisation de plusieurs séries de points dans le graphique.
  */
@@ -32,7 +32,7 @@ import {DetailGraph} from "../../../core/models/stats/DetailGraph";
 })
 
 export class DetailGraphComponent implements OnInit {
-  @Input() chartLineData: DetailGraph | undefined | null = {
+  @Input() chartData: DetailGraph | undefined | null = {
     xAxisLabel: 'Axe des X',
     yAxisLabel: 'Axe des Y',
     serieNames: [

@@ -9,6 +9,5 @@ import {SerieData} from "./SerieData";
  * composant GlobalGraphComponent.
  */
 export interface GlobalGraph {
-  //toggleChart: boolean;
-  serieDatas: SerieData[];
+  serieDatas: SerieData[]; // Données adaptées pour un graphique d'accueil à une seule série
 }

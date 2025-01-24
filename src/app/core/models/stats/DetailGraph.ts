@@ -10,7 +10,7 @@ import {SerieName} from "./SerieName";
  * On pourrait avoir une 2ème série pour représenter le nombre moyen de médailles des autres pays.
  */
 export interface DetailGraph {
-  xAxisLabel: string;
-  yAxisLabel: string;
-  serieNames: SerieName[];
+  xAxisLabel: string; // Libellé Axe X configurable
+  yAxisLabel: string; // Libellé Axe Y configurable
+  serieNames: SerieName[]; // Possibilité de gérer plusieurs séries
 }

@@ -15,6 +15,8 @@ import {SerieData} from "./SerieData";
  * - puis les données de séries : SerieData[]
  */
 export interface SerieName {
-  name: string;
-  series: SerieData[];
+  name: string; // nom d'une série. Par exemple, un pays (France ou Allemagne), une catégorie...
+  series: SerieData[]; //Données de la série. Chaque élément de ce tableau représente un point de données
+                       //(valeur et éventuellement une date ou un autre indicateur) sur le graphe
+
 }
