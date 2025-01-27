@@ -64,9 +64,7 @@ export class GlobalGraphComponent implements OnInit {
   constructor() {
   }
 
-  ngOnInit()
-    :
-    void {
+  ngOnInit() {
     //console.log('GlobalGraphComponent.ngOnInit');
   }
 
