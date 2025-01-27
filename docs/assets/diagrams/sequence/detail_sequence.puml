@@ -1,0 +1,25 @@
+@startuml
+actor User as U
+participant OlympicCountryDetailComponent <<Page>>
+
+participant "OlympicService" as OS
+participant "BoxStatsComponent" as BSC
+participant "DetailGraphComponent" as DGC
+
+U -> OlympicCountryDetailComponent: Navigue vers "Olympic Country Detail" (via Router)
+activate OlympicCountryDetailComponent
+OlympicCountryDetailComponent -> OlympicCountryDetailComponent: Récupère l'ID du pays depuis ActivatedRoute
+OlympicCountryDetailComponent -> OS: getOlympicStatsOfCountryId(countryId, showAverages)
+activate OS
+OS --> OlympicCountryDetailComponent: Renvoie les Stats Olympiques (boxStats$)
+deactivate OS
+
+OlympicCountryDetailComponent -> OS: getMedalsDetailGraphOfCountryV2(countryId, showAverages)
+activate OS
+OS --> OlympicCountryDetailComponent: Renvoie les Données du Graphique (detailChartData$)
+deactivate OS
+
+OlympicCountryDetailComponent -> BSC: Alimente le composant avec boxStats$
+OlympicCountryDetailComponent -> DGC: Alimente le composant avec detailChartData$
+deactivate OlympicCountryDetailComponent
+@enduml

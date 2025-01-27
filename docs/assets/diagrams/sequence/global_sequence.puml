@@ -1,0 +1,34 @@
+@startuml
+actor User as U
+participant HomeComponent <<Page>>
+participant "OlympicService" as OS
+participant "app-box-stats" as BS
+participant "app-global-graph" as GG
+participant "Router" as R
+
+U -> HomeComponent: Charge la Page (HomeComponent default path)
+activate HomeComponent
+HomeComponent -> OS: getHomeStats()
+activate OS
+OS --> HomeComponent: Renvoie les Stats (boxStats$)
+deactivate OS
+
+HomeComponent -> OS: getMedalsGlobalGraph()
+activate OS
+OS --> HomeComponent: Renvoie les Données Graphiques (globalGraph$)
+deactivate OS
+
+HomeComponent -> BS: Fournit les Stats (via Input)
+HomeComponent -> GG: Fournit les Données Graphiques (via Input)
+deactivate HomeComponent
+
+U -> GG: Sélectionne une tranche/graphique
+activate GG
+GG -> HomeComponent: Émet un événement (onSelectSlice)
+deactivate GG
+
+activate HomeComponent
+HomeComponent -> HomeComponent: Analyse l'ID du pays
+HomeComponent -> R: Navigue vers olympic-country-detail
+deactivate HomeComponent
+@enduml
