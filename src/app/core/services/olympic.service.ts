@@ -78,11 +78,11 @@ export class OlympicService {
    * Les données sont ainsi accessibles à tout moment via l'observable olympics$.
    * La méthode {@link refreshDataCache()} est plus "safe" car elle récupère le flux et limite à une lecture en
    * évitant d'enregistrer trop d'éléments (inutiles) dans le cache et en fermant .
-   * QUESTION : j'hésite à mettre cette méthode de service en private car elle est susceptible d'une mauvaise
+   * Décision : je mets cette méthode de service en private car elle est susceptible d'une mauvaise
    * utilisation si le développeur oublie de faire un take(1). De plus, si elle est appelée intempestivement
    * plusieurs fois sans le take(1), elle peut déclencher des écoutes multiples non souhaitées.
    */
-  loadInitialData(): Observable<Olympic[]> {
+  private loadInitialData(): Observable<Olympic[]> {
     //console.log('OlympicService.loadInitialData() : appel backend')
     //this.loadingService.loadingOn();//SOLUTION 1 pour LOADING
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
