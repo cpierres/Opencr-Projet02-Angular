@@ -88,7 +88,7 @@ export class OlympicService {
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
-        delay(1000), // délai de 1 secondes pour test affichage du loading
+        //delay(1000), // délai de 1 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
           //affichage de l'erreur pour l'utilisateur
