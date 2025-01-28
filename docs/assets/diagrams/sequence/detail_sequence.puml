@@ -2,24 +2,24 @@
 actor User as U
 participant OlympicCountryDetailComponent <<Page>>
 
-participant "OlympicService" as OS
+participant "OlympicService" <<Injectable>>
 participant "BoxStatsComponent" as BSC
 participant "DetailGraphComponent" as DGC
 
 U -> OlympicCountryDetailComponent: Navigue vers "Olympic Country Detail" (via Router)
 activate OlympicCountryDetailComponent
 OlympicCountryDetailComponent -> OlympicCountryDetailComponent: Récupère l'ID du pays depuis ActivatedRoute
-OlympicCountryDetailComponent -> OS: getOlympicStatsOfCountryId(countryId, showAverages)
-activate OS
-OS --> OlympicCountryDetailComponent: Renvoie les Stats Olympiques (boxStats$)
-deactivate OS
+OlympicCountryDetailComponent -> OlympicService: getOlympicStatsOfCountryId(countryId, showAverages)
+activate OlympicService
+OlympicService --> OlympicCountryDetailComponent: Renvoie les Stats Olympiques (boxStats$)
+deactivate OlympicService
 
-OlympicCountryDetailComponent -> OS: getMedalsDetailGraphOfCountryV2(countryId, showAverages)
-activate OS
-OS --> OlympicCountryDetailComponent: Renvoie les Données du Graphique (detailChartData$)
-deactivate OS
+OlympicCountryDetailComponent -> OlympicService: getMedalsDetailGraphOfCountryV2(countryId, showAverages)
+activate OlympicService
+OlympicService --> OlympicCountryDetailComponent: Renvoie les Données du Graphique (detailChartData$)
+deactivate OlympicService
 
-OlympicCountryDetailComponent -> BSC: Alimente le composant avec boxStats$
-OlympicCountryDetailComponent -> DGC: Alimente le composant avec detailChartData$
+OlympicCountryDetailComponent -> BSC: Alimente le compOlympicServiceant avec boxStats$
+OlympicCountryDetailComponent -> DGC: Alimente le compOlympicServiceant avec detailChartData$
 deactivate OlympicCountryDetailComponent
 @enduml
