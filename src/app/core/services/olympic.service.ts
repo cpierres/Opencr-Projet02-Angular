@@ -1,14 +1,18 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {BehaviorSubject, delay, finalize, map, Observable, take, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Olympic} from "../models/Olympic";
 import {GlobalGraph} from "../models/stats/GlobalGraph";
-import {LoadingService} from "./loading.service";
+//import {LoadingService} from "./loading.service";
 import {BoxStats} from "../models/stats/BoxStats";
-import {MessagesService} from "./messages.service";
+//import {MessagesService} from "./messages.service";
 import {DetailGraph} from "../models/stats/DetailGraph";
 import {SerieData} from "../models/stats/SerieData";
+import {IMessagesService} from "./messages.service.interface";
+import {ILoadingService} from "./loading.service.interface";
+import { ILoadingServiceToken, IMessagesServiceToken } from './tokens';
+
 
 /**
  * Service métier destiné à gérer les données liées aux Jeux Olympiques (Olympics). Il utilise un BehaviorSubject pour
@@ -28,8 +32,8 @@ export class OlympicService {
 
   constructor(
     private http: HttpClient,
-    private loadingService: LoadingService,
-    private messagesService: MessagesService) {
+    @Inject(ILoadingServiceToken) private loadingService: ILoadingService,
+    @Inject(IMessagesServiceToken) private messagesService: IMessagesService) {
     /*
     Faire le subscribe dans le constructor permet de renseigner effectivement le cache, rendant les données
     accessibles à tout moment via l'observable olympics$, sans besoin de refaire une requête HTTP.
@@ -88,7 +92,7 @@ export class OlympicService {
     //return this.http.get<Olympic[]>('FichierInexistant.json')//pour simuler 404
     return this.http.get<Olympic[]>(this.olympicUrl)
       .pipe(
-        //delay(1000), // délai de 1 secondes pour test affichage du loading
+        delay(1000), // délai de 1 secondes pour test affichage du loading
         catchError(err => {
           const message = "Impossible de charger les données Olympiques";
           //affichage de l'erreur pour l'utilisateur

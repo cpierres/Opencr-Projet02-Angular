@@ -12,9 +12,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {LoadingComponent} from "./component/fwk/loading/loading.component";
 import {LoadingService} from "./core/services/loading.service";
+
 import {BoxStatsComponent} from "./component/dashboard-stats/box-stats/box-stats.component";
 import {MessagesService} from "./core/services/messages.service";
+
+import { ILoadingServiceToken, IMessagesServiceToken } from './core/services/tokens';
 import {MessagesComponent} from "./component/fwk/messages/messages.component";
+import {OlympicService} from "./core/services/olympic.service";
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, NotFoundComponent, ],
@@ -29,8 +33,11 @@ import {MessagesComponent} from "./component/fwk/messages/messages.component";
     MessagesComponent
   ],
   providers: [
+    MessagesService,
     LoadingService,
-    MessagesService
+    OlympicService,
+    { provide: ILoadingServiceToken, useClass: LoadingService },   // Direct service registration
+    { provide: IMessagesServiceToken, useClass: MessagesService }  // Mapping abstraction -> implémentation
   ],
   bootstrap: [AppComponent]
 })

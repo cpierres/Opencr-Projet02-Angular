@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, filter, Observable} from "rxjs";
+import {IMessagesService} from "./messages.service.interface";
 
 
 /**
@@ -12,11 +13,11 @@ import {BehaviorSubject, filter, Observable} from "rxjs";
  * de fuite mémoire.
  */
 //on ne veut pas Singleton car potentiellement plusieurs instances
-// @Injectable({
-//   providedIn: 'root'
-// })
-@Injectable()
-export class MessagesService {
+@Injectable({
+  providedIn: 'root'
+})
+//@Injectable()
+export class MessagesService implements IMessagesService {
 
   //important de rendre le BehaviorSubject privé pour éviter une utilisation non souhaitable
   //de l'extérieur

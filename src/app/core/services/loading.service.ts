@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, concatMap, finalize, Observable, of} from "rxjs";
 import {tap} from "rxjs/operators";
+import {ILoadingService} from "./loading.service.interface";
 
 /**
  * Service de loading (message d'attente) partagé réactif chargé de contrôler un indicateur de chargement, de l'activer
@@ -13,11 +14,11 @@ import {tap} from "rxjs/operators";
  * d'interagir avec ce composant d'une manière découplée.
  */
 //on ne veut pas Singleton car potentiellement plusieurs instances
-// @Injectable({
-//   providedIn: 'root'
-// })
-@Injectable()
-export class LoadingService {
+@Injectable({
+  providedIn: 'root'
+})
+// @Injectable()
+export class LoadingService implements ILoadingService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   /**
