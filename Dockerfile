@@ -20,7 +20,7 @@ FROM nginx:1.25.2-alpine
 COPY --from=builder /app/dist/olympic-games-starter /usr/share/nginx/html
 
 # Copier un fichier de configuration personnalisé pour Nginx (facultatif)
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Exposer le port 80
 EXPOSE 80
