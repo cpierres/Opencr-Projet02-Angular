@@ -2,7 +2,7 @@
 # Application Jeux Olympiques
 ![telesport_P2_banner.png](docs/assets/images/telesport_P2_banner.png)
 ## Table des matières
-- [Auteur et dépôts](#auteur-et-dépôts)
+- [Auteur, url de test et dépôts](#auteur-url-de-test-et-dépôts)
 - [Description](#description)
 - [Fonctionnalités](#fonctionnalités)
 - [Composants Réutilisables](#composants-réutilisables)
@@ -19,9 +19,10 @@
 - [Licence](#licence)
 
 
-## Auteur et dépôts
+## Auteur, url de test et dépôts
 - Auteur : Christophe Pierrès
 - Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/)
+- URL de démo : https://cpierres.dscloud.me:9022/
 - Dépôt GitHub des sources : https://github.com/cpierres/Opencr-Projet02-Angular
 - Documentation technique (compodoc) : https://cpierres.github.io/Opencr-Projet02-Angular/
 
