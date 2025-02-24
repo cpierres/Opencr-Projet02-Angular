@@ -22,7 +22,7 @@
 ## Auteur, url de test et dépôts
 - Auteur : Christophe Pierrès
 - Dans le cadre du projet N°2 d'OpenClassrooms (premier projet Angular), en vue d'obtenir la certification **Expert en développement logiciel**. Plus d'informations disponibles [ici](https://www.francecompetences.fr/recherche/rncp/36912/)
-- URL de démo : https://cpierres.dscloud.me:9022/
+- URL de démo : https://ocrp2.cpierres.dscloud.me/
 - Dépôt GitHub des sources : https://github.com/cpierres/Opencr-Projet02-Angular
 - Documentation technique (compodoc) : https://cpierres.github.io/Opencr-Projet02-Angular/
 
